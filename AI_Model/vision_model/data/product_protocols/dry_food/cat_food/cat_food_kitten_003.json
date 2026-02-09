@@ -1,0 +1,56 @@
+{
+  "protocol_id": "cat_food_kitten_003",
+  "protocol_name": "Kitten Growth Formula",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "dry_food",
+  "product_type": "cat_food",
+  "target_species": [
+    "cat"
+  ],
+  "target_age": [
+    "kitten"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "chicken",
+      "chicken meal",
+      "rice",
+      "fish meal",
+      "chicken fat"
+    ],
+    "protein_source": "chicken, fish meal",
+    "protein_percentage": "38%",
+    "fat_percentage": "20%",
+    "fiber_percentage": "3%",
+    "additives": [
+      "DHA",
+      "taurine",
+      "calcium",
+      "phosphorus"
+    ],
+    "fillers": [],
+    "quality_score": 9
+  },
+  "nutritional_score": 9.0,
+  "allergen_risks": [
+    "poultry",
+    "fish",
+    "grains"
+  ],
+  "harmful_ingredients": [],
+  "price_value_rating": "excellent",
+  "better_alternatives": [],
+  "full_analysis_text": "Kitten food has higher protein and fat for growth, plus DHA for brain development. Feed kitten formula until 12 months. Higher calcium/phosphorus for bone development. Small kibble size for tiny mouths.",
+  "feeding_guidelines": "Free-feed until 6 months, then portion control",
+  "storage": "Airtight container"
+}

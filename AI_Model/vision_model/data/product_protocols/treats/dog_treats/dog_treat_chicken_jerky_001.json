@@ -1,0 +1,50 @@
+{
+  "protocol_id": "dog_treat_chicken_jerky_001",
+  "protocol_name": "Chicken Jerky Dog Treat",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "treats",
+  "product_type": "dog_treat",
+  "target_species": [
+    "dog"
+  ],
+  "target_age": [
+    "adult",
+    "senior"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "chicken breast",
+      "glycerin",
+      "salt"
+    ],
+    "protein_source": "chicken",
+    "additives": [
+      "preservatives"
+    ],
+    "fillers": [],
+    "quality_score": 7
+  },
+  "nutritional_score": 7.5,
+  "allergen_risks": [
+    "poultry"
+  ],
+  "harmful_ingredients": [],
+  "price_value_rating": "good",
+  "better_alternatives": [
+    "freeze-dried chicken",
+    "dehydrated chicken breast"
+  ],
+  "full_analysis_text": "Chicken jerky treats are high-protein snacks suitable for adult dogs. Watch for poultry allergies. Quality varies by brand - look for single-ingredient options. Avoid treats from unknown sources due to past contamination issues.",
+  "feeding_guidelines": "1-2 pieces per 10 lbs body weight daily",
+  "storage": "Store in cool, dry place. Use within 30 days of opening."
+}

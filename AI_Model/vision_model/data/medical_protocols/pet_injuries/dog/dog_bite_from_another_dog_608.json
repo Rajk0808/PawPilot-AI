@@ -1,0 +1,34 @@
+{
+  "protocol_id": "dog_bite_from_another_dog_608",
+  "protocol_name": "Dog Bite Wound from Another Dog",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "pet_injuries",
+  "injury_type": "bite_wound",
+  "species": "dog",
+  "body_location": null,
+  "severity": null,
+  "infection_risk": {
+    "percentage": "20-30%",
+    "severity": "MODERATE TO HIGH"
+  },
+  "immediate_actions": [
+    "Assess severity",
+    "Clip hair around wound",
+    "Clean with pet-safe antiseptic",
+    "Do NOT close wound",
+    "See vet"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "Always recommend vet evaluation",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Dog bite from another dog: Assess injuries carefully (may be multiple punctures). Clean visible wounds with pet-safe antiseptic. DO NOT close wounds. See vet for antibiotics, pain meds, rabies check."
+}

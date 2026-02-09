@@ -1,0 +1,56 @@
+{
+  "protocol_id": "supplement_joint_dog_001",
+  "protocol_name": "Glucosamine Joint Supplement for Dogs",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "supplements",
+  "product_type": "joint_supplement",
+  "target_species": [
+    "dog"
+  ],
+  "target_age": [
+    "adult",
+    "senior"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "glucosamine HCl",
+      "chondroitin sulfate",
+      "MSM",
+      "fish oil"
+    ],
+    "active_compounds": {
+      "glucosamine": "500-1500mg depending on size",
+      "chondroitin": "400-1200mg",
+      "MSM": "250-1000mg"
+    },
+    "additives": [
+      "flavoring",
+      "binding agents"
+    ],
+    "quality_score": 8
+  },
+  "nutritional_score": 8.0,
+  "allergen_risks": [
+    "shellfish (glucosamine source)",
+    "fish"
+  ],
+  "harmful_ingredients": [],
+  "price_value_rating": "varies widely",
+  "better_alternatives": [
+    "prescription joint supplements",
+    "injectable adequan"
+  ],
+  "full_analysis_text": "Joint supplements can help aging dogs but quality varies greatly. Look for NASC quality seal. Glucosamine from shellfish or synthetic. Takes 4-6 weeks for noticeable effect. Not a substitute for weight management and exercise.",
+  "feeding_guidelines": "Per weight on package. Takes 4-6 weeks to see effects.",
+  "storage": "Cool, dry place away from light"
+}

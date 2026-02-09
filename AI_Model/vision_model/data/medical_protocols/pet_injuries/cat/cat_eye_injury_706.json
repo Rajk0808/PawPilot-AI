@@ -1,0 +1,35 @@
+{
+  "protocol_id": "cat_eye_injury_706",
+  "protocol_name": "Cat Eye Injury/Scratch",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "pet_injuries",
+  "injury_type": "eye_injury",
+  "species": "cat",
+  "body_location": null,
+  "severity": null,
+  "infection_risk": null,
+  "immediate_actions": [
+    "E-collar IMMEDIATELY",
+    "Do NOT delay",
+    "See vet within 2-4 hours"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "URGENT - within 2-4 hours",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Cat eye injury: E-collar immediately to prevent further damage from pawing. See vet within 2-4 hours. Eye injuries can worsen rapidly causing permanent damage or vision loss.",
+  "warning_signs": [
+    "Squinting",
+    "Pawing at eye",
+    "Watery discharge",
+    "Cloudiness"
+  ]
+}

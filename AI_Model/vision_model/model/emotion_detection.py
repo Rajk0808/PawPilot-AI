@@ -26,7 +26,7 @@ def create_content(prompt, images):
     return types.Content(parts=parts)
 def chatbot_emotion_detection(user_query, images):
     # images is a list of InMemoryUploadedFile objects
-    client = genai.Client(http_options={'api_version': 'v1alpha'}, api_key=os.getenv('GEMINI_API"))
+    client = genai.Client(http_options={'api_version': 'v1alpha'}, api_key=os.getenv("GEMINI_API"))
     prompt = f'''You are a Veternian AI and you have to detect the emotion of the pet in the image and give suggestions to the owner accordingly. if multiple images are provided and prediceted emotion for each image is same then provide a single response otherwise provide response for each image separately.
                 by noticing the facial expressions and body language of the dog in the image.
                 after that give a brief explanation of 

@@ -1,0 +1,58 @@
+{
+  "protocol_id": "dog_food_senior_joint_004",
+  "protocol_name": "Senior Dog Food with Joint Support",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "dry_food",
+  "product_type": "dog_food",
+  "target_species": [
+    "dog"
+  ],
+  "target_age": [
+    "senior"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "chicken",
+      "barley",
+      "oatmeal",
+      "chicken fat",
+      "fish oil"
+    ],
+    "protein_source": "chicken",
+    "protein_percentage": "22%",
+    "fat_percentage": "10%",
+    "fiber_percentage": "6%",
+    "additives": [
+      "glucosamine",
+      "chondroitin",
+      "omega-3",
+      "L-carnitine"
+    ],
+    "fillers": [],
+    "quality_score": 8
+  },
+  "nutritional_score": 8.5,
+  "allergen_risks": [
+    "poultry",
+    "fish",
+    "grains"
+  ],
+  "harmful_ingredients": [],
+  "price_value_rating": "good",
+  "better_alternatives": [
+    "prescription joint diets for severe arthritis"
+  ],
+  "full_analysis_text": "Senior formulas feature lower calories, added joint supplements, and higher fiber. Glucosamine/chondroitin support aging joints. Reduced fat prevents weight gain. L-carnitine helps maintain muscle mass. Switch at age 7+ for most breeds.",
+  "feeding_guidelines": "Reduce calories 20% from adult portions",
+  "storage": "Airtight container, cool place"
+}

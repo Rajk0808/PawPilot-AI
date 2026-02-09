@@ -1,0 +1,30 @@
+{
+  "protocol_id": "broken_nail_finger_401",
+  "protocol_name": "Broken Fingernail",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "human_general",
+  "injury_type": "broken_nail",
+  "species": null,
+  "body_location": "finger",
+  "severity": null,
+  "infection_risk": null,
+  "immediate_actions": [
+    "Clean area",
+    "Trim jagged edges",
+    "Apply antibiotic if bleeding",
+    "Bandage to protect"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "If torn deeply into nail bed or severe pain",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Broken fingernail: Clean gently, carefully trim jagged edges with clean scissors. Apply antibiotic ointment if bleeding. Bandage to protect. Seek care if torn deep into nail bed."
+}

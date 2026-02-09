@@ -1,0 +1,30 @@
+{
+  "protocol_id": "cat_burn_minor_705",
+  "protocol_name": "Cat Minor Burn",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "pet_injuries",
+  "injury_type": "burn",
+  "species": "cat",
+  "body_location": null,
+  "severity": "minor",
+  "infection_risk": null,
+  "immediate_actions": [
+    "Cool gently with room-temp water 5-10 mins",
+    "Pat dry",
+    "Keep cat calm",
+    "Monitor for blistering"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "If blistering, large area, or near eyes/ears",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Cat minor burn (stove, hot surface): Cool gently with room-temp water 5-10 mins. Pat dry. Monitor for blisters. See vet if blisters, large area, or cat seems in pain."
+}

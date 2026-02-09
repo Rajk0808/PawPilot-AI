@@ -1,0 +1,31 @@
+{
+  "protocol_id": "dog_nail_torn_quick_604",
+  "protocol_name": "Dog Nail Torn at Quick",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "pet_injuries",
+  "injury_type": "torn_nail",
+  "species": "dog",
+  "body_location": null,
+  "severity": "moderate_to_severe",
+  "infection_risk": null,
+  "immediate_actions": [
+    "Calm dog",
+    "Styptic powder for bleeding",
+    "Do not trim further",
+    "Clean bandage",
+    "See vet same day"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "PROMPT - same day",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Dog nail torn at quick (painful, bleeding): Calm dog, apply styptic powder. Bandage gently. E-collar. See vet same day - may need nail removal and pain medication."
+}

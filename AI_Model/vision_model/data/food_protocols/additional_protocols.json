@@ -1,0 +1,279 @@
+[
+    {
+        "id": "safe_protein_001",
+        "name": "Cooked Turkey (Plain)",
+        "category": "safe_food",
+        "nutritional_value": "high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "lean protein",
+            "low fat",
+            "easily digestible",
+            "phosphorus",
+            "riboflavin"
+        ],
+        "usda_nutrition_per_100g": {
+            "calories": 135,
+            "protein": "30g",
+            "fat": "0.7g"
+        },
+        "portion_guide": {
+            "small": "20-30g",
+            "medium": "50g",
+            "large": "75-100g"
+        },
+        "caution": "NO bones (splinter risk), NO skin (high fat), NO seasonings, NO onions/garlic stuffing",
+        "description": "Plain cooked turkey breast is lean protein source. Remove ALL bones, skin, and seasonings. No Thanksgiving turkey with butter, herbs, or stuffing. Plain boiled or baked only."
+    },
+    {
+        "id": "safe_protein_002",
+        "name": "Cooked Beef (Lean)",
+        "category": "safe_food",
+        "nutritional_value": "high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "protein",
+            "iron",
+            "zinc",
+            "B vitamins"
+        ],
+        "usda_nutrition_per_100g": {
+            "calories": 250,
+            "protein": "26g",
+            "fat": "15g"
+        },
+        "portion_guide": {
+            "small": "20g",
+            "medium": "40g",
+            "large": "60g"
+        },
+        "caution": "Choose lean cuts. No seasoning. Cook thoroughly. Limit fatty cuts.",
+        "description": "Lean cooked beef provides high-quality protein, iron, zinc, B vitamins. Choose lean cuts like sirloin. Cook plain without salt, garlic, onions. Higher in fat than chicken - moderate portions."
+    },
+    {
+        "id": "safe_veggie_001",
+        "name": "Zucchini",
+        "category": "safe_food",
+        "nutritional_value": "medium",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "low calorie",
+            "vitamin C",
+            "potassium",
+            "manganese",
+            "hydration"
+        ],
+        "usda_nutrition_per_100g": {
+            "calories": 17,
+            "protein": "1.2g",
+            "fat": "0.3g",
+            "fiber": "1g"
+        },
+        "serving_suggestions": "Steamed, chopped, or pureed. Raw okay but harder to digest.",
+        "portion_guide": {
+            "small": "15-20g",
+            "medium": "30-40g",
+            "large": "50g"
+        },
+        "description": "Zucchini extremely low calorie (17 cal/100g) perfect for weight management. High water content aids hydration. Vitamins C, potassium. Steam and chop for easy digestion."
+    },
+    {
+        "id": "safe_veggie_002",
+        "name": "Celery",
+        "category": "safe_food",
+        "nutritional_value": "low",
+        "affected_species": [
+            "dog"
+        ],
+        "benefits": [
+            "breath freshening",
+            "low calorie",
+            "vitamins A C K",
+            "high water content",
+            "crunchy"
+        ],
+        "usda_nutrition_per_100g": {
+            "calories": 14,
+            "protein": "0.7g",
+            "fat": "0.2g",
+            "fiber": "1.6g"
+        },
+        "serving_suggestions": "Cut into small bite-size pieces to prevent choking",
+        "portion_guide": {
+            "small_dog": "1 small piece",
+            "large_dog": "2-3 pieces"
+        },
+        "caution": "Cut into small pieces - stringy texture can be choking hazard",
+        "description": "Celery very low calorie (14 cal/100g), high water content. Helps freshen breath. Crunchy texture dogs enjoy. MUST cut into small pieces as stringy fibers can cause choking."
+    },
+    {
+        "id": "safe_fruit_001",
+        "name": "Mango (Flesh Only)",
+        "category": "safe_food",
+        "nutritional_value": "medium",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "vitamins A C E",
+            "fiber",
+            "antioxidants",
+            "immune support"
+        ],
+        "usda_nutrition_per_100g": {
+            "calories": 60,
+            "protein": "0.8g",
+            "carbs": "15g",
+            "fiber": " 1.6g"
+        },
+        "serving_suggestions": "Remove skin and pit completely. Small cubes of flesh only.",
+        "portion_guide": {
+            "small": "1-2 small cubes (10g)",
+            "medium": "2-3 cubes (20g)",
+            "large": "Few cubes (30g)"
+        },
+        "caution": "MUST remove pit (choking/obstruction hazard) and skin",
+        "description": "Mango flesh safe in moderation. Rich in vitamins A, C, E and fiber. Sweet taste appealing. Remove ALL skin and pit completely. Pit is choking and obstruction hazard. High in sugar so occasional treat only."
+    },
+    {
+        "id": "safe_fruit_002",
+        "name": "Cantaloupe",
+        "category": "safe_food",
+        "nutritional_value": "medium",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "vitamins A B C",
+            "beta-carotene",
+            "hydration",
+            "low calorie"
+        ],
+        "usda_nutrition_per_100g": {
+            "calories": 34,
+            "protein": "0.8g",
+            "carbs": "8g",
+            "vitamin_a": "169mcg"
+        },
+        "serving_suggestions": "Remove rind and seeds. Cut into small cubes.",
+        "portion_guide": {
+            "small": "1-2 cubes (15g)",
+            "medium": "Few cubes (30g)",
+            "large": "Small handful (50g)"
+        },
+        "description": "Cantaloupe low calorie (34 cal/100g), high in vitamins A, B, C, and beta-carotene. Good for hydration. Sweet taste. Remove rind and seeds. Cut into bite-size pieces."
+    },
+    {
+        "id": "safe_grain_001",
+        "name": "Quinoa (Cooked Plain)",
+        "category": "safe_food",
+        "nutritional_value": "high",
+        "affected_species": [
+            "dog"
+        ],
+        "benefits": [
+            "complete protein",
+            "fiber",
+            "magnesium",
+            "iron",
+            "gluten-free"
+        ],
+        "usda_nutrition_per_100g": {
+            "calories": 120,
+            "protein": "4.4g",
+            "fat": "1.9g",
+            "fiber": "2.8g"
+        },
+        "serving_suggestions": "Cooked plain with water. No seasonings. Small amounts mixed in meals.",
+        "portion_guide": {
+            "small_dog": "1 tablespoon",
+            "large_dog": "2-3 tablespoons"
+        },
+        "description": "Quinoa is complete plant protein with all 9 essential amino acids. Good source of fiber, magnesium, iron. Gluten-free grain alternative. Cook plain. Small amounts as meal topper or occasional treat."
+    },
+    {
+        "id": "safe_grain_002",
+        "name": "Brown Rice (Cooked Plain)",
+        "category": "safe_food",
+        "nutritional_value": "medium",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "energy",
+            "fiber",
+            "B vitamins",
+            "easily digestible",
+            "bland for upset stomach"
+        ],
+        "usda_nutrition_per_100g": {
+            "calories": 112,
+            "protein": "2.6g",
+            "carbs": "24g",
+            "fiber": "1.8g"
+        },
+        "serving_suggestions": "Cooked plain. Mix with chicken for bland diet.",
+        "portion_guide": {
+            "small": "1-2 tablespoons",
+            "medium": "3-4 tablespoons",
+            "large": "1/4 cup"
+        },
+        "description": "Brown rice provides complex carbs for energy, fiber, B vitamins. More nutritious than white rice. Easily digestible. Common in bland diets for upset stomach (mixed with boiled chicken). Cook plain - no butter or seasonings."
+    },
+    {
+        "id": "toxic_misc_001",
+        "name": "Human Medications",
+        "category": "toxic_food",
+        "toxicity_level": "extreme_variable",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "toxic_compound": "various (ibuprofen, acetaminophen, etc)",
+        "common_dangerous_meds": [
+            "Ibuprofen (Advil)",
+            "Acetaminophen (Tylenol) - deadly to cats",
+            "Naproxen (Aleve)",
+            "Antidepressants",
+            "ADHD medications",
+            "Blood pressure meds"
+        ],
+        "symptoms": [
+            "varies by medication - vomiting, seizures, organ failure, death"
+        ],
+        "safe_amount": "0g - NEVER give human meds without vet approval",
+        "description": "Human medications are top cause of pet poisoning. Even over-the-counter drugs like ibuprofen, acetaminophen (Tylenol -deadly to cats in tiny amounts), and cold medicines can be fatal. Pets metabolize drugs differently. NEVER give pets human medications without explicit vet approval. Keep all medicines secure."
+    },
+    {
+        "id": "toxic_misc_002",
+        "name": "Sago Palm",
+        "category": "toxic_food",
+        "toxicity_level": "extreme",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "toxic_compound": "cycasin",
+        "symptoms": [
+            "vomiting",
+            "diarrhea",
+            "seizures",
+            "liver failure",
+            "death"
+        ],
+        "safe_amount": "0g - entire plant toxic, seeds most dangerous",
+        "description": "Sago palm (cycad plant) extremely toxic - all parts poisonous, seeds most deadly. Ingestion causes vomiting within hours, progressing to liver failure and often death. Even small amounts can be fatal. Common ornamental plant - keep away from pets. Emergency vet immediately if ingested."
+    }
+]

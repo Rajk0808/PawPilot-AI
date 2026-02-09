@@ -1,0 +1,30 @@
+{
+  "protocol_id": "dog_eye_scratch_607",
+  "protocol_name": "Dog Eye Scratch/Injury",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "pet_injuries",
+  "injury_type": "eye_injury",
+  "species": "dog",
+  "body_location": null,
+  "severity": null,
+  "infection_risk": null,
+  "immediate_actions": [
+    "DO NOT touch eye",
+    "Prevent dog from pawing at eye - E-collar immediately",
+    "Flush gently with sterile saline if available",
+    "See vet urgently"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "URGENT - within 2-4 hours",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Dog eye scratch/injury: DO NOT touch. E-collar immediately to prevent pawing. Flush gently with sterile saline. See vet within 2-4 hours - eye injuries can worsen rapidly. Risk of loss of vision."
+}

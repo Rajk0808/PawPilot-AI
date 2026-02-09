@@ -61,6 +61,8 @@ def decision_router_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
         query = state.get("query", "")
         diseases_keywords = set('diseases illness ringworm mange cancer tumor cyst infection hot spot dermatitis yeast fleas ticks mites rash redness hair loss alopecia bald spots swelling bumps lumps scabs bleeding pus oozing crusty flaky skin dandruff inflammation lesion wound injury cut scratch bite mark itchy scratching licking painful hurting vet emergency contagious dangerous treatment diagnosis'.split())
         toy_keywords = set('toy play fetch chew ball frisbee tug rope squeaky bone treat reward fun exercise training obedience agility socialization companionship toy bone ball frisbee rope plush squeaky stuffed animal puzzle scratcher wand tunnel rubber plastic nylon latex fabric wood antler rawhide silicone splinter sharp edges swallow choke stuck blockage pieces stuffing break snap ingest digestive teeth gums chew destroy shred rip play fetch tug durability brand make model material non-toxic bpa-free heavy duty indestructible'.split())
+        injury_keyword= set('injury cut bite scratch burn wound bleeding hurt pain first aid emergency injured swelling bruise laceration puncture bandage paw leg arm hand'.split())
+        food_keywords = set('food eat eating safe toxic poison can dogs cats feed ingredient chocolate grape onion garlic xylitol dangerous healthy treat snack meal diet nutrition'.split())
         # Simple heuristic for strategy decision
 
         if any(keyword in query.lower() for keyword in diseases_keywords) or "condition" in query.lower():
@@ -71,6 +73,14 @@ def decision_router_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
             state["strategy"] = "toy_classifier"
             state['model_to_use'] = 'toy_classifier'
             logger.info("Selected strategy: toy_classifier")
+        elif any(keyword in query.lower() for keyword in injury_keyword) or 'injury' in query.lower():
+            state["strategy"] ="injury_assistance"
+            state["model_to_use"] ="injury_assistance"
+            logger.info('Selected Strategy: injury_assistance')
+        elif any(keyword in query.lower() for keyword in food_keywords) or 'food' in query.lower():
+            state["strategy"] = "food_safety"
+            state["model_to_use"] = "food_safety"
+            logger.info('Selected Strategy: food_safety')    
         else:
             state["strategy"] = "default"
             logger.info("Selected strategy: default")
@@ -174,6 +184,22 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
             state["predicted_class"] = "emotion_detected"
             state["confidence_score"] = 1.0  # Assuming full confidence for text response
         
+        elif strategy == "injury_assistance":
+            from AI_Model.vision_model.model.injury_assistance import chatbot_injury_assistance
+            user_query = state.get("query", "")
+            images = [image]
+            reply = chatbot_injury_assistance(user_query, images)
+            state['final_output'] = reply
+            state['confidence_score'] = 0.85
+            state['predicted_class'] = "injury_analyzed"
+        elif strategy == "food_safety":
+            from AI_Model.vision_model.model.pet_food_image_analysis import chatbot_food_analyzer
+            user_query = state.get("query", "")
+            images = [image]
+            reply = chatbot_food_analyzer(user_query, images)
+            state['final_output'] = reply
+            state['predicted_class'] = "food_analyzed"
+            state['confidence_score'] = 0.9
         else:
             logger.warning(f"Unknown strategy: {strategy}")
             state["predicted_class"] = "unknown"
@@ -221,8 +247,18 @@ def retrieval_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
             retriver = doc_retriver()
             metadataclient = MetaDataStore()
             client = metadataclient.get_client()
-            collection_name = 'DogDisease' if strategy == 'diseases_classifier' else 'ToyDetection'
-            property_name = 'disease_name' if strategy == 'diseases_classifier' else 'toy_name'
+            if strategy == 'diseases_classifier':
+                collection_name = 'DogDisease'
+                property_name = 'disease_name'
+            elif strategy == 'injury_assistance':
+                collection_name = 'MedicalProtocols'  # Your vector DB collection name for medical protocols
+                property_name = 'protocol_name'  
+            elif strategy == 'food_safety':
+                collection_name = 'FoodSafety'  # Your vector DB collection name
+                property_name = 'food_name'      # Your property name     # The property name in your collection
+            else:
+                collection_name = 'ToyDetection'
+                property_name = 'toy_name'
             docs = retriver.retriver(client, query=class_name, collection_name=collection_name, property_name=property_name)
             # Convert list to dict format if needed
             state["retrieved_docs"] = {"documents": docs} if isinstance(docs, list) else docs

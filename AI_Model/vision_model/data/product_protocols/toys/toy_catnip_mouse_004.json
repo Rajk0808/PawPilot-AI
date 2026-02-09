@@ -1,0 +1,48 @@
+{
+  "protocol_id": "toy_catnip_mouse_004",
+  "protocol_name": "Catnip Mouse Cat Toy",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "toys",
+  "product_type": "cat_toy",
+  "target_species": [
+    "cat"
+  ],
+  "target_age": [
+    "adult"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "materials": [
+      "fabric",
+      "catnip",
+      "polyester stuffing"
+    ],
+    "safety_features": [
+      "small size for cats"
+    ],
+    "concerns": [
+      "stuffing if heavily chewed"
+    ],
+    "quality_score": 6
+  },
+  "nutritional_score": null,
+  "allergen_risks": [],
+  "harmful_ingredients": [],
+  "price_value_rating": "good",
+  "better_alternatives": [
+    "pure catnip",
+    "silvervine sticks"
+  ],
+  "full_analysis_text": "Catnip toys are loved by 50-70% of cats (genetic response). Completely safe and non-addictive. Effect lasts 10-15 mins then 30-min reset needed. Kittens under 6 months usually don't respond. Silver vine affects more cats.",
+  "feeding_guidelines": "",
+  "storage": "Seal in bag to preserve catnip potency"
+}

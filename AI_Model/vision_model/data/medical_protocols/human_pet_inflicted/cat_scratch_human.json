@@ -1,0 +1,92 @@
+{
+    "protocol_id": "cat_scratch_human_001",
+    "protocol_name": "Cat Scratch on Human - Cat Scratch Disease Risk",
+    "source": [
+        "CDC",
+        "NIH"
+    ],
+    "source_urls": [
+        "https://www.cdc.gov/bartonella/cat-scratch-disease/"
+    ],
+    "last_updated": "2024-01-27",
+    "version": "1.0",
+    "category": "human_pet_inflicted",
+    "injury_type": "cat_scratch",
+    "affected_species": "human",
+    "inflicted_by": "cat",
+    "infection_risk": {
+        "percentage": "30-40%",
+        "severity": "MODERATE",
+        "bacteria": [
+            "Bartonella henselae"
+        ],
+        "onset_time": "7-14 days",
+        "why_dangerous": "Bartonella henselae causes Cat Scratch Disease (CSD), transmitted through scratches or bites, especially from kittens. Symptoms include swollen lymph nodes, fever, and fatigue."
+    },
+    "immediate_actions": [
+        {
+            "step": 1,
+            "action": "Wash scratch thoroughly with soap and water",
+            "duration": "5 minutes",
+            "critical": true
+        },
+        {
+            "step": 2,
+            "action": "Rinse under running water",
+            "duration": "2 minutes"
+        },
+        {
+            "step": 3,
+            "action": "Apply antibiotic ointment"
+        },
+        {
+            "step": 4,
+            "action": "Cover with clean bandage if needed"
+        }
+    ],
+    "seek_medical_attention": {
+        "urgency": "Low initially, HIGH if symptoms develop",
+        "timeframe": "If symptoms appear (7-14 days post-scratch), seek care within 24-48 hours",
+        "mandatory_if": [
+            "Swollen lymph nodes near scratch site",
+            "Fever develops",
+            "Red bump at scratch site",
+            "Fatigue or malaise",
+            "Immunocompromised individual"
+        ]
+    },
+    "medications": {
+        "antibiotics": {
+            "prophylactic": "Not typically given unless high risk",
+            "treatment_if_CSD": "Azithromycin 500mg day 1, then 250mg days 2-5",
+            "severe_cases": "Doxycycline, gentamicin, or rifampin"
+        }
+    },
+    "monitoring": {
+        "duration_days": 21,
+        "symptoms_to_watch": [
+            "Swollen, tender lymph nodes (armpits, neck, groin)",
+            "Small red bump/blister at scratch site",
+            "Fever (usually low-grade)",
+            "Fatigue",
+            "Headache",
+            "Poor appetite"
+        ],
+        "symptom_timing": "Typically 7-14 days after scratch",
+        "note": "Most cases resolve without treatment in 2-4 months"
+    },
+    "special_considerations": {
+        "kittens": {
+            "risk": "HIGHER",
+            "reason": "Kittens more likely to carry Bartonella"
+        },
+        "immunocompromised": {
+            "risk": "SEVERE",
+            "complications": "Can cause serious systemic infection"
+        },
+        "children": {
+            "note": "Most common in children under 15"
+        }
+    },
+    "full_protocol_text": "Cat scratches carry 30-40% risk of Cat Scratch Disease (CSD) caused by Bartonella henselae bacteria, especially from kittens. Immediate action: Wash scratch with soap and water for 5 minutes, rinse, apply antibiotic ointment, cover if needed. Most scratches heal without issue. Monitor for 7-21 days for CSD symptoms: swollen lymph nodes near scratch site, small red bump at scratch, fever, fatigue. Symptoms typically appear 7-14 days post-scratch. If symptoms develop, seek medical care - azithromycin may be prescribed. Most cases resolve in 2-4 months without treatment. Immunocompromised individuals at higher risk for severe complications. Prevent scratches: avoid play that provokes cats, trim cat nails, teach children gentle handling."
+}

@@ -1,0 +1,184 @@
+{
+    "protocol_id": "dog_bite_human_001",
+    "protocol_name": "Dog Bite on Human - General Protocol",
+    "source": [
+        "CDC",
+        "Mayo Clinic",
+        "Johns Hopkins Medicine"
+    ],
+    "source_urls": [
+        "https://www.cdc.gov/rabies/",
+        "https://www.mayoclinic.org/first-aid/first-aid-animal-bites/basics/art-20056591"
+    ],
+    "last_updated": "2024-01-27",
+    "version": "1.0",
+    "category": "human_pet_inflicted",
+    "injury_type": "dog_bite",
+    "affected_species": "human",
+    "inflicted_by": "dog",
+    "infection_risk": {
+        "percentage": "15-20%",
+        "severity": "MODERATE TO HIGH",
+        "bacteria": [
+            "Pasteurella",
+            "Staphylococcus",
+            "Streptococcus",
+            "Capnocytophaga"
+        ],
+        "onset_time": "24-48 hours",
+        "why_dangerous": "Dog bites often create crushing injuries with tissue damage. Larger wounds increase infection risk. Bacteria from dog's mouth can cause serious infections."
+    },
+    "immediate_actions": [
+        {
+            "step": 1,
+            "action": "For bleeding wounds: Apply firm pressure with clean cloth",
+            "duration": "10-15 minutes",
+            "critical": true
+        },
+        {
+            "step": 2,
+            "action": "Wash wound thoroughly with soap and water",
+            "duration": "15-20 minutes",
+            "critical": true,
+            "note": "Longer washing time than other injuries due to bacteria load"
+        },
+        {
+            "step": 3,
+            "action": "Rinse under running water",
+            "duration": "5 minutes"
+        },
+        {
+            "step": 4,
+            "action": "Apply antibiotic ointment (if available)"
+        },
+        {
+            "step": 5,
+            "action": "Cover with sterile bandage"
+        },
+        {
+            "step": 6,
+            "action": "Elevate injured area if possible"
+        }
+    ],
+    "seek_medical_attention": {
+        "urgency": "URGENT",
+        "timeframe": "Within 8-12 hours",
+        "mandatory_if": [
+            "Deep puncture wounds",
+            "Crushing injury",
+            "Wounds on face, hands, feet, or genitals",
+            "Bites from stray or unknown dogs",
+            "Bleeding won't stop after 15 minutes",
+            "Wound is gaping or needs stitches",
+            "Immunocompromised victim"
+        ],
+        "reasons": [
+            "15-20% infection risk",
+            "May need prophylactic antibiotics",
+            "Wound closure assessment",
+            "Tetanus evaluation",
+            "Rabies risk assessment critical"
+        ]
+    },
+    "medications": {
+        "antibiotics": {
+            "likelihood": "Often prescribed for high-risk bites",
+            "first_line": "Amoxicillin-clavulanate 875mg/125mg twice daily",
+            "alternatives": [
+                "Doxycycline 100mg twice daily",
+                "Cephalexin + Metronidazole"
+            ],
+            "prophylactic_duration": "3-5 days",
+            "treatment_duration": "7-14 days if infected",
+            "high_risk_criteria": [
+                "Hand bites",
+                "Deep punctures",
+                "Crushing injuries",
+                "Immunocompromised patients"
+            ]
+        },
+        "tetanus": {
+            "required_if": "Last shot >5 years ago OR unknown history",
+            "vaccine": "Td or Tdap booster"
+        }
+    },
+    "rabies_assessment": {
+        "required": true,
+        "risk_level": "Variable - depends heavily on dog status",
+        "questions_to_answer": [
+            "Is dog vaccinated against rabies (verify records)?",
+            "Is dog owned/domestic or stray?",
+            "Was bite provoked or unprovoked?",
+            "Is dog behaving normally?",
+            "Can dog be observed for 10 days?"
+        ],
+        "pep_required_if": [
+            "Dog is stray or wild",
+            "Dog's vaccination status unknown",
+            "Dog showing abnormal behavior (aggression, lethargy, paralysis, drooling)",
+            "Dog cannot be confined for observation",
+            "Dog dies or becomes ill during observation period"
+        ],
+        "observation_period": "10 days for healthy owned dogs",
+        "pep_protocol": {
+            "day_0": "HRIG + Vaccine",
+            "day_3": "Vaccine",
+            "day_7": "Vaccine",
+            "day_14": "Vaccine"
+        },
+        "note": "Rabies is almost always fatal once symptoms appear - do not delay if ANY doubt about dog's status"
+    },
+    "monitoring": {
+        "duration_days": 14,
+        "check_frequency": "Daily for first week",
+        "warning_signs": [
+            "Redness spreading from wound",
+            "Increased swelling after 48 hours",
+            "Warmth at site",
+            "Pus or cloudy drainage",
+            "Red streaks extending from bite",
+            "Fever (>100.4°F)",
+            "Swollen lymph nodes",
+            "Increased pain after initial 48 hours"
+        ],
+        "action_if_signs": "Seek medical attention same day - infection developing"
+    },
+    "wound_care": {
+        "cleaning_frequency": "2-3 times daily",
+        "bandage_changes": "Daily or when wet/dirty",
+        "keep_dry": "First 48 hours",
+        "signs_healing_normally": [
+            "Decreasing redness",
+            "Less pain each day",
+            "Wound edges closing"
+        ]
+    },
+    "special_considerations": {
+        "face_bites": {
+            "risk_level": "HIGH",
+            "reason": "Cosmetic concerns, close to brain",
+            "protocol": "Always seek immediate medical attention"
+        },
+        "children": {
+            "note": "Children more likely to have face/neck bites",
+            "risk": "Higher complication rate"
+        },
+        "large_dogs": {
+            "note": "Can cause severe crushing injuries and fractures",
+            "assessment": "May need X-rays"
+        }
+    },
+    "what_not_to_do": [
+        "DO NOT provoke dog further",
+        "DO NOT close wound with tape/glue (let medical professional decide)",
+        "DO NOT apply ice directly to wound",
+        "DO NOT assume minor wounds are safe",
+        "DO NOT skip rabies assessment"
+    ],
+    "legal_considerations": {
+        "report_to_animal_control": "Required in most jurisdictions",
+        "documentation": "Take photos, record dog owner information, witness names",
+        "insurance": "May need for medical bills or liability"
+    },
+    "full_protocol_text": "Dog bites carry 15-20% infection risk. Bacteria include Pasteurella, Staph, Strep, and Capnocytophaga. Dog bites often cause crushing injuries with tissue damage. IMMEDIATE ACTION: If bleeding, apply firm pressure for 10-15 minutes. Wash wound thoroughly with soap and water for 15-20 minutes (longer than typical wounds). Rinse for 5 minutes. Apply antibiotic ointment, cover with sterile bandage, elevate if possible. SEEK MEDICAL ATTENTION within 8-12 hours for deep punctures, crushing injuries, face/hand/foot bites, stray dogs, or wounds needing stitches. Antibiotics (Amoxicillin-clavulanate) often prescribed for high-risk bites. CRITICAL: Assess rabies risk - verify dog's vaccination, observe for 10 days if owned. Rabies PEP required if stray, unknown vaccination, abnormal behavior, or cannot observe. Monitor 14 days for infection signs: spreading redness, swelling, pus, fever, red streaks. Report to animal control. Face bites always require immediate care."
+}

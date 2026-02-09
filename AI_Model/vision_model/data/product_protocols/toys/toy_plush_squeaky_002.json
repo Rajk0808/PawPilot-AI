@@ -1,0 +1,51 @@
+{
+  "protocol_id": "toy_plush_squeaky_002",
+  "protocol_name": "Plush Squeaky Dog Toy",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "toys",
+  "product_type": "plush_toy",
+  "target_species": [
+    "dog"
+  ],
+  "target_age": [
+    "all"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "materials": [
+      "polyester fabric",
+      "polyester stuffing",
+      "plastic squeaker"
+    ],
+    "safety_features": [
+      "reinforced seams (varies)"
+    ],
+    "concerns": [
+      "stuffing ingestion",
+      "squeaker choking hazard"
+    ],
+    "quality_score": 5
+  },
+  "nutritional_score": null,
+  "allergen_risks": [],
+  "harmful_ingredients": [
+    "stuffing if ingested"
+  ],
+  "price_value_rating": "poor",
+  "better_alternatives": [
+    "stuffing-free plush toys",
+    "durable rubber toys"
+  ],
+  "full_analysis_text": "Plush toys are fun but dangerous if dog destroys and eats stuffing or squeaker. Causes intestinal blockages requiring surgery. Only for gentle players under supervision. Consider stuffing-free alternatives for destructive chewers.",
+  "feeding_guidelines": "",
+  "storage": "Machine washable usually"
+}

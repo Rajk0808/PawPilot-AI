@@ -1,0 +1,54 @@
+{
+  "protocol_id": "dog_treat_rawhide_005",
+  "protocol_name": "Rawhide Chew",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "treats",
+  "product_type": "dog_treat",
+  "target_species": [
+    "dog"
+  ],
+  "target_age": [
+    "adult"
+  ],
+  "breed_size": [
+    "medium",
+    "large"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "beef hide",
+      "chemicals for processing"
+    ],
+    "protein_source": "beef hide",
+    "additives": [
+      "bleaching agents",
+      "preservatives"
+    ],
+    "fillers": [],
+    "quality_score": 3
+  },
+  "nutritional_score": 3.0,
+  "allergen_risks": [
+    "beef"
+  ],
+  "harmful_ingredients": [
+    "chemical residues",
+    "choking hazard"
+  ],
+  "price_value_rating": "poor",
+  "better_alternatives": [
+    "bully sticks",
+    "collagen chews",
+    "yak cheese chews"
+  ],
+  "full_analysis_text": "WARNING: Rawhide poses choking and blockage risks. Often processed with harsh chemicals. Not digestible - can cause intestinal blockages. Many veterinarians recommend avoiding rawhide. Consider safer alternatives like bully sticks.",
+  "feeding_guidelines": "Supervise at all times. Remove small pieces.",
+  "storage": "Store in dry place"
+}

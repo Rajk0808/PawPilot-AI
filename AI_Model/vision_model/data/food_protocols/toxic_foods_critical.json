@@ -1,0 +1,170 @@
+[
+    {
+        "id": "toxic_001",
+        "name": "Chocolate",
+        "category": "toxic_food",
+        "toxicity_level": "high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "toxic_compound": "theobromine and caffeine (methylxanthines)",
+        "symptoms": [
+            "vomiting",
+            "diarrhea",
+            "hyperactivity",
+            "increased thirst",
+            "tremors",
+            "seizures",
+            "rapid heart rate (tachycardia)",
+            "abnormal heart rhythm",
+            "hyperthermia",
+            "cardiac arrest"
+        ],
+        "safe_amount": "0g - NO safe amount, any amount dangerous",
+        "onset_time": "2-12 hours",
+        "severity_by_type": {
+            "white_chocolate": "minimal risk (very low theobromine)",
+            "milk_chocolate": "moderate risk (3oz per lb body weight potentially fatal)",
+            "dark_chocolate": "high risk (0.13oz per lb dangerous)",
+            "baking_chocolate": "extreme risk (0.5oz per lb potentially fatal)"
+        },
+        "theobromine_levels": {
+            "mild_toxicity": "9 mg/lb (20 mg/kg)",
+            "cardiotoxic": "18 mg/lb (40-50 mg/kg)",
+            "seizures": "27 mg/lb (60 mg/kg)"
+        },
+        "immediate_action": "Contact vet IMMEDIATELY. Induce vomiting if ingested within 2 hours (under vet guidance). Symptoms can persist 12-36 hours. Monitor for seizures and cardiac issues.",
+        "description": "Chocolate contains theobromine and caffeine which dogs and cats metabolize much slower than humans. Dark chocolate, baking chocolate, and cocoa powder are most dangerous due to highest theobromine content. Even small amounts can cause vomiting, hyperactivity, and increased thirst. Moderate amounts lead to tremors, rapid heartbeat, and seizures. Large amounts can cause cardiac arrhythmias and death. There is NO safe amount - any chocolate ingestion requires immediate veterinary contact."
+    },
+    {
+        "id": "toxic_002",
+        "name": "Grapes and Raisins",
+        "category": "toxic_food",
+        "toxicity_level": "high",
+        "affected_species": [
+            "dog"
+        ],
+        "toxic_compound": "tartaric acid and potassium bitartrate",
+        "symptoms": [
+            "vomiting (within 6-24 hours)",
+            "lethargy",
+            "loss of appetite",
+            "diarrhea",
+            "abdominal pain",
+            "excessive thirst",
+            "excessive urination or lack of urination",
+            "dehydration",
+            "breath with ammonia-like odor",
+            "acute kidney failure"
+        ],
+        "safe_amount": "0g - NO safe amount, unpredictable toxicity",
+        "onset_time": "6-24 hours for initial symptoms, 24-48 hours for kidney damage",
+        "severity_by_amount": {
+            "note": "Toxicity varies greatly by individual dog - as few as 3-5 grapes can be fatal for some dogs",
+            "reported_fatal_dose": "19.6g/kg for grapes, 2.8g/kg for raisins (but some dogs affected by much less)"
+        },
+        "immediate_action": "Emergency vet visit IMMEDIATELY even if no symptoms yet. Induce vomiting even hours after ingestion (grapes linger in stomach). IV fluids crucial to prevent kidney damage. Monitor kidney function for minimum 48 hours. Early treatment = good prognosis.",
+        "description": "Grapes, raisins, sultanas, and Zante currants cause sudden acute kidney failure in dogs through tartaric acid toxicity. All forms are toxic: seedless, seeded, red, green, organic, commercial, homegrown, and grape pressings. There is NO safe amount - toxicity is unpredictable and varies by individual dog. Some dogs can be severely poisoned by just 3-5 grapes while others may tolerate more. Because it's impossible to predict which dog will be affected, ANY ingestion is an emergency. Kidney damage may not show until 24-48 hours later. Immediate vet care and decontamination significantly improves survival chances."
+    },
+    {
+        "id": "toxic_003",
+        "name": "Xylitol",
+        "category": "toxic_food",
+        "toxicity_level": "extreme",
+        "affected_species": [
+            "dog"
+        ],
+        "toxic_compound": "xylitol (artificial sweetener)",
+        "symptoms": [
+            "rapid insulin release",
+            "hypoglycemia (low blood sugar) within 15-30 minutes",
+            "vomiting",
+            "weakness",
+            "loss of coordination",
+            "tremors",
+            "seizures",
+            "liver failure (high doses)",
+            "collapse",
+            "coma"
+        ],
+        "safe_amount": "0g - extremely toxic even in tiny amounts",
+        "onset_time": "15-30 minutes for hypoglycemia, 12-24 hours for liver damage",
+        "severity_by_amount": {
+            "hypoglycemia": "0.1g/kg causes dangerous blood sugar drop",
+            "liver_failure": "0.5g/kg can cause liver damage",
+            "note": "1 piece of sugar-free gum can poison a small dog"
+        },
+        "common_sources": [
+            "sugar-free gum and candy",
+            "peanut butter (check labels!)",
+            "sugar-free baked goods",
+            "some medications",
+            "toothpaste",
+            "mouthwash"
+        ],
+        "immediate_action": "EMERGENCY - Contact vet IMMEDIATELY. Even minutes matter. Induce vomiting if very recent. Blood sugar must be monitored. IV dextrose may be needed. Liver function monitoring for 48-72 hours essential.",
+        "description": "Xylitol is an artificial sweetener found in sugar-free products that is extremely toxic to dogs. Even tiny amounts cause rapid insulin release leading to dangerous hypoglycemia within 15-30 minutes. Symptoms include weakness, vomiting, tremors, seizures, and collapse. Higher doses cause acute liver failure. Common sources include sugar-free gum, candy, some peanut butter brands, baked goods, and medications. Always check ingredient labels. Just one piece of sugar-free gum can poison a small dog. This is a true emergency - minutes matter. Immediate vet care is critical."
+    },
+    {
+        "id": "toxic_004",
+        "name": "Onions, Garlic, Leeks, Chives",
+        "category": "toxic_food",
+        "toxicity_level": "moderate_high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "toxic_compound": "N-propyl disulfide and other sulfur compounds (Allium species)",
+        "symptoms": [
+            "gastrointestinal irritation",
+            "red blood cell damage",
+            "hemolytic anemia",
+            "weakness",
+            "lethargy",
+            "pale gums",
+            "increased heart rate",
+            "increased respiratory rate",
+            "dark colored urine",
+            "collapse (severe cases)"
+        ],
+        "safe_amount": "0g - all forms toxic (raw, cooked, powdered, dehydrated)",
+        "onset_time": "1-3 days for symptoms to appear",
+        "severity_by_species": {
+            "cats": "Extremely sensitive - more susceptible than dogs",
+            "dogs": "Moderate sensitivity - all amounts dangerous",
+            "note": "Toxicity is cumulative - repeated small exposures add up"
+        },
+        "toxic_dose": "5g/kg for onions, 15-30g/kg for garlic (but lower amounts still harmful over time)",
+        "immediate_action": "Contact vet if ingested. Monitor for weakness, pale gums, dark urine over next 3-5 days. Blood tests may be needed to check for anemia. Supportive care and blood transfusion in severe cases.",
+        "description": "All members of the Allium family (onions, garlic, leeks, chives, shallots) contain sulfur compounds that damage red blood cells causing hemolytic anemia in dogs and cats. Cats are particularly susceptible. All forms are toxic: raw, cooked, fried, powdered, and dehydrated. This includes onion/garlic powder in foods. Toxicity is cumulative - repeated small amounts build up over time. Symptoms may not appear until 1-3 days after ingestion, including weakness, pale gums, increased heart and breathing rates, and dark urine. Even 'small' amounts can cause problems, especially in cats or with repeated exposure."
+    },
+    {
+        "id": "toxic_005",
+        "name": "Macadamia Nuts",
+        "category": "toxic_food",
+        "toxicity_level": "moderate",
+        "affected_species": [
+            "dog"
+        ],
+        "toxic_compound": "unknown (mechanism not fully understood)",
+        "symptoms": [
+            "weakness (especially hind legs)",
+            "depression",
+            "vomiting",
+            "tremors",
+            "joint pain",
+            "hyperthermia (elevated body temperature)",
+            "loss of coordination",
+            "inability to walk"
+        ],
+        "safe_amount": "0g - toxic dose as low as 2.4g/kg",
+        "onset_time": "12 hours (symptoms can appear within 12 hours)",
+        "severity": {
+            "note": "Usually not fatal but very uncomfortable",
+            "recovery": "Most dogs recover within 24-48 hours with supportive care"
+        },
+        "immediate_action": "Contact vet if ingested. Monitor for weakness and inability to walk. Supportive care with IV fluids may be needed. Symptoms usually resolve within 48 hours but vet care speeds recovery.",
+        "description": "Macadamia nuts cause toxicity in dogs with unknown mechanism. Symptoms typically appear within 12 hours and include marked weakness (especially hind legs), tremors, vomiting, depression, and inability to walk. Even small amounts (as few as 6 nuts for a 10lb dog) can cause symptoms. While rarely fatal, the condition is very uncomfortable for the dog. Most dogs recover fully within 24-48 hours with supportive veterinary care including IV fluids and monitoring. Chocolate-covered macadamia nuts are doubly dangerous due to chocolate toxicity."
+    }
+]

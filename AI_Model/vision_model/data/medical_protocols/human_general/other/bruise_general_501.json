@@ -1,0 +1,30 @@
+{
+  "protocol_id": "bruise_general_501",
+  "protocol_name": "General Bruise/Contusion",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "human_general",
+  "injury_type": "bruise",
+  "species": null,
+  "body_location": null,
+  "severity": null,
+  "infection_risk": null,
+  "immediate_actions": [
+    "Ice first 48 hours (20 mins every few hours)",
+    "Elevate if possible",
+    "After 48hrs: warm compress",
+    "OTC pain reliever"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "If very large, severe pain, or bruising easily without cause",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Bruise: Ice 20 mins several times daily for 48 hours to reduce swelling. Elevate. After 48hrs switch to warm compress. Take ibuprofen. Heals 2-4 weeks. Color changes are normal."
+}

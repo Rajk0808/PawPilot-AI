@@ -1,0 +1,52 @@
+{
+  "protocol_id": "cat_treat_lickable_puree_003",
+  "protocol_name": "Lickable Puree Cat Treat",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "treats",
+  "product_type": "cat_treat",
+  "target_species": [
+    "cat"
+  ],
+  "target_age": [
+    "all"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "tuna",
+      "chicken broth",
+      "tapioca starch"
+    ],
+    "protein_source": "tuna",
+    "additives": [
+      "vitamin E"
+    ],
+    "fillers": [
+      "tapioca starch"
+    ],
+    "quality_score": 7
+  },
+  "nutritional_score": 7.0,
+  "allergen_risks": [
+    "fish",
+    "poultry"
+  ],
+  "harmful_ingredients": [],
+  "price_value_rating": "good",
+  "better_alternatives": [
+    "homemade meat puree",
+    "bone broth"
+  ],
+  "full_analysis_text": "Lickable treats are great for hydration and bonding. Good for medication delivery. High moisture content. Check sodium levels - some brands are high in salt. Excellent for picky eaters or senior cats.",
+  "feeding_guidelines": "1-2 tubes daily",
+  "storage": "Refrigerate unused portion, use within 24 hours"
+}

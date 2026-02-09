@@ -1,0 +1,206 @@
+{
+    "protocol_id": "cat_bite_human_001",
+    "protocol_name": "Cat Bite on Human - General Protocol",
+    "source": [
+        "CDC",
+        "Johns Hopkins Medicine",
+        "Mayo Clinic"
+    ],
+    "source_urls": [
+        "https://www.cdc.gov/rabies/animals/index.html",
+        "https://hopkinsguides.com/hopkins/view/Johns_Hopkins_ABX_Guide/540106/all/Animal_Bites",
+        "https://www.mayoclinic.org/first-aid/first-aid-animal-bites/basics/art-20056591"
+    ],
+    "last_updated": "2024-01-27",
+    "version": "1.0",
+    "category": "human_pet_inflicted",
+    "injury_type": "cat_bite",
+    "affected_species": "human",
+    "inflicted_by": "cat",
+    "infection_risk": {
+        "percentage": "50-80%",
+        "severity": "VERY HIGH",
+        "bacteria": [
+            "Pasteurella multocida (70-90% of cats carry)",
+            "Staphylococcus",
+            "Bartonella"
+        ],
+        "onset_time": "12-24 hours",
+        "why_dangerous": "Cat teeth are needle-like and create deep puncture wounds that seal quickly on the surface, trapping bacteria deep in tissue where it proliferates rapidly"
+    },
+    "immediate_actions": [
+        {
+            "step": 1,
+            "action": "Stop any bleeding by applying gentle pressure with clean cloth",
+            "duration": "5 minutes",
+            "critical": true
+        },
+        {
+            "step": 2,
+            "action": "Wash wound immediately with soap and water",
+            "duration": "5-10 minutes",
+            "critical": true,
+            "warning": "DO NOT scrub vigorously - this can damage tissue and push bacteria deeper"
+        },
+        {
+            "step": 3,
+            "action": "Rinse thoroughly under running water",
+            "duration": "2-3 minutes"
+        },
+        {
+            "step": 4,
+            "action": "Apply povidone-iodine, betadine, or hydrogen peroxide antiseptic",
+            "options": [
+                "povidone-iodine solution",
+                "betadine",
+                "hydrogen peroxide"
+            ]
+        },
+        {
+            "step": 5,
+            "action": "Cover with sterile bandage or gauze",
+            "note": "Do not seal wound tightly - allow drainage"
+        }
+    ],
+    "seek_medical_attention": {
+        "urgency": "URGENT",
+        "timeframe": "Within 8 hours (sooner is better)",
+        "mandatory_if": [
+            "Any cat bite that breaks skin",
+            "Puncture wound (most cat bites)",
+            "Bite on hand, wrist, foot, or near joint",
+            "Bite on face or near eyes",
+            "Deep bite",
+            "Signs of infection appear"
+        ],
+        "reasons": [
+            "50-80% infection risk (highest of all animal bites)",
+            "Prophylactic antibiotics almost always needed",
+            "Tetanus assessment",
+            "Rabies risk evaluation",
+            "Hand/wrist bites can cause tendon/joint infections rapidly"
+        ]
+    },
+    "medications": {
+        "antibiotics": {
+            "likelihood": "Almost always prescribed",
+            "first_line": "Amoxicillin-clavulanate (Augmentin)",
+            "dosage_adult": "875mg/125mg twice daily",
+            "alternatives_penicillin_allergy": [
+                "Doxycycline 100mg twice daily",
+                "Trimethoprim-sulfamethoxazole",
+                "Moxifloxacin"
+            ],
+            "prophylactic_duration": "3-5 days",
+            "treatment_duration": "10-14 days if infected",
+            "note": "Prophylactic antibiotics recommended for ALL cat bites due to high infection risk"
+        },
+        "tetanus": {
+            "required_if": "Last shot >5 years ago OR unknown vaccination history",
+            "vaccine": "Td or Tdap booster"
+        },
+        "pain_relief": {
+            "otc_options": [
+                "Ibuprofen 400-600mg",
+                "Acetaminophen 500-1000mg"
+            ],
+            "frequency": "Every 6-8 hours as needed"
+        }
+    },
+    "rabies_assessment": {
+        "required": true,
+        "risk_level": "Moderate (depends on cat status)",
+        "questions_to_answer": [
+            "Is cat's rabies vaccination status known and current?",
+            "Is cat owned/domestic or stray?",
+            "Is cat behaving abnormally (aggression, lethargy, disorientation)?",
+            "Can cat be observed for 10 days?",
+            "Has cat had contact with wild animals?"
+        ],
+        "pep_required_if": [
+            "Cat's vaccination status unknown",
+            "Cat is stray or feral",
+            "Cat showing abnormal behavior",
+            "Cat cannot be observed for 10 days",
+            "Cat dies or becomes sick during observation"
+        ],
+        "pep_protocol": {
+            "day_0": "HRIG (immune globulin around wound) + Vaccine dose 1",
+            "day_3": "Vaccine dose 2",
+            "day_7": "Vaccine dose 3",
+            "day_14": "Vaccine dose 4"
+        },
+        "observation_period": "10 days for healthy cats"
+    },
+    "monitoring": {
+        "duration_days": 14,
+        "check_frequency": "Daily for first 5 days, then every 2-3 days",
+        "warning_signs_infection": [
+            "Increasing redness around wound",
+            "Swelling",
+            "Warmth at wound site",
+            "Pus or cloudy drainage",
+            "Foul odor from wound",
+            "Red streaks extending from wound",
+            "Fever (>100.4°F / 38°C)",
+            "Swollen lymph nodes (especially near bite site)",
+            "Increased pain after initial 24 hours"
+        ],
+        "emergency_signs": [
+            "Red streaks spreading rapidly",
+            "Fever with chills",
+            "Severe swelling",
+            "Loss of function in bitten area",
+            "Joint swelling or inability to move nearby joint"
+        ],
+        "action_if_signs": "Seek immediate medical attention - may need IV antibiotics or surgical drainage"
+    },
+    "special_considerations": {
+        "hand_bites": {
+            "severity": "VERY HIGH RISK",
+            "reason": "Thin tissue, many tendons and joints, rapid spread of infection",
+            "protocol": "ALWAYS seek medical attention within 4-8 hours",
+            "complication_risk": "Permanent damage to tendons, joints if untreated"
+        },
+        "immunocompromised_patients": {
+            "risk_level": "EXTREMELY HIGH",
+            "includes": [
+                "Diabetes",
+                "HIV/AIDS",
+                "Cancer patients",
+                "Organ transplant recipients",
+                "Chronic liver disease",
+                "Asplenia"
+            ],
+            "protocol": "Immediate medical attention, likely hospital admission",
+            "mortality_risk": "Up to 30% if infection becomes systemic"
+        },
+        "children": {
+            "note": "Children more likely to need hospitalization",
+            "reason": "Smaller body mass, bites often on face/neck"
+        }
+    },
+    "supplies_needed": [
+        "Antibacterial soap",
+        "Clean water",
+        "Antiseptic solution (povidone-iodine preferred)",
+        "Sterile gauze pads",
+        "Medical tape",
+        "Clean cloth for pressure"
+    ],
+    "what_not_to_do": [
+        "DO NOT use super glue or tape to close wound",
+        "DO NOT scrub wound vigorously",
+        "DO NOT apply ice directly to wound",
+        "DO NOT delay medical attention (infection can start within 12 hours)",
+        "DO NOT assume small bites are safe (puncture depth matters more than size)"
+    ],
+    "prevention_tips": [
+        "Never provoke or tease cats",
+        "Avoid petting unfamiliar cats",
+        "Watch for warning signs: flattened ears, dilated pupils, tail lashing",
+        "Teach children proper cat interaction",
+        "Keep cat vaccinations current"
+    ],
+    "full_protocol_text": "Cat bites carry an exceptionally high infection risk of 50-80%, the highest of all animal bites. This is due to Pasteurella multocida bacteria present in 70-90% of cat mouths, combined with the deep puncture wounds created by their needle-like teeth. These puncture wounds seal quickly on the surface but trap bacteria deep in tissue where infection develops rapidly, often within 12-24 hours. Immediate action is critical: Stop bleeding with gentle pressure for 5 minutes. Immediately wash the wound with soap and water for 5-10 minutes, but do not scrub vigorously as this can damage tissue. Rinse thoroughly under running water for 2-3 minutes. Apply antiseptic such as povidone-iodine or betadine. Cover with sterile gauze. Seek medical attention within 8 hours - prophylactic antibiotics (typically Amoxicillin-clavulanate) are almost always prescribed for cat bites due to the extremely high infection risk. Hand bites are especially dangerous due to tendons and joints. Assess rabies risk based on cat's vaccination status and behavior. Monitor wound for 14 days for signs of infection including redness, swelling, pus, fever, or red streaks. Any worsening symptoms require immediate medical attention."
+}

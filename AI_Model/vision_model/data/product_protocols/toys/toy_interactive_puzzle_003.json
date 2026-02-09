@@ -1,0 +1,44 @@
+{
+  "protocol_id": "toy_interactive_puzzle_003",
+  "protocol_name": "Interactive Puzzle Treat Toy",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "toys",
+  "product_type": "puzzle_toy",
+  "target_species": [
+    "dog",
+    "cat"
+  ],
+  "target_age": [
+    "all"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "materials": [
+      "food-grade plastic",
+      "BPA-free"
+    ],
+    "safety_features": [
+      "no small removable parts",
+      "dishwasher safe"
+    ],
+    "concerns": [],
+    "quality_score": 9
+  },
+  "nutritional_score": null,
+  "allergen_risks": [],
+  "harmful_ingredients": [],
+  "price_value_rating": "excellent",
+  "better_alternatives": [],
+  "full_analysis_text": "Puzzle toys provide mental stimulation, slow down eating, and reduce boredom behaviors. Food-grade, BPA-free plastic is safe. Start with easier puzzles and progress. Excellent for high-energy dogs and smart breeds.",
+  "feeding_guidelines": "",
+  "storage": "Wash regularly to prevent bacteria"
+}

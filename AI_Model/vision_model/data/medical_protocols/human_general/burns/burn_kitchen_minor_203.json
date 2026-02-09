@@ -1,0 +1,31 @@
+{
+  "protocol_id": "burn_kitchen_minor_203",
+  "protocol_name": "Minor Kitchen Burn",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "human_general",
+  "injury_type": "burn",
+  "species": null,
+  "body_location": null,
+  "severity": "minor",
+  "infection_risk": null,
+  "immediate_actions": [
+    "Run under cool water immediately",
+    "Continue cooling 10 mins",
+    "Remove jewelry before swelling",
+    "Aloe vera gel"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "As needed",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Minor kitchen burn from stove/hot pan: Immediately cool under water 10 mins. Remove rings before swelling. Apply aloe vera. Bandage if rubbing on clothing. Usually heals 5-7 days.",
+  "injury_cause": "cooking"
+}

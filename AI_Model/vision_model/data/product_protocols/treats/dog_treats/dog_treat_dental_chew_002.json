@@ -1,0 +1,57 @@
+{
+  "protocol_id": "dog_treat_dental_chew_002",
+  "protocol_name": "Dental Chew Dog Treat",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "treats",
+  "product_type": "dog_treat",
+  "target_species": [
+    "dog"
+  ],
+  "target_age": [
+    "adult",
+    "senior"
+  ],
+  "breed_size": [
+    "medium",
+    "large"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "wheat starch",
+      "glycerin",
+      "gelatin",
+      "sodium tripolyphosphate"
+    ],
+    "protein_source": "gelatin",
+    "additives": [
+      "breath fresheners",
+      "colorings"
+    ],
+    "fillers": [
+      "wheat starch"
+    ],
+    "quality_score": 6
+  },
+  "nutritional_score": 5.5,
+  "allergen_risks": [
+    "wheat",
+    "gluten"
+  ],
+  "harmful_ingredients": [],
+  "price_value_rating": "moderate",
+  "better_alternatives": [
+    "raw bones",
+    "bully sticks",
+    "dental toys"
+  ],
+  "full_analysis_text": "Dental chews help reduce tartar but often contain fillers. VOHC-approved products are most effective. Not suitable for dogs with grain allergies. Monitor chewing to prevent choking. Size appropriately for your dog.",
+  "feeding_guidelines": "One chew daily for dogs over 25 lbs",
+  "storage": "Store in cool, dry place"
+}
