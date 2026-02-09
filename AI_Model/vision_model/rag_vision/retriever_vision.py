@@ -88,7 +88,7 @@ def retrieve_docs(query: str, index_or_hostname):
         include_metadata=True
     )
     
-    return results
+    return decode_results(results)
 
 
 if __name__ == "__main__":
