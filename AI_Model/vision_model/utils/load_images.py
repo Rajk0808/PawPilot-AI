@@ -51,12 +51,8 @@ class MessageLoader:
             for img in images:
                 base_message[0]["content"].append({"type": "image", "image": img})
             return base_message
-        elif model == "nvidia/nemotron-nano-12b-v2-vl:free":
+        elif model == "nvidia/nemotron-nano-12b-v2-vl:free" or model == "allenai/molmo-2-8b:free":
             for img in images:
                 base_message[0]["content"].append({"type": "image_url", "image_url": img})
         return base_message
     
-if __name__ == "__main__":
-    img_loader = LoadImages()
-    images = img_loader.image_to_data_url(["D:\\codeSutra AI\\project\\AI_chat\\AI_Model\\vision_model\\data\\eye corneal uclers 2.jpg"])
-    print(images)

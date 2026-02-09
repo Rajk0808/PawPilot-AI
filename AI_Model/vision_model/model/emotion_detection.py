@@ -2,6 +2,9 @@ import google.genai as genai
 from google.genai import types
 import base64
 import re
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 def markdown_bold_to_html(text):
     return re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', text)
@@ -25,7 +28,7 @@ def create_content(prompt, images):
     return types.Content(parts=parts)
 def chatbot_emotion_detection(user_query, images):
     # images is a list of InMemoryUploadedFile objects
-    client = genai.Client(http_options={'api_version': 'v1alpha'}, api_key='AIzaSyAJa8tKb-73csr7-yXS0XizVvXvLczZkxM')
+    client = genai.Client(http_options={'api_version': 'v1alpha'}, api_key=os.getenv("GEMINI_API"))
     prompt = f'''You are a Veternian AI and you have to detect the emotion of the pet in the image and give suggestions to the owner accordingly. if multiple images are provided and prediceted emotion for each image is same then provide a single response otherwise provide response for each image separately.
                 by noticing the facial expressions and body language of the dog in the image.
                 after that give a brief explanation of 

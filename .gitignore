@@ -38,6 +38,9 @@ Thumbs.db
 
 # Uploads/temp data
 AI_Model/uploads/
+# Ignore all data folders in vision_model and audio_model
+AI_Model/vision_model/data/
+AI_Model/audio_model/data/
 temp/
 tmp/
 EOF

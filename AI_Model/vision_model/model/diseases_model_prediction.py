@@ -1,8 +1,7 @@
 import torch
 import torch.nn as nn
 import traceback
-import clip  
-
+import clip
 from AI_Model.vision_model.utils.method_aggregation import Aggregation
 from AI_Model.vision_model.utils.load_images import LoadImages
 def load_model():
@@ -67,7 +66,7 @@ def predict(image_input, preprocess=None, model=None, classifier=None, id2label=
 if __name__ == "__main__":
     try:
         model, preprocess, classifier, id2label, device = load_model()
-        image_path = ["AI_Model/vision_model/data/wound avulsion.jpg"]
+        image_path = ["AI_Model/vision_model/data/eye corneal unclers.jpg","AI_Model/vision_model/data/eye corneal uclers 2.jpg"]
 
         result = predict(image_path, preprocess, model, classifier, id2label, device)
         print(f"Prediction: {result}")

@@ -1,90 +1,107 @@
-from typing import Dict
-import os
 from dotenv import load_dotenv
-from pathlib import Path
-# Load environment variables from .env file - specify path explicitly
-env_path = Path(__file__).resolve().parent.parent.parent.parent / ".env"
-load_dotenv(dotenv_path=env_path)
-    
-class doc_retriver:
-    def retriver(self, client, query: str, collection_name: str = "DogDisease", property_name: str = "disease_name"):
-        from weaviate.collections.classes.filters import Filter
-        collection = client.collections.get(collection_name)
-        results = collection.query.fetch_objects(
-            filters=Filter.by_property(property_name).equal(query)
-        )
-        
-        return [obj.properties for obj in results.objects]
+import os
+load_dotenv()
 
-class MetaDataStore:
-    def get_client(self):
-        import weaviate
-        from weaviate.auth import AuthApiKey
-        
-        WEAVIATE_URL = os.getenv('WEAVIATE_URL')
-        WEAVIATE_API_KEY = os.getenv('WEAVIATE_API_KEY')
-        
-        if not WEAVIATE_URL or not WEAVIATE_API_KEY:
-            raise ValueError("WEAVIATE_URL and WEAVIATE_API_KEY environment variables must be set")
-        
-        auth = AuthApiKey(api_key=WEAVIATE_API_KEY)
-        
-        client = weaviate.connect_to_weaviate_cloud(
-            cluster_url=WEAVIATE_URL,
-            auth_credentials=weaviate.AuthApiKey(WEAVIATE_API_KEY),
-        )
-        return client
+from pinecone import Pinecone
+from openai import OpenAI
+from typing import Dict, List, Union
+
+def decode_results(results) -> Union[Dict, List[Dict]]:
+    """
+    Decode Pinecone FetchResponse or QueryResponse into clean dictionaries.
     
-    def create_collection(self, client, collection_name:str):
-        import weaviate.classes as wvc
-        from weaviate.classes.config import Property, DataType
+    Args:
+        results: FetchResponse or QueryResponse from Pinecone
         
-        # Check if the collection already exists and delete it if it does
-        if client.collections.exists(collection_name):
-            print(f"Collection '{collection_name}' already exists. Deleting and recreating it.")
-            client.collections.delete(collection_name)
-        
-        # Define the vectorizer configuration, using 'text2vec-huggingface' as a common default.
-        # If this vectorizer is not enabled on your Weaviate instance, you might need to change it
-        # to another available vectorizer (e.g., text2vec-openai, text2vec-contextionary) or .none()
-        
-        
-        # Create the collection with the vectorizer
-        client.collections.create(
-            name=collection_name,
-            vectorizer_config=None,
-            description="Dog disease metadata for RAG medical system",
-            properties=[
-                Property(name="disease_name", data_type=DataType.TEXT),
-                Property(name="possible_condition", data_type=DataType.TEXT),
-                Property(name="severity_level", data_type=DataType.TEXT),
-                Property(name="first_aid", data_type=DataType.TEXT),
-                Property(name="otc_recommendations", data_type=DataType.TEXT),
-                Property(name="monitoring", data_type=DataType.TEXT),
-                Property(name="vet_visit_urgency", data_type=DataType.TEXT),
-                Property(name="emergency_flag", data_type=DataType.BOOL),
-            ]
-        
-        )
-        
-        print(f"Collection '{collection_name}' created successfully with vectorizer.")
+    Returns:
+        dict or list of dicts containing disease information
+    """
+    # Handle FetchResponse (from index.fetch())
+    if hasattr(results, 'vectors') and isinstance(results.vectors, dict):
+        decoded = []
+        for vector_id, vector in results.vectors.items():
+            if vector.metadata:
+                decoded.append({
+                    'id': vector_id,
+                    'metadata': vector.metadata
+                })
+        # Return single dict if only one result, else list
+        return decoded[0] if len(decoded) == 1 else decoded
     
-    def insert_data(self, client, collection_name:str, data:Dict):
-        # Insert data into the specified collection
-        collection = client.collections.get(collection_name)
-        
-        for disease, meta in data.items():
-            collection.data.insert({
-                "disease_name": disease,
-                "possible_condition": meta["possible condition"],
-                "severity_level": meta["Severity level"],
-                "first_aid": meta["First aid Instruction"],
-                "otc_recommendations": meta["OTC product recommendations"],
-                "monitoring": meta["Monitoring"],
-                "vet_visit_urgency": meta["vet visit urgency"],
-                "emergency_flag": meta["emergency flag"] == "True"
+    # Handle QueryResponse (from index.query())
+    elif hasattr(results, 'matches') and isinstance(results.matches, list):
+        decoded = []
+        for match in results.matches:
+            decoded.append({
+                'id': match.get('id'),
+                'score': match.get('score'),
+                'metadata': match.get('metadata', {})
             })
-        
-        print("All diseases inserted successfully")
+        return decoded
+    
+    # Fallback
+    return results
 
-        print(f"Data inserted into collection '{collection_name}': {data}")
+
+def retrieve_docs(query: str, index_or_hostname):
+    pc = Pinecone(api_key=os.getenv("PINECONE_API"))
+    
+    # Check if it's a hostname (URL) or index name
+    if index_or_hostname.startswith("http"):
+        index = pc.Index(host=index_or_hostname)
+    else:
+        index = pc.Index(name=index_or_hostname)
+    
+    # Try exact ID match with various formats
+    possible_ids = [
+        query.lower(),
+        query.replace(" ", "_").lower(), 
+        query.replace(" ", "-").lower(),
+        query.title().lower(),
+        query
+    ]
+    
+    try:
+        results = index.fetch(
+            ids=possible_ids,
+            namespace="__default__"
+        )
+        
+        # If exact ID match found, return it
+        if results and results.vectors:
+            return results
+    except Exception as e:
+        print(f"ID fetch failed: {e}")
+    
+    # Fall back to vector similarity search
+    client = OpenAI(api_key=os.getenv("OPENAIAPI"))
+    embedding = client.embeddings.create(
+        input=query,
+        model="text-embedding-3-large",
+        dimensions=512
+    )
+    
+    results = index.query(
+        namespace="__default__",
+        vector=embedding.data[0].embedding,
+        top_k=5,
+        include_metadata=True
+    )
+    
+    return results
+
+
+if __name__ == "__main__":
+    # Example usage
+    query = "fur loss cushing disease"
+    index_name = "dog-disease"
+    
+    # Get raw results
+    raw_results = retrieve_docs(query, index_name)
+    
+    # Decode into clean format
+    decoded_results = decode_results(raw_results)
+    
+    # Pretty print
+    import json
+    print(json.dumps(decoded_results, indent=2))

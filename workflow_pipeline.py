@@ -10,8 +10,6 @@ import os
 import shutil
 from PIL import Image
 import io
-
-from sqlalchemy import Extract
 from AI_Model.src.utils.exceptions import CustomException
 from AI_Model.src.workflow.graph_builder import build_complete_workflow
 from AI_Model.vision_model.workflow.graph_builder_vision import MultiGraphWorkflow 

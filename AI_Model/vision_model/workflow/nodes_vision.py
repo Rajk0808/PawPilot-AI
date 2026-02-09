@@ -1,14 +1,15 @@
 import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parent.parent.parent.parent))
 from AI_Model.vision_model.workflow.state_definition_vision import VisionWorkFlowState
 from time import time 
-from AI_Model.vision_model.rag_vision.retriever_vision import doc_retriver,MetaDataStore
+from AI_Model.vision_model.rag_vision.retriever_vision import retrieve_docs
 from AI_Model.vision_model.model.image_detect_model import call_nvdia 
 from AI_Model.src.utils.exceptions import CustomException
+from AI_Model.vision_model.utils.keyword_extractor import KeyWordExtractor
 import logging
 
 logger = logging.getLogger(__name__)
-
-
 
 def input_processing_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
     """
@@ -59,22 +60,8 @@ def decision_router_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
 
     try:
         query = state.get("query", "")
-        diseases_keywords = set('diseases illness ringworm mange cancer tumor cyst infection hot spot dermatitis yeast fleas ticks mites rash redness hair loss alopecia bald spots swelling bumps lumps scabs bleeding pus oozing crusty flaky skin dandruff inflammation lesion wound injury cut scratch bite mark itchy scratching licking painful hurting vet emergency contagious dangerous treatment diagnosis'.split())
-        toy_keywords = set('toy play fetch chew ball frisbee tug rope squeaky bone treat reward fun exercise training obedience agility socialization companionship toy bone ball frisbee rope plush squeaky stuffed animal puzzle scratcher wand tunnel rubber plastic nylon latex fabric wood antler rawhide silicone splinter sharp edges swallow choke stuck blockage pieces stuffing break snap ingest digestive teeth gums chew destroy shred rip play fetch tug durability brand make model material non-toxic bpa-free heavy duty indestructible'.split())
-        # Simple heuristic for strategy decision
-
-        if any(keyword in query.lower() for keyword in diseases_keywords) or "condition" in query.lower():
-            state["strategy"] = "diseases_classifier"
-            state['model_to_use'] = 'diseases_classifier'
-            logger.info("Selected strategy: diseases_classifier")
-        elif any(keyword in query.lower() for keyword in toy_keywords) or "toy" in query.lower():
-            state["strategy"] = "toy_classifier"
-            state['model_to_use'] = 'toy_classifier'
-            logger.info("Selected strategy: toy_classifier")
-        else:
-            state["strategy"] = "default"
-            logger.info("Selected strategy: default")
-        
+        extractor = KeyWordExtractor()
+        state['strategy'] = extractor.select_strategy(query)        
         return state
 
     except Exception as e: 
@@ -111,30 +98,10 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
             model, preprocess, classifier, id2label, device = load_model()
             results = predict(image, preprocess, model, classifier, id2label, device)
             
-            # Handle different return types
-            if results is None:
-                state["predicted_class"] = "unknown"
-                state["confidence_score"] = 0.0
-            elif isinstance(results, str):
-                # If predict returns a string directly
-                state["predicted_class"] = results
-                state["confidence_score"] = 1.0
-            elif isinstance(results, list) and len(results) > 0:
-                # If predict returns a list of dicts
-                if isinstance(results[0], dict):
-                    state["predicted_class"] = "unknown"  #results[0].get("label", "unknown")
-                    state["confidence_score"] =  0.0 #results[0].get("confidence", 0.0)
-                else:
-                    # List of strings
-                    state["predicted_class"] = str(results[0])
-                    state["confidence_score"] = 1.0
-            elif isinstance(results, dict):
-                # If predict returns a single dict
-                state["predicted_class"] = "unknown"  #results.get("label", "unknown")
-                state["confidence_score"] = 0.0 #results.get("confidence", 0.0)
-            else:
-                state["predicted_class"] = "unknown"
-                state["confidence_score"] = 0.0
+            state["predicted_class"] = results.get("label", "unknown") if isinstance(results, dict) else "unknown"
+            state["confidence_score"] = results.get("confidence", 0.0) if isinstance(results, dict) else 0.0
+
+            return state
             
         elif strategy == "toy_classifier":
             from AI_Model.vision_model.model.toy_model_prediction import predict_toy, load_model_toy
@@ -165,6 +132,7 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
             else:
                 state["predicted_class"] = "unknown"
                 state["confidence_score"] = 0.0
+        
         elif strategy == "emotion_detection":
             from AI_Model.vision_model.model.emotion_detection import chatbot_emotion_detection
             user_query = state.get("query", "")
@@ -174,12 +142,23 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
             state["predicted_class"] = "emotion_detected"
             state["confidence_score"] = 1.0  # Assuming full confidence for text response
         
+        elif strategy == "full-body-scan":
+            from AI_Model.vision_model.model.full_body_scan import chatbot_full_body_scan
+            user_query = state.get("query", "")
+            images = [image]  # Assuming single image for full body scan
+            reply = chatbot_full_body_scan(user_query, images)
+            state["final_output"] = reply
+            state["predicted_class"] = "full_body_scan_completed"
+            state["confidence_score"] = 1.0  # Assuming full confidence for text response
+        
+        elif strategy == "parasite-detection":
+            from AI_Model.vision_model.model.parasites_detection import predict
+            
+
         else:
             logger.warning(f"Unknown strategy: {strategy}")
             state["predicted_class"] = "unknown"
             state["confidence_score"] = 0.0
-        
-        logger.info(f"Prediction result: {state['predicted_class']} (confidence: {state['confidence_score']:.2f})")
         return state
 
     except Exception as e: 
@@ -214,18 +193,19 @@ def retrieval_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
     logger.info('Retrieval node - no operation for vision model.')
 
     try:
-        if state.get("strategy") != "emotion_detection":
+        if state.get("strategy") != "emotion_detection" and state.get("strategy") != "full-body-scan":
             # Currently no retrieval logic for vision model
             class_name = state.get("predicted_class", "unknown")
             strategy = state.get("strategy", "default")
-            retriver = doc_retriver()
-            metadataclient = MetaDataStore()
-            client = metadataclient.get_client()
-            collection_name = 'DogDisease' if strategy == 'diseases_classifier' else 'ToyDetection'
-            property_name = 'disease_name' if strategy == 'diseases_classifier' else 'toy_name'
-            docs = retriver.retriver(client, query=class_name, collection_name=collection_name, property_name=property_name)
+            if strategy == "diseases_classifier":
+                host_name = "https://dog-disease-6i6jnuf.svc.aped-4627-b74a.pinecone.io"
+            elif strategy == "toy_classifier":
+                host_name = "https://toy-detection-6i6jnuf.svc.aped-4627-b74a.pinecone.io"
+            elif strategy == "parasite-detection":
+                host_name = "https://parasite-detection-6i6jnuf.svc.aped-4627-b74a.pinecone.io"
             # Convert list to dict format if needed
-            state["retrieved_docs"] = {"documents": docs} if isinstance(docs, list) else docs
+            retrieved_result = retrieve_docs(class_name, host_name)
+            state["retrieved_docs"] = retrieved_result if isinstance(retrieved_result, dict) else {}
         state['end_time'] = time()
         start_time = state.get('start_time', 0)
         state['inference_time'] = state['end_time'] - start_time
@@ -234,3 +214,9 @@ def retrieval_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
     except Exception as e: 
         raise CustomException(e, sys)
     
+if __name__ == "__main__":
+    # Example usage
+    state = VisionWorkFlowState()
+    state['query'] = "chunkied"
+    state = decision_router_node(state)
+    print(f"Selected strategy: {state.get('strategy')}")
