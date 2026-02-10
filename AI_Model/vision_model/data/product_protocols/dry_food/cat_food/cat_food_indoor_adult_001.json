@@ -1,0 +1,61 @@
+{
+  "protocol_id": "cat_food_indoor_adult_001",
+  "protocol_name": "Indoor Adult Cat Food",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "dry_food",
+  "product_type": "cat_food",
+  "target_species": [
+    "cat"
+  ],
+  "target_age": [
+    "adult"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "chicken",
+      "chicken meal",
+      "rice",
+      "corn gluten meal",
+      "cellulose"
+    ],
+    "protein_source": "chicken, chicken meal",
+    "protein_percentage": "32%",
+    "fat_percentage": "13%",
+    "fiber_percentage": "6%",
+    "additives": [
+      "taurine",
+      "vitamins",
+      "minerals",
+      "hairball control fiber"
+    ],
+    "fillers": [
+      "corn gluten meal",
+      "cellulose"
+    ],
+    "quality_score": 6
+  },
+  "nutritional_score": 6.5,
+  "allergen_risks": [
+    "poultry",
+    "corn"
+  ],
+  "harmful_ingredients": [],
+  "price_value_rating": "moderate",
+  "better_alternatives": [
+    "high-protein, low-carb formulas",
+    "wet food"
+  ],
+  "full_analysis_text": "Indoor cat foods have reduced calories and added fiber for hairballs. However, cats are obligate carnivores - high-protein, low-carb is ideal. Corn gluten is cheap protein but less bioavailable. Taurine is essential - always check it's added.",
+  "feeding_guidelines": "1/3 to 1/2 cup daily based on weight",
+  "storage": "Airtight container"
+}

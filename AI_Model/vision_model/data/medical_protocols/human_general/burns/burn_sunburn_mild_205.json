@@ -1,0 +1,31 @@
+{
+  "protocol_id": "burn_sunburn_mild_205",
+  "protocol_name": "Mild Sunburn",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "human_general",
+  "injury_type": "burn",
+  "species": null,
+  "body_location": null,
+  "severity": "mild",
+  "infection_risk": null,
+  "immediate_actions": [
+    "Cool shower/bath",
+    "Moisturizer with aloe",
+    "Hydrate well",
+    "Ibuprofen for pain/inflammation"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "If severe blistering, fever, or covers large area",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Mild sunburn: Cool shower, apply aloe vera or moisturizer, drink water, take ibuprofen. Avoid sun until healed. Seek care if severe blisters, fever, dizziness.",
+  "injury_cause": "sun"
+}

@@ -1,0 +1,31 @@
+{
+  "protocol_id": "dog_burn_paw_605",
+  "protocol_name": "Dog Paw Burn (Hot Pavement)",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "pet_injuries",
+  "injury_type": "burn",
+  "species": "dog",
+  "body_location": "paw",
+  "severity": null,
+  "infection_risk": null,
+  "immediate_actions": [
+    "Move to cool surface immediately",
+    "Run cool (not cold) water over paws 5-10 mins",
+    "Pat dry gently",
+    "Do NOT apply ice"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "If blistering or severe redness",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Dog paw burn from hot pavement: Move to cool area immediately. Run cool water over paws 5-10 mins. Pat dry. If blistering, redness, or limping, see vet. Prevent: walk early morning/evening.",
+  "injury_cause": "hot_surface"
+}

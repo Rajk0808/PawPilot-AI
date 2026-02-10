@@ -1,0 +1,30 @@
+{
+  "protocol_id": "dog_scrape_abrasion_609",
+  "protocol_name": "Dog Skin Scrape/Abrasion",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "pet_injuries",
+  "injury_type": "scrape",
+  "species": "dog",
+  "body_location": null,
+  "severity": null,
+  "infection_risk": null,
+  "immediate_actions": [
+    "Clean with saline or pet shampoo diluted",
+    "Pet-safe antiseptic spray",
+    "Monitor for licking - E-collar if needed",
+    "Keep clean and dry"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "If large area, very dirty, or not healing in 5-7 days",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Dog scrape/road rash: Clean with diluted pet shampoo or saline. Pet-safe antiseptic spray. E-collar if licking. Keep dry. See vet if large, very dirty, or signs of infection."
+}

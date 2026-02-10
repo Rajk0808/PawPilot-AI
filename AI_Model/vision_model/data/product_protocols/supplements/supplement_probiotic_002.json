@@ -1,0 +1,52 @@
+{
+  "protocol_id": "supplement_probiotic_002",
+  "protocol_name": "Probiotic Digestive Supplement",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "supplements",
+  "product_type": "probiotic",
+  "target_species": [
+    "dog",
+    "cat"
+  ],
+  "target_age": [
+    "all"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "Lactobacillus acidophilus",
+      "Bifidobacterium",
+      "Enterococcus faecium"
+    ],
+    "active_compounds": {
+      "CFU_count": "1-10 billion per serving"
+    },
+    "additives": [
+      "prebiotic fiber",
+      "flavoring"
+    ],
+    "quality_score": 8
+  },
+  "nutritional_score": 8.0,
+  "allergen_risks": [
+    "dairy (some strains)"
+  ],
+  "harmful_ingredients": [],
+  "price_value_rating": "good",
+  "better_alternatives": [
+    "species-specific strains",
+    "vet-prescribed formulas"
+  ],
+  "full_analysis_text": "Probiotics support gut health, especially after antibiotics or diet changes. Look for species-specific strains. CFU count matters - higher is generally better. Some need refrigeration. Can help with diarrhea, gas, and immune function.",
+  "feeding_guidelines": "Daily with food. Start with half dose.",
+  "storage": "Refrigerate for best potency"
+}

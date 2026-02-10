@@ -1,0 +1,53 @@
+{
+  "protocol_id": "supplement_omega3_fish_oil_003",
+  "protocol_name": "Omega-3 Fish Oil Supplement",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "supplements",
+  "product_type": "omega_supplement",
+  "target_species": [
+    "dog",
+    "cat"
+  ],
+  "target_age": [
+    "all"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "fish oil",
+      "EPA",
+      "DHA",
+      "vitamin E"
+    ],
+    "active_compounds": {
+      "EPA": "varies by product",
+      "DHA": "varies by product",
+      "total_omega3": "check label"
+    },
+    "additives": [
+      "vitamin E as preservative"
+    ],
+    "quality_score": 9
+  },
+  "nutritional_score": 9.0,
+  "allergen_risks": [
+    "fish"
+  ],
+  "harmful_ingredients": [],
+  "price_value_rating": "excellent",
+  "better_alternatives": [
+    "algae-based omega for fish allergies"
+  ],
+  "full_analysis_text": "Fish oil is one of the most beneficial supplements for pets. Supports skin, coat, joints, brain, and heart. Look for high EPA/DHA ratio. Pump bottles better than capsules for dosing. Can cause loose stool if started too fast.",
+  "feeding_guidelines": "Based on body weight. See package.",
+  "storage": "Refrigerate after opening. Dark bottle preferred."
+}

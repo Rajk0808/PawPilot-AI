@@ -1,0 +1,30 @@
+{
+  "protocol_id": "nosebleed_303",
+  "protocol_name": "Nosebleed",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "human_general",
+  "injury_type": "bleeding",
+  "species": null,
+  "body_location": "nose",
+  "severity": null,
+  "infection_risk": null,
+  "immediate_actions": [
+    "Sit upright, lean slightly forward",
+    "Pinch soft part of nose 10 mins",
+    "Apply ice pack to bridge",
+    "Don't blow nose after"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "If lasts >20 mins, heavy flow, or frequent nosebleeds",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Nosebleed: Sit up, lean forward. Pinch soft part of nose 10 mins continuously. Ice on bridge. Don't blow nose for several hours. Seek care if >20 mins or heavy flow."
+}

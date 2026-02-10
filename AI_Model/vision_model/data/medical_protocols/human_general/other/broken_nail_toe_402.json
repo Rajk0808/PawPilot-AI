@@ -1,0 +1,31 @@
+{
+  "protocol_id": "broken_nail_toe_402",
+  "protocol_name": "Broken Toenail",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "human_general",
+  "injury_type": "broken_nail",
+  "species": null,
+  "body_location": "toe",
+  "severity": null,
+  "infection_risk": null,
+  "immediate_actions": [
+    "Soak in warm water",
+    "Trim if possible",
+    "Antibiotic ointment",
+    "Loose bandage",
+    "Comfortable shoes"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "As needed",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Broken toenail: Soak in warm water, trim carefully if possible. Antibiotic ointment, loose bandage. Wear comfortable shoes. Seek care if very painful or infected."
+}

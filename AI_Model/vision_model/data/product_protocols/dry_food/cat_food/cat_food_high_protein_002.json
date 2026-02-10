@@ -1,0 +1,57 @@
+{
+  "protocol_id": "cat_food_high_protein_002",
+  "protocol_name": "High-Protein Grain-Free Cat Food",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "dry_food",
+  "product_type": "cat_food",
+  "target_species": [
+    "cat"
+  ],
+  "target_age": [
+    "adult"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "chicken",
+      "turkey meal",
+      "peas",
+      "chicken fat",
+      "tapioca"
+    ],
+    "protein_source": "chicken, turkey meal",
+    "protein_percentage": "42%",
+    "fat_percentage": "18%",
+    "fiber_percentage": "3%",
+    "additives": [
+      "taurine",
+      "probiotics",
+      "omega fatty acids"
+    ],
+    "fillers": [],
+    "quality_score": 8
+  },
+  "nutritional_score": 8.5,
+  "allergen_risks": [
+    "poultry",
+    "legumes"
+  ],
+  "harmful_ingredients": [],
+  "price_value_rating": "good",
+  "better_alternatives": [
+    "raw diet",
+    "high-quality wet food"
+  ],
+  "full_analysis_text": "High-protein formulas better match cats' carnivore biology. 40%+ protein is excellent. Watch portions - calorie-dense. Grain-free is fine for cats (no DCM link like dogs). Added probiotics support digestion.",
+  "feeding_guidelines": "1/4 to 1/3 cup daily - high calorie",
+  "storage": "Airtight container, away from heat"
+}

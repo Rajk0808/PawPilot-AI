@@ -1,0 +1,53 @@
+{
+  "protocol_id": "grooming_shampoo_oatmeal_001",
+  "protocol_name": "Oatmeal Soothing Dog Shampoo",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "grooming",
+  "product_type": "shampoo",
+  "target_species": [
+    "dog"
+  ],
+  "target_age": [
+    "all"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "colloidal oatmeal",
+      "aloe vera",
+      "coconut-based surfactants"
+    ],
+    "beneficial_ingredients": [
+      "oatmeal",
+      "aloe",
+      "vitamin E"
+    ],
+    "additives": [
+      "fragrance",
+      "preservatives"
+    ],
+    "harsh_chemicals": [],
+    "quality_score": 8
+  },
+  "nutritional_score": null,
+  "allergen_risks": [
+    "oats (rare)"
+  ],
+  "harmful_ingredients": [],
+  "price_value_rating": "good",
+  "better_alternatives": [
+    "medicated shampoo for skin conditions"
+  ],
+  "full_analysis_text": "Oatmeal shampoos are excellent for dry, itchy skin. Colloidal oatmeal is most effective. Avoid shampoos with sulfates, parabens, artificial dyes. pH-balanced for dogs (6.5-7.5) - never use human shampoo on pets.",
+  "usage_guidelines": "Wet coat, lather, leave 5 mins, rinse thoroughly",
+  "storage": "Room temperature"
+}

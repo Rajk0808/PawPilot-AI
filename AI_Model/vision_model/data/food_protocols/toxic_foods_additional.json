@@ -1,0 +1,202 @@
+[
+    {
+        "id": "toxic_011",
+        "name": "Citrus Fruits (Lemons, Limes, Oranges)",
+        "category": "toxic_food",
+        "toxicity_level": "low",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "toxic_compound": "citric acid and essential oils",
+        "symptoms": [
+            "stomach upset",
+            "vomiting",
+            "diarrhea",
+            "depression",
+            "CNS issues (large amounts)"
+        ],
+        "safe_amount": "Small amounts of flesh tolerable, avoid peels/seeds/leaves",
+        "description": "Citrus fruits contain citric acid and essential oils that can cause stomach upset. Small amounts of flesh usually tolerable but peels, seeds, stems, and leaves contain higher concentrations and should be avoided. Large amounts can cause CNS depression."
+    },
+    {
+        "id": "toxic_012",
+        "name": "Nutmeg",
+        "category": "toxic_food",
+        "toxicity_level": "moderate",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "toxic_compound": "myristicin",
+        "symptoms": [
+            "tremors",
+            "seizures",
+            "high heart rate",
+            "high blood pressure",
+            "hallucinations",
+            "disorientation"
+        ],
+        "safe_amount": "0g",
+        "description": "Nutmeg contains myristicin which is toxic to pets. Even small amounts can cause tremors, seizures, elevated heart rate and blood pressure. Larger amounts cause hallucinations and CNS issues. Keep away from pets."
+    },
+    {
+        "id": "toxic_013",
+        "name": "Cherry Pits",
+        "category": "toxic_food",
+        "toxicity_level": "moderate_high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "toxic_compound": "cyanide (amygdalin)",
+        "symptoms": [
+            "difficulty breathing",
+            "bright red gums",
+            "dilated pupils",
+            "shock",
+            "cyanide poisoning"
+        ],
+        "safe_amount": "0g - cherry flesh okay but REMOVE ALL PITS",
+        "description": "Cherry pits (and stems, leaves) contain cyanide which is highly toxic. Cherry flesh is safe in small amounts but ALL pits must be removed completely. Also poses choking/obstruction hazard. Symptoms of cyanide poisoning require immediate emergency care."
+    },
+    {
+        "id": "toxic_014",
+        "name": "Peach and Plum Pits",
+        "category": "toxic_food",
+        "toxicity_level": "moderate_high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "toxic_compound": "cyanide (amygdalin)",
+        "symptoms": [
+            "difficulty breathing",
+            "bright red gums",
+            "dilated pupils",
+            "shock",
+            "intestinal obstruction"
+        ],
+        "safe_amount": "0g - fruit flesh okay but REMOVE ALL PITS",
+        "description": "Peach and plum pits contain cyanide. Fruit flesh safe in moderation but pits must be completely removed. Pits also pose serious choking and intestinal obstruction risk."
+    },
+    {
+        "id": "toxic_015",
+        "name": "Cooked Bones (Chicken, Turkey, Etc)",
+        "category": "toxic_food",
+        "toxicity_level": "high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "toxic_compound": "none (physical hazard)",
+        "symptoms": [
+            "choking",
+            "oral injuries",
+            "intestinal obstruction",
+            "intestinal perforation",
+            "rectal bleeding"
+        ],
+        "safe_amount": "0g - NEVER give cooked bones",
+        "description": "Cooked bones become brittle and splinter easily, causing choking, mouth injuries, esophageal tears, intestinal blockages, or perforations. This includes chicken, turkey, pork, and beef bones. NEVER give cooked bones to pets. Raw bones under supervision are safer alternative."
+    },
+    {
+        "id": "toxic_016",
+        "name": "Fatty Foods and Scraps",
+        "category": "toxic_food",
+        "toxicity_level": "moderate",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "toxic_compound": "excess fat",
+        "symptoms": [
+            "pancreatitis",
+            "vomiting",
+            "diarrhea",
+            "abdominal pain",
+            "lethargy",
+            "loss of appetite"
+        ],
+        "safe_amount": "Minimal - avoid fatty table scraps",
+        "description": "Fatty foods like bacon, sausage, ham, fatty meat trimmings, and fried foods can trigger pancreatitis - painful inflammation of pancreas. Symptoms include vomiting, diarrhea, severe abdominal pain. Can be life-threatening and require hospitalization."
+    },
+    {
+        "id": "toxic_017",
+        "name": "Raw Eggs",
+        "category": "toxic_food",
+        "toxicity_level": "low_moderate",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "toxic_compound": "avidin (biotin inhibitor), Salmonella/E.coli risk",
+        "symptoms": [
+            "biotin deficiency (long term)",
+            "food poisoning (Salmonella)"
+        ],
+        "safe_amount": "Occasional okay but cooked eggs safer",
+        "description": "Raw eggs contain avidin which interferes with biotin absorption, potentially causing skin and coat issues. Also risk of Salmonella or E.coli food poisoning. Cooked eggs are safe and nutritious."
+    },
+    {
+        "id": "toxic_018",
+        "name": "Raw Meat and Fish",
+        "category": "toxic_food",
+        "toxicity_level": "low_moderate",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "toxic_compound": "bacteria (Salmonella, Listeria, E.coli), parasites",
+        "symptoms": [
+            "food poisoning",
+            "vomiting",
+            "diarrhea",
+            "parasitic infection"
+        ],
+        "safe_amount": "Controversial - raw diet requires care, cooked safer",
+        "description": "Raw meat and fish can contain harmful bacteria (Salmonella, Listeria, E.coli) and parasites. Raw salmon particularly dangerous (salmon poisoning disease). If feeding raw diet, use human-grade meat and proper handling. Cooked meat is safer."
+    },
+    {
+        "id": "toxic_019",
+        "name": "Mushrooms (Wild)",
+        "category": "toxic_food",
+        "toxicity_level": "variable_extreme",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "toxic_compound": "various toxins depending on species",
+        "symptoms": [
+            "vomiting",
+            "diarrhea",
+            "abdominal pain",
+            "liver failure",
+            "kidney failure",
+            "seizures",
+            "death"
+        ],
+        "safe_amount": "0g wild mushrooms. Store-bought okay in moderation.",
+        "description": "Wild mushrooms can be extremely toxic, some causing fatal liver and kidney failure. Many toxic species difficult to identify. NEVER let pets eat wild mushrooms. Store-bought mushrooms (white, shiitake) generally safe in small amounts but no nutritional benefit."
+    },
+    {
+        "id": "toxic_020",
+        "name": "Moldy or Spoiled Food",
+        "category": "toxic_food",
+        "toxicity_level": "high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "toxic_compound": "mycotoxins",
+        "symptoms": [
+            "tremors",
+            "seizures",
+            "hyperthermia",
+            "vomiting",
+            "diarrhea"
+        ],
+        "safe_amount": "0g",
+        "description": "Moldy or spoiled food contains tremorgenic mycotoxins which are highly toxic. Can cause severe tremors, seizures, and hyperthermia. Keep trash secure and don't let pets eat anything moldy or spoiled."
+    }
+]

@@ -1,0 +1,42 @@
+{
+  "protocol_id": "dog_treat_salmon_skin_004",
+  "protocol_name": "Salmon Skin Roll Dog Treat",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "treats",
+  "product_type": "dog_treat",
+  "target_species": [
+    "dog"
+  ],
+  "target_age": [
+    "all"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "salmon skin"
+    ],
+    "protein_source": "salmon",
+    "additives": [],
+    "fillers": [],
+    "quality_score": 9
+  },
+  "nutritional_score": 9.0,
+  "allergen_risks": [
+    "fish"
+  ],
+  "harmful_ingredients": [],
+  "price_value_rating": "excellent",
+  "better_alternatives": [],
+  "full_analysis_text": "Single-ingredient salmon skin treats are excellent. Rich in omega-3 fatty acids for coat and skin health. Great for dogs with common protein allergies. Naturally cleans teeth. Minimal processing, maximum nutrition.",
+  "feeding_guidelines": "1-2 rolls daily based on dog size",
+  "storage": "Store in cool, dry place. Refrigerate after opening."
+}

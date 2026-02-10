@@ -1,0 +1,46 @@
+{
+  "protocol_id": "grooming_paw_balm_003",
+  "protocol_name": "Paw Protection Balm",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "grooming",
+  "product_type": "paw_cream",
+  "target_species": [
+    "dog"
+  ],
+  "target_age": [
+    "all"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "shea butter",
+      "coconut oil",
+      "beeswax",
+      "vitamin E"
+    ],
+    "beneficial_ingredients": [
+      "natural moisturizers",
+      "protective wax barrier"
+    ],
+    "additives": [],
+    "harsh_chemicals": [],
+    "quality_score": 9
+  },
+  "nutritional_score": null,
+  "allergen_risks": [],
+  "harmful_ingredients": [],
+  "price_value_rating": "excellent",
+  "better_alternatives": [],
+  "full_analysis_text": "Paw balms protect against hot pavement, ice, and salt. Natural ingredients are safe if licked. Apply before exposure to elements. Also treats cracked pads. Avoid products with tea tree oil - toxic if ingested in quantity.",
+  "usage_guidelines": "Apply thin layer to paw pads before walks in extreme weather",
+  "storage": "Cool place to prevent melting"
+}

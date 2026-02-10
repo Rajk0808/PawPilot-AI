@@ -1,0 +1,56 @@
+{
+  "protocol_id": "dog_food_puppy_large_breed_003",
+  "protocol_name": "Large Breed Puppy Food",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "dry_food",
+  "product_type": "dog_food",
+  "target_species": [
+    "dog"
+  ],
+  "target_age": [
+    "puppy"
+  ],
+  "breed_size": [
+    "large",
+    "giant"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "chicken",
+      "chicken meal",
+      "rice",
+      "barley",
+      "fish meal"
+    ],
+    "protein_source": "chicken, fish meal",
+    "protein_percentage": "24%",
+    "fat_percentage": "12%",
+    "calcium_percentage": "1.2%",
+    "fiber_percentage": "4%",
+    "additives": [
+      "DHA for brain development",
+      "glucosamine"
+    ],
+    "fillers": [],
+    "quality_score": 9
+  },
+  "nutritional_score": 9.0,
+  "allergen_risks": [
+    "poultry",
+    "fish",
+    "grains"
+  ],
+  "harmful_ingredients": [],
+  "price_value_rating": "excellent",
+  "better_alternatives": [],
+  "full_analysis_text": "Large breed puppy formulas have controlled calcium (1.0-1.5%) for proper bone development. Lower fat prevents too-rapid growth. DHA supports brain development. CRITICAL: Do not switch to adult food before 12-18 months for large breeds.",
+  "feeding_guidelines": "Critical: Follow package exactly. Overfeeding causes growth issues.",
+  "storage": "Airtight container"
+}

@@ -1,0 +1,39 @@
+{
+  "protocol_id": "cat_bite_face_009",
+  "protocol_name": "Cat Bite on Face - EMERGENCY",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "human_pet_inflicted",
+  "injury_type": null,
+  "species": null,
+  "body_location": null,
+  "severity": null,
+  "infection_risk": {
+    "percentage": "60-80%",
+    "severity": "CRITICAL"
+  },
+  "immediate_actions": [
+    "Gentle washing",
+    "Clean water rinse",
+    "Cover lightly",
+    "No pressure near eyes"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "As needed",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Cat bite on face: EMERGENCY. Go to ER now. High infection risk + cosmetic concerns. IV antibiotics likely. Rabies PEP assessment. May need specialist care.",
+  "medications": {
+    "antibiotics": "Always IV + oral"
+  },
+  "rabies_assessment": {
+    "required": true
+  }
+}

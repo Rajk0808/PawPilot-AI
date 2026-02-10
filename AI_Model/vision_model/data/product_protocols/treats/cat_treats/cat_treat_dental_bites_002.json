@@ -1,0 +1,56 @@
+{
+  "protocol_id": "cat_treat_dental_bites_002",
+  "protocol_name": "Dental Bites Cat Treat",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "treats",
+  "product_type": "cat_treat",
+  "target_species": [
+    "cat"
+  ],
+  "target_age": [
+    "adult",
+    "senior"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "chicken meal",
+      "rice flour",
+      "cellulose fiber"
+    ],
+    "protein_source": "chicken meal",
+    "additives": [
+      "sodium tripolyphosphate",
+      "colorings"
+    ],
+    "fillers": [
+      "rice flour",
+      "cellulose"
+    ],
+    "quality_score": 5
+  },
+  "nutritional_score": 5.0,
+  "allergen_risks": [
+    "poultry",
+    "grains"
+  ],
+  "harmful_ingredients": [],
+  "price_value_rating": "moderate",
+  "better_alternatives": [
+    "raw chicken necks",
+    "dental toys",
+    "water additives"
+  ],
+  "full_analysis_text": "Cat dental treats have limited proven effectiveness. VOHC seal indicates testing. Contains fillers for texture. Better dental care through wet food, water additives, or regular brushing. Monitor for grain sensitivities.",
+  "feeding_guidelines": "10-15 pieces daily",
+  "storage": "Store in cool, dry place"
+}

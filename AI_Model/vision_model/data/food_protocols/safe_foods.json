@@ -1,0 +1,199 @@
+[
+    {
+        "id": "safe_001",
+        "name": "Carrots",
+        "category": "safe_food",
+        "nutritional_value": "high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "low calorie",
+            "high fiber",
+            "vitamin A",
+            "good for teeth",
+            "crunchy texture"
+        ],
+        "serving_suggestions": "Raw or cooked, cut into bite-sized pieces to prevent choking",
+        "portion_guide": "1-2 baby carrots for small dogs, 3-5 for large dogs as treat",
+        "description": "Carrots are excellent healthy treats for dogs and cats. High in fiber and vitamin A, low in calories. Crunchy texture helps clean teeth. Serve raw or cooked, cut appropriately to prevent choking hazard."
+    },
+    {
+        "id": "safe_002",
+        "name": "Blueberries",
+        "category": "safe_food",
+        "nutritional_value": "high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "antioxidants",
+            "fiber",
+            "vitamins C and K",
+            "low calorie",
+            "supports immune system"
+        ],
+        "serving_suggestions": "Fresh or frozen, use as training treats",
+        "portion_guide": "2-3 blueberries for small dogs, 5-10 for large dogs",
+        "description": "Blueberries are superfood for pets, packed with antioxidants, fiber, and vitamins. Low calorie makes them perfect training treats. Both fresh and frozen work great."
+    },
+    {
+        "id": "safe_003",
+        "name": "Plain Cooked Chicken",
+        "category": "safe_food",
+        "nutritional_value": "high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "high protein",
+            "easily digestible",
+            "good for upset stomach",
+            "lean meat"
+        ],
+        "serving_suggestions": "Boneless, skinless, no seasonings. Boiled or baked.",
+        "portion_guide": "Small pieces as treats or meal topper. Up to 10% of daily calories.",
+        "caution": "Remove all bones (cooked bones splinter). No skin (high fat). No seasoning.",
+        "description": "Plain cooked chicken is excellent protein source for dogs and cats. Boneless, skinless chicken breast or thigh, boiled or baked without any seasonings, oils, or garlic. Great for sensitive stomachs or as meal topper."
+    },
+    {
+        "id": "safe_004",
+        "name": "Pumpkin (Plain)",
+        "category": "safe_food",
+        "nutritional_value": "high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "high fiber",
+            "digestive health",
+            "vitamins A C E",
+            "helps with diarrhea and constipation"
+        ],
+        "serving_suggestions": "Plain canned pumpkin (NOT pie filling) or fresh cooked",
+        "portion_guide": "1-2 tablespoons for dogs, 1 teaspoon for cats",
+        "caution": "Must be plain pumpkin, NOT pumpkin pie filling (contains sugar and spices)",
+        "description": "Plain pumpkin is excellent for digestive health. Helps with both diarrhea and constipation due to high fiber content. Rich in vitamins. Use plain canned pumpkin or fresh cooked, never pie filling which contains harmful ingredients."
+    },
+    {
+        "id": "safe_005",
+        "name": "Green Beans",
+        "category": "safe_food",
+        "nutritional_value": "medium",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "low calorie",
+            "high fiber",
+            "vitamins K C",
+            "weight management"
+        ],
+        "serving_suggestions": "Fresh, frozen, or canned (no salt added), cut into pieces",
+        "portion_guide": "A few beans as treat or up to 10% of meal",
+        "description": "Green beans are low-calorie, high-fiber vegetable great for weight management in pets. Can be served raw, steamed, or canned (no salt). Some dogs love them as crunchy treats."
+    },
+    {
+        "id": "safe_006",
+        "name": "Apples",
+        "category": "safe_food",
+        "nutritional_value": "medium",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "fiber",
+            "vitamins A C",
+            "clean teeth",
+            "freshen breath"
+        ],
+        "serving_suggestions": "Remove core and seeds (contain cyanide). Cut into slices.",
+        "portion_guide": "1-2 thin slices for dogs",
+        "caution": "MUST remove core and seeds - apple seeds contain cyanide",
+        "description": "Apples are healthy treat providing fiber and vitamins. Crunchy texture helps clean teeth and freshen breath. CRITICAL: Always remove core and seeds as apple seeds contain cyanide which is toxic. Serve only flesh in small slices."
+    },
+    {
+        "id": "safe_007",
+        "name": "Watermelon",
+        "category": "safe_food",
+        "nutritional_value": "medium",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "hydration (92% water)",
+            "vitamins A B6 C",
+            "low calorie",
+            "refreshing"
+        ],
+        "serving_suggestions": "Remove seeds and rind. Serve flesh only in small cubes.",
+        "portion_guide": "A few small cubes as occasional treat",
+        "caution": "Remove all seeds and rind (can cause intestinal blockage)",
+        "description": "Watermelon is refreshing, hydrating treat perfect for hot days. 92% water content. Remove ALL seeds and rind completely - these can cause digestive upset or blockage. Serve only seedless flesh in small cubes."
+    },
+    {
+        "id": "safe_008",
+        "name": "Sweet Potatoes",
+        "category": "safe_food",
+        "nutritional_value": "high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "fiber",
+            "vitamins A B6 C",
+            "complex carbohydrates",
+            "beta-carotene"
+        ],
+        "serving_suggestions": "Cooked (baked, boiled, steamed). NO raw, NO seasoning, NO butter.",
+        "portion_guide": "1-2 tablespoons for dogs as treat or meal addition",
+        "caution": "Must be cooked. Raw sweet potato difficult to digest.",
+        "description": "Sweet potatoes are nutritious source of fiber, vitamins, and complex carbs. Must be cooked (baked, boiled, or steamed) plain with no butter, salt, or seasonings. Raw sweet potato is hard to digest. Great energy source."
+    },
+    {
+        "id": "safe_009",
+        "name": "Plain Rice",
+        "category": "safe_food",
+        "nutritional_value": "medium",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "easily digestible",
+            "bland",
+            "good for upset stomach",
+            "energy source"
+        ],
+        "serving_suggestions": "White or brown rice, cooked plain. Mix with boiled chicken for bland diet.",
+        "portion_guide": "Small amount as meal addition or for upset stomach",
+        "description": "Plain cooked rice (white or brown) is bland, easily digestible carbohydrate. Commonly used for dogs with upset stomach, often mixed with boiled chicken. No butter, salt, or seasonings."
+    },
+    {
+        "id": "safe_010",
+        "name": "Plain Yogurt",
+        "category": "safe_food",
+        "nutritional_value": "high",
+        "affected_species": [
+            "dog"
+        ],
+        "benefits": [
+            "probiotics",
+            "calcium",
+            "protein",
+            "digestive health"
+        ],
+        "serving_suggestions": "Plain, unsweetened Greek or regular yogurt. Small amounts.",
+        "portion_guide": "1 tablespoon for small dogs, 2-3 for large dogs",
+        "caution": "Must be plain and unsweetened. NO flavored yogurt (sugar/xylitol). Some dogs lactose intolerant.",
+        "description": "Plain unsweetened yogurt provides probiotics for digestive health, plus calcium and protein. Must be plain - no sugar, no artificial sweeteners (especially xylitol which is toxic). Start with small amount as some dogs are lactose intolerant."
+    }
+]

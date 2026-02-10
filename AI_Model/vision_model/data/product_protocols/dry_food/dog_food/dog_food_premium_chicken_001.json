@@ -1,0 +1,56 @@
+{
+  "protocol_id": "dog_food_premium_chicken_001",
+  "protocol_name": "Premium Chicken & Rice Adult Dog Food",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "dry_food",
+  "product_type": "dog_food",
+  "target_species": [
+    "dog"
+  ],
+  "target_age": [
+    "adult"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "chicken",
+      "chicken meal",
+      "brown rice",
+      "oatmeal",
+      "chicken fat"
+    ],
+    "protein_source": "chicken, chicken meal",
+    "protein_percentage": "26%",
+    "fat_percentage": "15%",
+    "fiber_percentage": "4%",
+    "additives": [
+      "vitamins",
+      "minerals",
+      "probiotics"
+    ],
+    "fillers": [],
+    "quality_score": 8
+  },
+  "nutritional_score": 8.0,
+  "allergen_risks": [
+    "poultry",
+    "grains"
+  ],
+  "harmful_ingredients": [],
+  "price_value_rating": "good",
+  "better_alternatives": [
+    "limited ingredient diets if allergic"
+  ],
+  "full_analysis_text": "Quality chicken-based kibble with named protein sources. Brown rice and oatmeal provide digestible carbs. Added probiotics support gut health. AAFCO complete and balanced. Good for most adult dogs without allergies.",
+  "feeding_guidelines": "Follow package based on weight. Adjust for activity level.",
+  "storage": "Store in original bag inside airtight container"
+}

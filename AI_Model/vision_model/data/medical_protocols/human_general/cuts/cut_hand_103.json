@@ -1,0 +1,31 @@
+{
+  "protocol_id": "cut_hand_103",
+  "protocol_name": "Hand Cut",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "human_general",
+  "injury_type": "cut",
+  "species": null,
+  "body_location": "hand",
+  "severity": null,
+  "infection_risk": null,
+  "immediate_actions": [
+    "Stop bleeding",
+    "Wash carefully",
+    "Antibiotic ointment",
+    "Bandage",
+    "Elevate"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "If deep or over joints/tendons",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Hand cut: Stop bleeding with pressure, wash, bandage, elevate. Seek care if over joints/tendons, deep, or gaping. Hand has complex structures requiring professional assessment."
+}

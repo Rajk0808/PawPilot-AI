@@ -1,0 +1,30 @@
+{
+  "protocol_id": "bleeding_minor_301",
+  "protocol_name": "Minor Bleeding/Scrape",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "human_general",
+  "injury_type": "bleeding",
+  "species": null,
+  "body_location": null,
+  "severity": "minor",
+  "infection_risk": null,
+  "immediate_actions": [
+    "Gentle pressure 5 mins",
+    "Clean with water",
+    "Antibiotic ointment",
+    "Bandage"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "As needed",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Minor bleeding from scrape/small cut: Apply gentle pressure 5 mins. Clean with water, antibiotic ointment, bandage. Stops quickly. Change bandage daily."
+}

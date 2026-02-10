@@ -1,0 +1,52 @@
+{
+  "protocol_id": "dog_treat_peanut_butter_003",
+  "protocol_name": "Peanut Butter Dog Biscuit",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "treats",
+  "product_type": "dog_treat",
+  "target_species": [
+    "dog"
+  ],
+  "target_age": [
+    "all"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "whole wheat flour",
+      "peanut butter",
+      "oats",
+      "eggs"
+    ],
+    "protein_source": "peanut butter, eggs",
+    "additives": [],
+    "fillers": [
+      "wheat flour"
+    ],
+    "quality_score": 7
+  },
+  "nutritional_score": 6.5,
+  "allergen_risks": [
+    "peanuts",
+    "wheat",
+    "eggs"
+  ],
+  "harmful_ingredients": [],
+  "price_value_rating": "good",
+  "better_alternatives": [
+    "homemade peanut butter treats",
+    "single-ingredient treats"
+  ],
+  "full_analysis_text": "Peanut butter biscuits are popular but check for XYLITOL - toxic to dogs! Ensure peanut butter is xylitol-free. High calorie - account for in daily intake. Good for training rewards when broken into pieces.",
+  "feeding_guidelines": "2-4 small biscuits daily depending on size",
+  "storage": "Store in airtight container up to 2 weeks"
+}

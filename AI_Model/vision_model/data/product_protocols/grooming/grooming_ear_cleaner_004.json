@@ -1,0 +1,50 @@
+{
+  "protocol_id": "grooming_ear_cleaner_004",
+  "protocol_name": "Ear Cleaning Solution",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "grooming",
+  "product_type": "ear_cleaner",
+  "target_species": [
+    "dog",
+    "cat"
+  ],
+  "target_age": [
+    "all"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "salicylic acid",
+      "aloe vera",
+      "eucalyptol"
+    ],
+    "beneficial_ingredients": [
+      "drying agents",
+      "gentle cleaners"
+    ],
+    "additives": [
+      "fragrance"
+    ],
+    "harsh_chemicals": [],
+    "quality_score": 7
+  },
+  "nutritional_score": null,
+  "allergen_risks": [],
+  "harmful_ingredients": [],
+  "price_value_rating": "good",
+  "better_alternatives": [
+    "vet ear cleaner for infections"
+  ],
+  "full_analysis_text": "Regular ear cleaning prevents infections, especially in floppy-eared dogs. Don't use if ear drum is ruptured. Never use Q-tips deep in ear. If ears are red, smelly, or pet is scratching, see vet - may have infection.",
+  "usage_guidelines": "Fill ear canal, massage base, let pet shake, wipe outer ear",
+  "storage": "Room temperature"
+}

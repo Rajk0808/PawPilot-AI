@@ -1,0 +1,31 @@
+{
+  "protocol_id": "cat_paw_injury_707",
+  "protocol_name": "Cat Paw Injury (General)",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "pet_injuries",
+  "injury_type": "paw_injury",
+  "species": "cat",
+  "body_location": null,
+  "severity": null,
+  "infection_risk": null,
+  "immediate_actions": [
+    "Examine gently for foreign objects",
+    "Clean with saline",
+    "Light bandage if bleeding",
+    "E-collar",
+    "Monitor for limping"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "If limping >24 hours, swelling, or won't bear weight",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Cat paw injury: Examine for thorns, glass. Clean with saline, light bandage. E-collar. See vet if limping persists >24hrs, swelling, or won't put weight on paw."
+}

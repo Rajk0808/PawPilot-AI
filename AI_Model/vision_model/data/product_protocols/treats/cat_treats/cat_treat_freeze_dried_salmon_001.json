@@ -1,0 +1,42 @@
+{
+  "protocol_id": "cat_treat_freeze_dried_salmon_001",
+  "protocol_name": "Freeze-Dried Salmon Cat Treat",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "treats",
+  "product_type": "cat_treat",
+  "target_species": [
+    "cat"
+  ],
+  "target_age": [
+    "all"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "salmon"
+    ],
+    "protein_source": "salmon",
+    "additives": [],
+    "fillers": [],
+    "quality_score": 10
+  },
+  "nutritional_score": 9.5,
+  "allergen_risks": [
+    "fish"
+  ],
+  "harmful_ingredients": [],
+  "price_value_rating": "excellent",
+  "better_alternatives": [],
+  "full_analysis_text": "Freeze-dried salmon is an excellent cat treat. Single ingredient, high protein, minimal processing. Cats love the taste and texture. Rich in omega-3 for coat health. Can be rehydrated for picky eaters.",
+  "feeding_guidelines": "3-5 pieces daily as treats",
+  "storage": "Reseal bag, store in cool dry place"
+}

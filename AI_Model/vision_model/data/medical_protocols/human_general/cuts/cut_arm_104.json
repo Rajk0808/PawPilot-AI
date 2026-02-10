@@ -1,0 +1,30 @@
+{
+  "protocol_id": "cut_arm_104",
+  "protocol_name": "Arm Cut/Laceration",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "human_general",
+  "injury_type": "cut",
+  "species": null,
+  "body_location": "arm",
+  "severity": null,
+  "infection_risk": null,
+  "immediate_actions": [
+    "Direct pressure if bleeding",
+    "Clean with soap/water",
+    "Apply antibiotic ointment",
+    "Bandage"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "If longer than 1/2 inch, deep, or won't stop bleeding",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Arm cut: Clean wound, apply pressure if bleeding, antibiotic ointment, bandage. Seek care if >1/2 inch long, deep, jagged edges, or heavy bleeding."
+}
