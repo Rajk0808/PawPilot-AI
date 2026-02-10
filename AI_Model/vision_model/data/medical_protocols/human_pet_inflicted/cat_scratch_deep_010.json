@@ -1,0 +1,36 @@
+{
+  "protocol_id": "cat_scratch_deep_010",
+  "protocol_name": "Deep Cat Scratch",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "human_pet_inflicted",
+  "injury_type": null,
+  "species": null,
+  "body_location": null,
+  "severity": "moderate_to_deep",
+  "infection_risk": {
+    "percentage": "40-50%",
+    "severity": "MODERATE"
+  },
+  "immediate_actions": [
+    "Wash 5-7 minutes soap/water",
+    "Rinse well",
+    "Antibiotic ointment",
+    "Bandage if bleeding"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "As needed",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Deep cat scratch: Wash 5-7 minutes, apply antibiotic ointment. Monitor 14 days for Cat Scratch Disease: swollen lymph nodes, fever, fatigue. Seek care if symptoms.",
+  "medications": {
+    "antibiotics": "Only if CSD symptoms appear"
+  }
+}

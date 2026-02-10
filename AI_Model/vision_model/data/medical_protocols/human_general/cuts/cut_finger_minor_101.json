@@ -1,0 +1,30 @@
+{
+  "protocol_id": "cut_finger_minor_101",
+  "protocol_name": "Minor Finger Cut",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "human_general",
+  "injury_type": "cut",
+  "species": null,
+  "body_location": "finger",
+  "severity": "minor",
+  "infection_risk": null,
+  "immediate_actions": [
+    "Stop bleeding (5 mins)",
+    "Wash with soap",
+    "Antibiotic ointment",
+    "Bandage"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "If deep, won't stop bleeding, or needs stitches",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Minor finger cut: Apply pressure 5 minutes. Wash with soap and water, apply antibiotic ointment, bandage. Change daily. Seek care if deep, gaping, or bleeding won't stop."
+}

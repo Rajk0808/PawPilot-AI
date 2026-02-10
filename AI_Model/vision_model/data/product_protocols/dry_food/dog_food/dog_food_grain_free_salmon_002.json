@@ -1,0 +1,56 @@
+{
+  "protocol_id": "dog_food_grain_free_salmon_002",
+  "protocol_name": "Grain-Free Salmon Dog Food",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "dry_food",
+  "product_type": "dog_food",
+  "target_species": [
+    "dog"
+  ],
+  "target_age": [
+    "adult"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "salmon",
+      "salmon meal",
+      "peas",
+      "lentils",
+      "canola oil"
+    ],
+    "protein_source": "salmon, salmon meal",
+    "protein_percentage": "28%",
+    "fat_percentage": "16%",
+    "fiber_percentage": "5%",
+    "additives": [
+      "omega fatty acids",
+      "vitamins",
+      "minerals"
+    ],
+    "fillers": [],
+    "quality_score": 7
+  },
+  "nutritional_score": 7.5,
+  "allergen_risks": [
+    "fish",
+    "legumes"
+  ],
+  "harmful_ingredients": [],
+  "price_value_rating": "moderate",
+  "better_alternatives": [
+    "foods with taurine supplementation"
+  ],
+  "full_analysis_text": "NOTE: FDA investigating grain-free diets linked to DCM (heart disease) in dogs. Legume-heavy formulas may affect taurine absorption. Consult vet before grain-free. Good for confirmed grain allergies only.",
+  "feeding_guidelines": "Per package guidelines based on weight",
+  "storage": "Airtight container, cool dry place"
+}

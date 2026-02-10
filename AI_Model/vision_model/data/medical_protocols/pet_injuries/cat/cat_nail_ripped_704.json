@@ -1,0 +1,30 @@
+{
+  "protocol_id": "cat_nail_ripped_704",
+  "protocol_name": "Cat Nail Ripped Out/Torn Deeply",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "pet_injuries",
+  "injury_type": "torn_nail",
+  "species": "cat",
+  "body_location": null,
+  "severity": "moderate",
+  "infection_risk": null,
+  "immediate_actions": [
+    "Control bleeding with styptic powder",
+    "Clean bandage",
+    "E-collar",
+    "Pain management needed"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "PROMPT - within 24 hours",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Cat nail ripped out: Control bleeding with styptic powder, bandage. E-collar. See vet within 24hrs for pain medication and antibiotics. Very painful for cats."
+}

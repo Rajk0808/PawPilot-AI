@@ -1,0 +1,31 @@
+{
+  "protocol_id": "burn_hot_liquid_204",
+  "protocol_name": "Hot Liquid Scald",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "human_general",
+  "injury_type": "burn",
+  "species": null,
+  "body_location": null,
+  "severity": null,
+  "infection_risk": null,
+  "immediate_actions": [
+    "Remove wet clothing carefully",
+    "Cool area 15-20 mins",
+    "Cover with clean cloth",
+    "Assess size/depth"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "If blisters, large area, or child victim",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Hot liquid scald (coffee, water, oil): Remove wet clothing gently. Cool 15-20 mins. Cover loosely. Seek care if blisters form, affects large area, or child under 5.",
+  "injury_cause": "hot_liquid"
+}

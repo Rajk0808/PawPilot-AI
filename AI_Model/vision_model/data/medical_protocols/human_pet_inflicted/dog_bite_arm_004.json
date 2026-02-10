@@ -1,0 +1,40 @@
+{
+  "protocol_id": "dog_bite_arm_004",
+  "protocol_name": "Dog Bite on Arm",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "human_pet_inflicted",
+  "injury_type": null,
+  "species": null,
+  "body_location": null,
+  "severity": null,
+  "infection_risk": {
+    "percentage": "15-20%",
+    "severity": "MODERATE"
+  },
+  "immediate_actions": [
+    "Stop bleeding (10-15 mins pressure)",
+    "Wash 15 minutes soap/water",
+    "Rinse well",
+    "Apply antibiotic ointment",
+    "Bandage"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "As needed",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Dog bite on arm: 15-20% infection risk. Stop bleeding, wash 15 minutes, bandage. Seek care within 8-12 hours if deep, gaping, or from unknown dog. Rabies assessment critical.",
+  "medications": {
+    "antibiotics": "May be prescribed for deep bites"
+  },
+  "rabies_assessment": {
+    "required": true
+  }
+}

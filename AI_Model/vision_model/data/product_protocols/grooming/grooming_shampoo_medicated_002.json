@@ -1,0 +1,49 @@
+{
+  "protocol_id": "grooming_shampoo_medicated_002",
+  "protocol_name": "Medicated Antifungal Dog Shampoo",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "grooming",
+  "product_type": "shampoo",
+  "target_species": [
+    "dog"
+  ],
+  "target_age": [
+    "all"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "ketoconazole",
+      "chlorhexidine",
+      "aloe vera"
+    ],
+    "beneficial_ingredients": [
+      "antifungal agents",
+      "antibacterial agents"
+    ],
+    "additives": [
+      "fragrance"
+    ],
+    "harsh_chemicals": [],
+    "quality_score": 8
+  },
+  "nutritional_score": null,
+  "allergen_risks": [],
+  "harmful_ingredients": [],
+  "price_value_rating": "moderate",
+  "better_alternatives": [
+    "vet-prescribed shampoos for severe infections"
+  ],
+  "full_analysis_text": "Medicated shampoos treat yeast, ringworm, and bacterial skin infections. Contact time matters - leave on 10 minutes. May dry skin with overuse. Use as directed, not for routine bathing. See vet if no improvement in 2 weeks.",
+  "usage_guidelines": "Apply to wet coat, leave 10 minutes, rinse. Use 2-3x weekly as directed.",
+  "storage": "Room temperature"
+}

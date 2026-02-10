@@ -1,0 +1,39 @@
+{
+  "protocol_id": "cat_bite_arm_007",
+  "protocol_name": "Cat Bite on Arm",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "human_pet_inflicted",
+  "injury_type": null,
+  "species": null,
+  "body_location": null,
+  "severity": null,
+  "infection_risk": {
+    "percentage": "50-70%",
+    "severity": "HIGH"
+  },
+  "immediate_actions": [
+    "Wash 10 minutes soap/water",
+    "Rinse thoroughly",
+    "Apply betadine",
+    "Loose bandage"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "As needed",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Cat bite on arm: 50-70% infection risk. Wash 10 minutes, apply betadine. Seek care within 8 hours for prophylactic antibiotics. Monitor closely for infection signs.",
+  "medications": {
+    "antibiotics": "Almost always prescribed - Augmentin"
+  },
+  "rabies_assessment": {
+    "required": true
+  }
+}

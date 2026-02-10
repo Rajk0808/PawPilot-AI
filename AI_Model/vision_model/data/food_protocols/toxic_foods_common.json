@@ -1,0 +1,110 @@
+[
+    {
+        "id": "toxic_006",
+        "name": "Avocado",
+        "category": "toxic_food",
+        "toxicity_level": "low_moderate",
+        "affected_species": [
+            "dog",
+            "cat",
+            "bird"
+        ],
+        "toxic_compound": "persin",
+        "symptoms": [
+            "vomiting",
+            "diarrhea",
+            "myocardial damage (birds)",
+            "choking hazard (pit)"
+        ],
+        "safe_amount": "0g - mildly toxic, pit is choking/obstruction hazard",
+        "description": "Avocado contains persin which is mildly toxic to dogs and cats, causing vomiting and diarrhea. Much more dangerous to birds. The pit poses serious choking hazard or can cause intestinal obstruction."
+    },
+    {
+        "id": "toxic_007",
+        "name": "Alcohol",
+        "category": "toxic_food",
+        "toxicity_level": "high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "toxic_compound": "ethanol",
+        "symptoms": [
+            "vomiting",
+            "diarrhea",
+            "decreased coordination",
+            "CNS depression",
+            "difficulty breathing",
+            "tremors",
+            "coma",
+            "death"
+        ],
+        "safe_amount": "0g - extremely dangerous",
+        "description": "Alcoholic beverages and foods containing alcohol cause vomiting, coordination loss, CNS depression, breathing difficulties, and can lead to coma and death. Never give alcohol to pets."
+    },
+    {
+        "id": "toxic_008",
+        "name": "Raw Yeast Dough",
+        "category": "toxic_food",
+        "toxicity_level": "high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "toxic_compound": "yeast fermentation produces ethanol + CO2",
+        "symptoms": [
+            "bloat",
+            "abdominal distention",
+            "vomiting",
+            "disorientation",
+            "alcohol toxicity",
+            "GDV risk"
+        ],
+        "safe_amount": "0g",
+        "description": "Raw dough rises in warm stomach causing dangerous bloating and potential life-threatening gastric dilation-volvulus (GDV). Yeast fermentation also produces alcohol causing additional toxicity."
+    },
+    {
+        "id": "toxic_009",
+        "name": "Coffee and Caffeine",
+        "category": "toxic_food",
+        "toxicity_level": "high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "toxic_compound": "caffeine (methylxanthine)",
+        "symptoms": [
+            "hyperactivity",
+            "restlessness",
+            "vomiting",
+            "rapid breathing",
+            "tremors",
+            "seizures",
+            "cardiac arrhythmias"
+        ],
+        "safe_amount": "0g",
+        "description": "Caffeine in coffee, tea, energy drinks, and pills causes same methylxanthine toxicity as chocolate. Even moderate amounts dangerous. Sources include coffee grounds, tea bags, coffee beans."
+    },
+    {
+        "id": "toxic_010",
+        "name": "Salt (Excess Sodium)",
+        "category": "toxic_food",
+        "toxicity_level": "moderate",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "toxic_compound": "sodium chloride",
+        "symptoms": [
+            "excessive thirst",
+            "excessive urination",
+            "vomiting",
+            "diarrhea",
+            "tremors",
+            "seizures",
+            "sodium ion poisoning"
+        ],
+        "safe_amount": "Small amounts okay, but NO salty snacks or foods",
+        "description": "Excess salt from salty snacks, chips, pretzels, or salt itself causes sodium ion poisoning. Symptoms include excessive thirst/urination, vomiting, tremors, seizures. Especially dangerous for dogs with heart conditions."
+    }
+]

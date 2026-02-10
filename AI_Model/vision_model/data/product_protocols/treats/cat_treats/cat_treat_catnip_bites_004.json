@@ -1,0 +1,59 @@
+{
+  "protocol_id": "cat_treat_catnip_bites_004",
+  "protocol_name": "Catnip Crunchy Bites",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "treats",
+  "product_type": "cat_treat",
+  "target_species": [
+    "cat"
+  ],
+  "target_age": [
+    "adult"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "chicken meal",
+      "wheat",
+      "catnip",
+      "animal fat"
+    ],
+    "protein_source": "chicken meal",
+    "additives": [
+      "artificial flavors",
+      "colors"
+    ],
+    "fillers": [
+      "wheat",
+      "corn"
+    ],
+    "quality_score": 4
+  },
+  "nutritional_score": 4.5,
+  "allergen_risks": [
+    "poultry",
+    "wheat",
+    "corn"
+  ],
+  "harmful_ingredients": [
+    "artificial colors"
+  ],
+  "price_value_rating": "poor",
+  "better_alternatives": [
+    "pure dried catnip",
+    "silver vine",
+    "single-ingredient treats"
+  ],
+  "full_analysis_text": "Catnip treats often contain unnecessary fillers and artificial additives. Pure catnip or silver vine is healthier. Not all cats respond to catnip (genetic). Avoid artificial colors - no benefit, potential harm.",
+  "feeding_guidelines": "5-10 pieces occasionally",
+  "storage": "Store in airtight container"
+}

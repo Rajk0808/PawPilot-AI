@@ -1,0 +1,49 @@
+{
+  "protocol_id": "litter_natural_walnut_003",
+  "protocol_name": "Natural Walnut Shell Cat Litter",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "litter",
+  "product_type": "cat_litter",
+  "target_species": [
+    "cat"
+  ],
+  "target_age": [
+    "all"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "crushed walnut shells"
+    ],
+    "beneficial_properties": [
+      "biodegradable",
+      "low dust",
+      "natural odor control"
+    ],
+    "additives": [],
+    "concerns": [
+      "nut allergies rare",
+      "darker color hides urine"
+    ],
+    "quality_score": 8
+  },
+  "nutritional_score": null,
+  "allergen_risks": [
+    "tree nut (rare concern)"
+  ],
+  "harmful_ingredients": [],
+  "price_value_rating": "good",
+  "better_alternatives": [],
+  "full_analysis_text": "Walnut litter is eco-friendly alternative to clay. Good clumping, natural odor control. Dark color can make monitoring urine output difficult. Safe for kittens. Some are flushable - check package. Septic-safe.",
+  "feeding_guidelines": "",
+  "storage": "Cool, dry place"
+}

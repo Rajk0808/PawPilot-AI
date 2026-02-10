@@ -1,0 +1,31 @@
+{
+  "protocol_id": "cut_kitchen_knife_106",
+  "protocol_name": "Kitchen Knife Cut",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "human_general",
+  "injury_type": "cut",
+  "species": null,
+  "body_location": null,
+  "severity": null,
+  "infection_risk": null,
+  "immediate_actions": [
+    "Immediate pressure with clean cloth",
+    "Wash when bleeding stops",
+    "Assess depth",
+    "Antibiotic ointment if minor"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "If deep, can see fat/muscle, or on hand over tendons",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Kitchen knife cut: Apply immediate pressure with clean cloth 5-10 mins. Assess depth - if can see yellow fat or red muscle, seek care. Otherwise wash, antibiotic ointment, bandage.",
+  "injury_cause": "knife"
+}

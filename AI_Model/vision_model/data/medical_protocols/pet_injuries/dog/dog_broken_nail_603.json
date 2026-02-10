@@ -1,0 +1,31 @@
+{
+  "protocol_id": "dog_broken_nail_603",
+  "protocol_name": "Dog Broken Nail",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "pet_injuries",
+  "injury_type": "broken_nail",
+  "species": "dog",
+  "body_location": null,
+  "severity": null,
+  "infection_risk": null,
+  "immediate_actions": [
+    "Stop bleeding with styptic powder or cornstarch",
+    "Clean gently",
+    "Bandage paw",
+    "E-collar",
+    "Monitor for licking"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "If torn at quick, bleeding heavily, or dog in severe pain",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Dog broken nail: Stop bleeding with styptic powder/cornstarch. Clean gently, bandage. E-collar to prevent licking. See vet if torn deeply at quick, heavy bleeding, or extreme pain."
+}

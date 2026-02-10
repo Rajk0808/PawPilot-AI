@@ -1,0 +1,51 @@
+{
+  "protocol_id": "litter_crystal_silica_002",
+  "protocol_name": "Crystal Silica Gel Cat Litter",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "litter",
+  "product_type": "cat_litter",
+  "target_species": [
+    "cat"
+  ],
+  "target_age": [
+    "adult"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "silica gel crystals"
+    ],
+    "beneficial_properties": [
+      "absorbs moisture",
+      "low dust",
+      "long-lasting"
+    ],
+    "additives": [
+      "color indicators for saturation"
+    ],
+    "concerns": [
+      "tracking",
+      "texture some cats dislike"
+    ],
+    "quality_score": 7
+  },
+  "nutritional_score": null,
+  "allergen_risks": [],
+  "harmful_ingredients": [],
+  "price_value_rating": "moderate",
+  "better_alternatives": [
+    "smaller crystal formulas for sensitive paws"
+  ],
+  "full_analysis_text": "Crystal litter is low-dust and absorbs urine well but doesn't clump solids. Some cats dislike the texture. Non-toxic but should not be ingested. Longer-lasting than clay - may be cost-effective. Best for single-cat homes.",
+  "feeding_guidelines": "",
+  "storage": "Keep sealed until use"
+}

@@ -1,0 +1,30 @@
+{
+  "protocol_id": "dog_paw_cut_glass_602",
+  "protocol_name": "Dog Paw Cut from Glass",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "pet_injuries",
+  "injury_type": "cut",
+  "species": "dog",
+  "body_location": "paw",
+  "severity": null,
+  "infection_risk": null,
+  "immediate_actions": [
+    "Check for embedded glass",
+    "If glass visible, DON'T remove - see vet",
+    "If no glass: rinse, pressure, bandage"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "URGENT if glass embedded",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Dog stepped on glass: Check carefully for embedded glass. If visible, DO NOT remove - see vet urgently. If no glass, rinse, pressure, bandage. E-collar essential.",
+  "injury_cause": "glass"
+}

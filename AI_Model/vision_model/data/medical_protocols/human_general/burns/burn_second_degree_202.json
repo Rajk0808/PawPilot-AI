@@ -1,0 +1,31 @@
+{
+  "protocol_id": "burn_second_degree_202",
+  "protocol_name": "Second Degree Burn (Blistering)",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "human_general",
+  "injury_type": "burn",
+  "species": null,
+  "body_location": null,
+  "severity": null,
+  "infection_risk": null,
+  "immediate_actions": [
+    "Cool 15-20 mins",
+    "DO NOT pop blisters",
+    "Loose sterile bandage",
+    "OTC pain relief"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "If >2-3 inches, on face/hands/feet, or blisters very large",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Second degree burn (blisters): Cool 15-20 mins with running water. DO NOT pop blisters. Cover loosely with sterile gauze. Seek care if large area or critical location. Takes 2-3 weeks to heal.",
+  "burn_degree": "second"
+}

@@ -1,0 +1,39 @@
+{
+  "protocol_id": "dog_bite_face_006",
+  "protocol_name": "Dog Bite on Face - EMERGENCY",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "human_pet_inflicted",
+  "injury_type": null,
+  "species": null,
+  "body_location": null,
+  "severity": null,
+  "infection_risk": {
+    "percentage": "15-20%",
+    "severity": "CRITICAL"
+  },
+  "immediate_actions": [
+    "Control bleeding gently",
+    "Rinse with clean water",
+    "Cover with clean cloth",
+    "DO NOT apply pressure to eyes"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "As needed",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Dog bite on face is EMERGENCY. Go to ER immediately. High risk of scarring, nerve damage, infection. Requires specialized closure for cosmetic results. Rabies PEP often given.",
+  "medications": {
+    "antibiotics": "Always prescribed"
+  },
+  "rabies_assessment": {
+    "required": true
+  }
+}

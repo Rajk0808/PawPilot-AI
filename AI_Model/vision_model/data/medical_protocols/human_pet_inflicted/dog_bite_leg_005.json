@@ -1,0 +1,40 @@
+{
+  "protocol_id": "dog_bite_leg_005",
+  "protocol_name": "Dog Bite on Leg",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "human_pet_inflicted",
+  "injury_type": null,
+  "species": null,
+  "body_location": null,
+  "severity": null,
+  "infection_risk": {
+    "percentage": "10-15%",
+    "severity": "MODERATE"
+  },
+  "immediate_actions": [
+    "Stop bleeding",
+    "Wash 15 minutes",
+    "Apply antiseptic",
+    "Elevate leg",
+    "Bandage"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "As needed",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Dog bite on leg: Wash 15 minutes, elevate, bandage. Seek medical care within 24 hours. Lower infection risk but still requires rabies assessment. Watch for redness, swelling, fever.",
+  "medications": {
+    "antibiotics": "Depends on depth and contamination"
+  },
+  "rabies_assessment": {
+    "required": true
+  }
+}

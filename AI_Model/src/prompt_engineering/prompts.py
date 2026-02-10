@@ -2,7 +2,12 @@ from typing import Dict, Optional, List
 import json
 from pathlib import Path
 import logging
-
+from .food_model_prompts import (
+    get_response_prompt as get_food_response_prompt,
+    route_food_query,
+    FoodQueryRouter
+)
+from .Injury_model_prompt import get_prompt_for_context, get_generation_prompt_for_context, detect_injury_context_from_text  
 logger = logging.getLogger(__name__)
 
 class PawPilotPromptBuilder:
@@ -574,6 +579,46 @@ OUTPUT FORMAT:
         return prompt
     
     # ==========================================
+    # INJURY ASSISTANCE PROMPT
+    # ==========================================
+    def build_injury_assistance_prompt(self, user_query:str, rag_context: str="" ) -> str:
+        """
+        Build prompt for Injury analysis
+        
+        Args:
+            injury_type: Type of the injure- cut, bite, scratch, etc
+            injured_type : human, dog, cat
+            severity_type: normal, moderate, high
+            user_query: User's question about the condition
+            rag_context: Retrieved medical information from RAG
+            pet_profile: Optional pet info for personalized assessment
+        """
+        injury_context = detect_injury_context_from_text(user_query) #get the context about the injury that what is the injury actually
+        specific_prompt = get_generation_prompt_for_context(injury_context) #generate the prompt for the particular injury
+
+        final_prompt = specific_prompt + rag_context + user_query # make the final prompt combining all the text 
+        return final_prompt
+    
+    # ==========================================
+    # FOOD ANALYSIS MODEL PROMPT
+    # ==========================================
+    def build_food_analysis_model_prompt(self, user_query:str, rag_context:str="") -> str:
+        """
+        Build prompt for Food Safety analysis
+        
+        Args:
+            user_query: User's question about food safety
+            rag_context: Retrieved food safety information from RAG
+    
+        Returns:
+        Formatted prompt string for food safety response generation
+        """
+        route_info =route_food_query(user_query) #get the intent of the query 
+        specific_prompt = get_food_response_prompt(route_info['intent']) #get the specific prompt according to the intent
+        final_prompt = str(specific_prompt) + "\n\n" + rag_context + "\n\n" + user_query #build the final prompt
+        return final_prompt #return the full text
+
+    # ==========================================
     # VISION - UNIFIED PROMPT BUILDER
     # ==========================================
     
@@ -606,11 +651,19 @@ OUTPUT FORMAT:
             return self.build_diseases_classifier_prompt(
                 predicted_class, confidence_score, user_query, rag_context, pet_profile
             )
+        elif model_type == 'injury_assistance':
+            return self.build_injury_assistance_prompt(
+                user_query, rag_context
+            )
+        elif model_type == 'pet_food_image_analysis':
+            return self.build_food_analysis_model_prompt(user_query, rag_context
+            )
         else:
             return self.build_vision_default_prompt(
                 predicted_class, confidence_score, user_query, rag_context
             )
-    
+
+
     # ==========================================
     # RAG-AWARE PROMPT BUILDER
     # ==========================================
@@ -679,6 +732,15 @@ OUTPUT FORMAT:
                 user_query.get("query", ""),
                 rag_retrieved_data,
                 pet_profile
+            )
+        elif module == 'injury_assistance':
+            return self.build_injury_assistance_prompt(
+                user_query,
+                rag_retrieved_data
+            )
+        elif module=='pet_food_image_analysis':
+            return self.build_food_analysis_model_prompt(
+                user_query, rag_retrieved_data
             )
         else:
             raise ValueError(f"Unknown module: {module}")

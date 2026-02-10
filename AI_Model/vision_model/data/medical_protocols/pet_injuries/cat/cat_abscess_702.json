@@ -1,0 +1,37 @@
+{
+  "protocol_id": "cat_abscess_702",
+  "protocol_name": "Cat Abscess (From Bite/Scratch)",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "pet_injuries",
+  "injury_type": "abscess",
+  "species": "cat",
+  "body_location": null,
+  "severity": null,
+  "infection_risk": null,
+  "immediate_actions": [
+    "Do NOT squeeze",
+    "Keep cat calm",
+    "Prevent licking",
+    "See vet same day"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "URGENT - same day",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Cat abscess (swollen, warm, painful area): Common from cat fights. DO NOT squeeze. See vet same day for drainage, antibiotics. Left untreated can cause serious infection.",
+  "warning_signs": [
+    "Swelling",
+    "Warmth",
+    "Pain when touched",
+    "Sometimes pus drainage",
+    "Lethargy"
+  ]
+}

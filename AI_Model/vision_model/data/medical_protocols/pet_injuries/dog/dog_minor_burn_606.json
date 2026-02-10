@@ -1,0 +1,30 @@
+{
+  "protocol_id": "dog_minor_burn_606",
+  "protocol_name": "Dog Minor Burn",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "pet_injuries",
+  "injury_type": "burn",
+  "species": "dog",
+  "body_location": null,
+  "severity": "minor",
+  "infection_risk": null,
+  "immediate_actions": [
+    "Cool with water 10 mins",
+    "Do NOT use ice",
+    "Pet-safe burn gel if available",
+    "Monitor for blistering"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "If blisters, large area, or near eyes/mouth",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Dog minor burn: Cool with water (not ice) 10 mins. Pet-safe burn gel. Monitor for blistering. See vet if blisters form, large area (>palm size), or near face."
+}

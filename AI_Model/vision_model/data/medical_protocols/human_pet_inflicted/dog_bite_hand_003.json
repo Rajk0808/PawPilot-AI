@@ -1,0 +1,36 @@
+{
+  "protocol_id": "dog_bite_hand_003",
+  "protocol_name": "Dog Bite on Hand",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "human_pet_inflicted",
+  "injury_type": null,
+  "species": null,
+  "body_location": null,
+  "severity": null,
+  "infection_risk": {
+    "percentage": "20-30%",
+    "severity": "HIGH"
+  },
+  "immediate_actions": [
+    "Stop bleeding with pressure (10 mins)",
+    "Wash 15-20 minutes with soap",
+    "Apply antiseptic",
+    "Cover sterile, elevate hand"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "As needed",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Dog bites to hand require urgent care within 4-8 hours due to 20-30% infection risk and risk of tendon damage. Wash 15-20 minutes, apply antiseptic, elevate. Antibiotics usually given. Assess rabies risk.",
+  "rabies_assessment": {
+    "required": true
+  }
+}

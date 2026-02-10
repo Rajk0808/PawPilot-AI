@@ -1,0 +1,176 @@
+[
+    {
+        "id": "safe_nutrition_001",
+        "name": "Apples (Seedless)",
+        "category": "safe_food",
+        "nutritional_value": "medium",
+        "affected speciesies": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "fiber",
+            "vitamins A C",
+            "teeth cleaning",
+            "breath freshening",
+            "low fat"
+        ],
+        "usda_nutrition_per_100g": {
+            "calories": 52,
+            "protein": "0.3g",
+            "fat": "0.2g",
+            "carbs": "14g",
+            "fiber": "2.4g",
+            "vitamin_c": "4.6mg",
+            "vitamin_a": "3mcg"
+        },
+        "serving_suggestions": "Remove ALL seeds and core (contain cyanide). Slice thin. Fresh only.",
+        "portion_guide": {
+            "small_dog_cat": "1-2 thin slices (5-10g)",
+            "medium_dog": "2-3 slices (15-20g)",
+            "large_dog": "Few slices (30g max)"
+        },
+        "calories_per_serving": "Small: ~3-5 cal, Medium: 8-10 cal, Large: 15-16 cal",
+        "description": "Apples provide fiber, vitamins A and C, and help clean teeth. Low in fat and calories makes them good for weight management. Crunchy texture helps freshen breath. CRITICAL: Must remove all seeds and core - apple seeds contain cyanide. Only fresh apple flesh is safe. Per USDA data: 52 calories per 100g, good source of dietary fiber."
+    },
+    {
+        "id": "safe_nutrition_002",
+        "name": "Blueberries",
+        "category": "safe_food",
+        "nutritional_value": "high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "antioxidants",
+            "fiber",
+            "vitamins C K",
+            "low calorie",
+            "anti-inflammatory",
+            "immune support"
+        ],
+        "usda_nutrition_per_100g": {
+            "calories": 57,
+            "protein": "0.7g",
+            "fat": "0.3g",
+            "carbs": "14.5g",
+            "fiber": "2.4g",
+            "vitamin_c": "9.7mg",
+            "vitamin_k": "19.3mcg"
+        },
+        "serving_suggestions": "Fresh or frozen. Perfect training treat size.",
+        "portion_guide": {
+            "small_dog_cat": "2-3 blueberries (~5g)",
+            "medium_dog": "5-8 blueberries (10-15g)",
+            "large_dog": "10-15 blueberries (20-25g)"
+        },
+        "calories_per_serving": "Small: ~3 cal, Medium: 6-8 cal, Large: 11-14 cal",
+        "description": "Blueberries are superfood packed with antioxidants that support immune system and reduce inflammation. High fiber, vitamins C and K. Extremely low calorie makes them perfect training treats. Fresh or frozen both safe. Per USDA: 57 calories per 100g, 2-3 blueberries = approx 2 calories for cats."
+    },
+    {
+        "id": "safe_nutrition_003",
+        "name": "Carrots (Raw or Cooked)",
+        "category": "safe_food",
+        "nutritional_value": "high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "beta-carotene (vitamin A)",
+            "fiber",
+            "teeth cleaning",
+            "low calorie",
+            "eye health"
+        ],
+        "usda_nutrition_per_100g": {
+            "calories": 41,
+            "protein": "0.9g",
+            "fat": "0.2g",
+            "carbs": "10g",
+            "fiber": "2.8g",
+            "vitamin_a": "835mcg",
+            "vitamin_k": "13.2mcg"
+        },
+        "serving_suggestions": "Raw (crunchy) or cooked (softer). Cut into bite-size pieces to prevent choking.",
+        "portion_guide": {
+            "small_dog": "1-2 baby carrots or slices (20-30g)",
+            "medium_dog": "2-3 baby carrots (40-50g)",
+            "large_dog": "3-5 baby carrots (70g)",
+            "cats": "Small thin slices (10g)"
+        },
+        "calories_per_serving": "1 large raw carrot (72g) = 30 cal, 1 baby carrot = ~4 cal",
+        "description": "Carrots excellent source of beta-carotene which converts to vitamin A for eye health. High fiber aids digestion. Low calorie (41 cal/100g) perfect for weight management. Crunchy texture helps clean teeth. Can be raw or cooked. Safe for dogs and cats."
+    },
+    {
+        "id": "safe_nutrition_004",
+        "name": "Green Beans (Fresh/Frozen/Canned No-Salt)",
+        "category": "safe_food",
+        "nutritional_value": "medium",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "low calorie",
+            "high fiber",
+            "vitamins K C",
+            "weight management",
+            "protein"
+        ],
+        "usda_nutrition_per_100g": {
+            "calories": 31,
+            "protein": "1.8g",
+            "fat": "0.2g",
+            "carbs": "7g",
+            "fiber": "2.7g",
+            "vitamin_c": "12.2mg",
+            "vitamin_k": "43mcg"
+        },
+        "serving_suggestions": "Fresh, frozen (no sauce), or canned (no salt added). Can be raw, steamed, or boiled.",
+        "portion_guide": {
+            "small_dog": "Few beans (15-20g)",
+            "medium_dog": "Handful (30-50g)",
+            "large_dog": "Up to 10% of meal (70-100g)"
+        },
+        "calories_per_serving": "Cooked 135g serving = 38 cal. Very low calorie!",
+        "description": "Green beans are low-calorie, high-fiber vegetable perfect for weight management. Contains protein, vitamins C and K. Only 31 calories per 100g. Can replace up to 10% of dog's food for weight loss. Fresh, frozen (plain), or canned (no salt) all safe. Many dogs love them as crunchy treat."
+    },
+    {
+        "id": "safe_nutrition_005",
+        "name": "Bananas",
+        "category": "safe_food",
+        "nutritional_value": "medium",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "potassium",
+            "vitamins B6 C",
+            "fiber",
+            "natural sweetness",
+            "pre-workout energy"
+        ],
+        "usda_nutrition_per_100g": {
+            "calories": 89,
+            "protein": "1.1g",
+            "fat": "0.3g",
+            "carbs": "23g",
+            "fiber": "2.6g",
+            "potassium": "358mg",
+            "vitamin_b6": "0.4mg",
+            "vitamin_c": "8.7mg"
+        },
+        "serving_suggestions": "Small slices, mashed, or frozen. Remove peel.",
+        "portion_guide": {
+            "small_dog_cat": "1-2 thin slices (10-15g)",
+            "medium_dog": "Few slices (30g)",
+            "large_dog": "Half banana (60g max)"
+        },
+        "calories_per_serving": "1 cup sliced (150g) = 134 cal. Higher cal so moderate!",
+        "caution": "Higher in sugar/calories than other fruits - give in moderation",
+        "description": "Bananas provide potassium, B6, vitamin C, and fiber. Natural sweetness makes them appealing. Good pre-exercise energy. However, higher in sugar and calories (89 cal/100g) so give in moderation. Can freeze for summer treat. Remove peel. Occasional treat only due to sugar content."
+    }
+]

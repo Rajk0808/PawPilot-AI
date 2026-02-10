@@ -1,0 +1,30 @@
+{
+  "protocol_id": "cat_broken_nail_703",
+  "protocol_name": "Cat Broken Nail",
+  "source": [
+    "Mayo Clinic",
+    "CDC",
+    "Red Cross",
+    "ASPCA",
+    "AVMA"
+  ],
+  "last_updated": "2024-01-27",
+  "version": "1.0",
+  "category": "pet_injuries",
+  "injury_type": "broken_nail",
+  "species": "cat",
+  "body_location": null,
+  "severity": null,
+  "infection_risk": null,
+  "immediate_actions": [
+    "Styptic powder for bleeding",
+    "Clean gently",
+    "Light bandage if bleeding significantly",
+    "Monitor for licking"
+  ],
+  "seek_medical_attention": {
+    "timeframe": "If torn deeply, cat is limping, or excessive pain",
+    "urgency": "Varies"
+  },
+  "full_protocol_text": "Cat broken nail: Apply styptic powder if bleeding. Clean gently. Cats usually tolerate well. See vet if torn deeply at quick, limping, or very painful. May need nail removal."
+}

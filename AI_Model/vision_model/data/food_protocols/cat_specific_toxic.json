@@ -1,0 +1,131 @@
+[
+    {
+        "id": "cat_toxic_001",
+        "name": "Lilies (All Species)",
+        "category": "toxic_food",
+        "toxicity_level": "extreme",
+        "affected_species": [
+            "cat"
+        ],
+        "toxic_compound": "unknown nephrotoxic compound",
+        "symptoms": [
+            "vomiting (within hours)",
+            "lethargy",
+            "loss of appetite",
+            "increased urination then decreased",
+            "dehydration",
+            "acute kidney failure (24-72 hours)",
+            "death"
+        ],
+        "safe_amount": "0g - ENTIRE plant deadly, including water from vase",
+        "onset_time": "Symptoms within hours, kidney failure 24-72 hours",
+        "toxic_lily_types": [
+            "Asiatic lily",
+            "Daylily (Hemerocallis)",
+            "Easter lily",
+            "Japanese Show lily",
+            "Oriental lily",
+            "Rubrum lily",
+            "Stargazer lily",
+            "Tiger lily"
+        ],
+        "immediate_action": "EXTREME EMERGENCY - contact vet IMMEDIATELY even if no symptoms. Any exposure to lily (ingestion, pollen on fur) requires emergency vet care within hours. Early decontamination is critical. Without treatment, kidney failure is fatal.",
+        "description": "Lilies are EXTREMELY toxic to cats - the entire plant (stem, leaves, flowers, pollen, even vase water) can cause fatal acute kidney failure. True lilies (Lilium) and Daylilies (Hemerocallis) are most dangerous. Even small exposures like licking pollen off fur can be fatal. Symptoms begin within hours but kidney failure develops over 24-72 hours and is often fatal without immediate aggressive treatment. This is the deadliest common household plant for cats. NEVER have lilies in cat households."
+    },
+    {
+        "id": "cat_toxic_002",
+        "name": "Essential Oils",
+        "category": "toxic_food",
+        "toxicity_level": "high",
+        "affected_species": [
+            "cat"
+        ],
+        "toxic_compound": "phenols and terpenes",
+        "symptoms": [
+            "drooling",
+            "vomiting",
+            "tremors",
+            "ataxia (wobbling)",
+            "respiratory distress",
+            "low heart rate",
+            "low body temperature",
+            "liver damage"
+        ],
+        "safe_amount": "0g - cats cannot metabolize essential oils",
+        "onset_time": "Hours to days depending on exposure",
+        "most_toxic_oils": [
+            "Tea tree (Melaleuca)",
+            "Peppermint",
+            "Eucalyptus",
+            "Pennyroyal",
+            "Pine",
+            "Wintergreen",
+            "Clove",
+            "Cinnamon",
+            "Ylang ylang",
+            "Citrus oils",
+            "Lavender"
+        ],
+        "immediate_action": "Contact vet immediately. Wash oil off fur if topical exposure (cats will lick and ingest). Monitor breathing and coordination. Liver damage possible with concentrated exposure.",
+        "description": "Essential oils are highly toxic to cats because their livers lack enzymes to properly metabolize phenols and terpenes found in these oils. Cats are more sensitive than dogs. Exposure can be topical, ingestion, or inhalation (from diffusers). Cats groom themselves and will ingest oils on fur. Even diffused oils can cause problems. Concentrated oils cause more severe toxicity including liver damage. Never use essential oils on cats or in diffusers in cat households without vet approval.  "
+    },
+    {
+        "id": "cat_toxic_003",
+        "name": "Milk and Dairy Products",
+        "category": "toxic_food",
+        "toxicity_level": "low_moderate",
+        "affected_species": [
+            "cat",
+            "dog"
+        ],
+        "toxic_compound": "lactose (lactose intolerance)",
+        "symptoms": [
+            "diarrhea",
+            "upset stomach",
+            "gas",
+            "bloating"
+        ],
+        "safe_amount": "Small amounts tolerable for some, but avoid",
+        "description": "Most adult cats and many dogs are lactose intolerant - they lack sufficient lactase enzyme to digest lactose in milk. This causes digestive upset, diarrhea, and gas. Despite popular belief, milk is not good for cats. Small amounts of plain yogurt may be better tolerated due to probiotics, but milk and dairy should generally be avoided."
+    },
+    {
+        "id": "cat_toxic_004",
+        "name": "Tamarind and Cream of Tartar",
+        "category": "toxic_food",
+        "toxicity_level": "moderate",
+        "affected_species": [
+            "cat",
+            "dog"
+        ],
+        "toxic_compound": "tartaric acid and potassium bitartrate (same as grapes)",
+        "symptoms": [
+            "vomiting",
+            "lethargy",
+            "loss of appetite",
+            "kidney damage"
+        ],
+        "safe_amount": "0g",
+        "description": "Tamarind and cream of tartar contain the same toxic compounds as grapes (tartaric acid). Can cause kidney failure in cats and dogs. Found in some baked goods and cooking. Avoid giving pets any foods containing these ingredients."
+    },
+    {
+        "id": "cat_toxic_005",
+        "name": "Raw Fish (Especially Salmon/Tuna)",
+        "category": "toxic_food",
+        "toxicity_level": "moderate",
+        "affected_species": [
+            "cat",
+            "dog"
+        ],
+        "toxic_compound": "thiaminase enzyme,  parasites, mercury (tuna)",
+        "symptoms": [
+            "thiamine deficiency",
+            "neurological issues",
+            "seizures",
+            "loss of appetite",
+            "parasitic infection"
+        ],
+        "safe_amount": "0g raw - cook all fish",
+        "caution": "Tuna (even canned) high in mercury - limit frequency",
+        "description": "Raw fish contains thiaminase enzyme which destroys thiamine (vitamin B1) leading to neurological problems over time. Raw fish can also carry parasites. Raw salmon particularly dangerous for salmon poisoning disease in dogs. Tuna (even canned/cooked) is high in mercury - occasional treat only, not daily food. Cook all fish and limit tuna frequency."
+    }
+]

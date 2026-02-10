@@ -1,0 +1,44 @@
+{
+  "protocol_id": "toy_rubber_chew_001",
+  "protocol_name": "Durable Rubber Chew Toy",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "toys",
+  "product_type": "chew_toy",
+  "target_species": [
+    "dog"
+  ],
+  "target_age": [
+    "all"
+  ],
+  "breed_size": [
+    "medium",
+    "large"
+  ],
+  "ingredient_analysis": {
+    "materials": [
+      "natural rubber",
+      "non-toxic dyes"
+    ],
+    "safety_features": [
+      "no small parts",
+      "durable construction"
+    ],
+    "concerns": [],
+    "quality_score": 9
+  },
+  "nutritional_score": null,
+  "allergen_risks": [],
+  "harmful_ingredients": [],
+  "price_value_rating": "excellent",
+  "better_alternatives": [],
+  "full_analysis_text": "Quality rubber toys like Kong are safe and durable. Can be stuffed with treats for mental stimulation. Choose size appropriate for your dog - too small is choking risk. Replace when chunks can be bitten off.",
+  "feeding_guidelines": "",
+  "storage": "Clean with soap and water"
+}

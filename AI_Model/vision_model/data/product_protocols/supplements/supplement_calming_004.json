@@ -1,0 +1,51 @@
+{
+  "protocol_id": "supplement_calming_004",
+  "protocol_name": "Calming Anxiety Supplement",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "supplements",
+  "product_type": "calming_supplement",
+  "target_species": [
+    "dog",
+    "cat"
+  ],
+  "target_age": [
+    "all"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "L-theanine",
+      "chamomile",
+      "valerian root",
+      "melatonin"
+    ],
+    "active_compounds": {
+      "L-theanine": "promotes relaxation",
+      "melatonin": "sleep support"
+    },
+    "additives": [
+      "flavoring"
+    ],
+    "quality_score": 6
+  },
+  "nutritional_score": 6.0,
+  "allergen_risks": [],
+  "harmful_ingredients": [],
+  "price_value_rating": "moderate",
+  "better_alternatives": [
+    "vet-prescribed anxiety meds for severe cases",
+    "pheromone diffusers"
+  ],
+  "full_analysis_text": "Calming supplements have mixed evidence. May help mild anxiety. L-theanine has most research support. Not effective for severe anxiety - see vet. Melatonin dose varies by size. Not a substitute for behavior training.",
+  "feeding_guidelines": "30-60 minutes before stressful event",
+  "storage": "Cool, dry place"
+}

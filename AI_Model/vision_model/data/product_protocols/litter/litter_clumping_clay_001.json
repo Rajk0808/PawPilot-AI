@@ -1,0 +1,55 @@
+{
+  "protocol_id": "litter_clumping_clay_001",
+  "protocol_name": "Clumping Clay Cat Litter",
+  "source": [
+    "AAFCO",
+    "FDA",
+    "Veterinary Nutrition Guidelines",
+    "NASC"
+  ],
+  "last_updated": "2026-02-03",
+  "version": "1.0",
+  "category": "litter",
+  "product_type": "cat_litter",
+  "target_species": [
+    "cat"
+  ],
+  "target_age": [
+    "adult"
+  ],
+  "breed_size": [
+    "all"
+  ],
+  "ingredient_analysis": {
+    "primary_ingredients": [
+      "sodium bentonite clay"
+    ],
+    "beneficial_properties": [
+      "strong clumping",
+      "odor control"
+    ],
+    "additives": [
+      "fragrance",
+      "antimicrobial agents"
+    ],
+    "concerns": [
+      "dust",
+      "not flushable",
+      "strip mining impact"
+    ],
+    "quality_score": 7
+  },
+  "nutritional_score": null,
+  "allergen_risks": [
+    "dust sensitivity"
+  ],
+  "harmful_ingredients": [],
+  "price_value_rating": "good",
+  "better_alternatives": [
+    "low-dust formula",
+    "natural alternatives"
+  ],
+  "full_analysis_text": "Clumping clay is popular and effective but creates dust. Low-dust formulas better for respiratory health. Not safe for kittens under 8 weeks (ingestion risk). Non-biodegradable - environmental concerns. Never flush.",
+  "feeding_guidelines": "",
+  "storage": "Dry location"
+}

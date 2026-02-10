@@ -1,0 +1,192 @@
+[
+    {
+        "id": "safe_011",
+        "name": "Bananas",
+        "category": "safe_food",
+        "nutritional_value": "medium",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "potassium",
+            "vitamins B6 C",
+            "fiber",
+            "natural sweetness"
+        ],
+        "serving_suggestions": "Small slices, mashed, or frozen",
+        "portion_guide": "A few small slices for dogs. High in sugar so limit portions.",
+        "description": "Bananas are safe occasional treat high in potassium, vitamins, and fiber. Natural sweetness makes them appealing. High in sugar so give in moderation. Remove peel. Can freeze for summer treat."
+    },
+    {
+        "id": "safe_012",
+        "name": "Strawberries",
+        "category": "safe_food",
+        "nutritional_value": "high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "vitamin C",
+            "fiber",
+            "antioxidants",
+            "teeth whitening enzyme"
+        ],
+        "serving_suggestions": "Fresh or frozen, cut into pieces for small dogs",
+        "portion_guide": "1-2 strawberries for small dogs, 3-4 for large dogs",
+        "description": "Strawberries are healthy treat with vitamin C, fiber, and antioxidants. Contain enzyme that helps whiten teeth. Fresh or frozen okay. Remove stems and cut for small pets."
+    },
+    {
+        "id": "safe_013",
+        "name": "Cucumber",
+        "category": "safe_food",
+        "nutritional_value": "low",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "hydration (96% water)",
+            "low calorie",
+            "vitamins K C",
+            "weight management"
+        ],
+        "serving_suggestions": "Raw, peeled or unpeeled, sliced",
+        "portion_guide": "A few slices as low-calorie treat",
+        "description": "Cucumbers are excellent low-calorie treat for weight management. 96% water makes them hydrating. Crunchy texture appeals to many dogs. Can serve with or without peel."
+    },
+    {
+        "id": "safe_014",
+        "name": "Broccoli",
+        "category": "safe_food",
+        "nutritional_value": "high",
+        "affected_species": [
+            "dog"
+        ],
+        "benefits": [
+            "vitamins C K",
+            "fiber",
+            "low calorie"
+        ],
+        "serving_suggestions": "Cooked or raw, small florets",
+        "portion_guide": "Small amounts only (under 10% of diet)",
+        "caution": "Contains isothiocyanates which can cause gastric irritation in large amounts",
+        "description": "Broccoli is nutritious in small amounts. High in vitamins and fiber. Can be raw or cooked. Limit to under 10% of diet as contains compounds that can irritate stomach in large quantities."
+    },
+    {
+        "id": "safe_015",
+        "name": "Peanut Butter (Xylitol-Free)",
+        "category": "safe_food",
+        "nutritional_value": "medium",
+        "affected_species": [
+            "dog"
+        ],
+        "benefits": [
+            "protein",
+            "healthy fats",
+            "vitamins E B",
+            "highly palatable"
+        ],
+        "serving_suggestions": "Use for pill administration, Kong stuffing, training treats",
+        "portion_guide": "1 teaspoon for small dogs, 1 tablespoon for large dogs",
+        "caution": "MUST be xylitol-free. Check labels carefully. High in calories and fat.",
+        "description": "Peanut butter is beloved treat rich in protein and healthy fats. Perfect for Kongs, pill pockets, or training. CRITICAL: Must verify no xylitol (deadly to dogs). Choose natural, unsalted, no-sugar-added varieties. High calorie so moderate portions."
+    },
+    {
+        "id": "safe_016",
+        "name": "Cooked Salmon",
+        "category": "safe_food",
+        "nutritional_value": "high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "omega-3 fatty acids",
+            "protein",
+            "skin and coat health"
+        ],
+        "serving_suggestions": "Fully cooked, boneless, no seasoning",
+        "portion_guide": "Small pieces as treat or meal topper",
+        "caution": "MUST be cooked. Raw salmon can carry parasites causing salmon poisoning disease. Remove all bones.",
+        "description": "Cooked salmon excellent source of omega-3 fatty acids for healthy skin and coat. Must be fully cooked to kill parasites - raw salmon can cause fatal salmon poisoning disease in dogs. Boneless and plain (no salt, butter, seasonings)."
+    },
+    {
+        "id": "safe_017",
+        "name": "Plain Oatmeal",
+        "category": "safe_food",
+        "nutritional_value": "medium",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "fiber",
+            "vitamins",
+            "minerals",
+            "gentle on stomach"
+        ],
+        "serving_suggestions": "Cooked plain with water (no milk, sugar, or toppings)",
+        "portion_guide": "1-2 tablespoons as occasional treat",
+        "description": "Plain cooked oatmeal is fiber-rich, gentle on stomach. Good for dogs with wheat allergies. Must be cooked plain with water - no milk, sugar, artificial sweeteners, or toppings like raisins. Cool before serving."
+    },
+    {
+        "id": "safe_018",
+        "name": "Peas",
+        "category": "safe_food",
+        "nutritional_value": "medium",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "protein",
+            "fiber",
+            "vitamins A K",
+            "low calorie"
+        ],
+        "serving_suggestions": "Fresh, frozen, or canned (no salt added)",
+        "portion_guide": "Small handful as treat or meal addition",
+        "description": "Peas (green, snow, sugar snap) are nutritious and most dogs enjoy them. Good source of plant-based protein and fiber. Can be fresh, frozen, or canned with no salt. Avoid canned with added sodium."
+    },
+    {
+        "id": "safe_019",
+        "name": "Eggs (Cooked)",
+        "category": "safe_food",
+        "nutritional_value": "high",
+        "affected_species": [
+            "dog",
+            "cat"
+        ],
+        "benefits": [
+            "complete protein",
+            "amino acids",
+            "vitamins",
+            "fatty acids"
+        ],
+        "serving_suggestions": "Scrambled, boiled, or fried without butter/oil",
+        "portion_guide": "One egg for small dogs, up to two for large dogs",
+        "caution": "Must be cooked. No raw eggs. No butter, oil, or seasonings.",
+        "description": "Cooked eggs are excellent protein source with complete amino acids, vitamins, and fatty acids. Scrambled, boiled, or fried plain without butter, oil, salt, or seasonings. Great for coat health. Avoid raw eggs."
+    },
+    {
+        "id": "safe_020",
+        "name": "Spinach",
+        "category": "safe_food",
+        "nutritional_value": "high",
+        "affected_species": [
+            "dog"
+        ],
+        "benefits": [
+            "vitamins A C K",
+            "iron",
+            "antioxidants",
+            "fiber"
+        ],
+        "serving_suggestions": "Cooked or raw, chopped fine",
+        "portion_guide": "Small amounts occasionally",
+        "caution": "Contains oxalates which can affect calcium absorption. Not recommended for dogs with kidney issues.",
+        "description": "Spinach is nutrient-dense with vitamins, iron, and antioxidants. Can be raw or cooked. Give in moderation as contains oxalic acid which blocks calcium absorption. Avoid for dogs with kidney problems or history of bladder stones."
+    }
+]
