@@ -1,7 +1,7 @@
 import sys
 from AI_Model.vision_model.workflow.state_definition_vision import VisionWorkFlowState
 from time import time 
-from AI_Model.vision_model.rag_vision.retriever_vision import doc_retriver,MetaDataStore
+from AI_Model.vision_model.rag_vision.retriever_vision import retrieve_docs
 from AI_Model.vision_model.model.image_detect_model import call_nvdia 
 from AI_Model.src.utils.exceptions import CustomException
 import logging
@@ -58,33 +58,10 @@ def decision_router_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
     logger.info('Deciding on model strategy...')
 
     try:
+        from AI_Model.vision_model.utils.keyword_extractor import KeyWordExtractor
+        extractor = KeyWordExtractor()
         query = state.get("query", "")
-        diseases_keywords = set('diseases illness ringworm mange cancer tumor cyst infection hot spot dermatitis yeast fleas ticks mites rash redness hair loss alopecia bald spots swelling bumps lumps scabs bleeding pus oozing crusty flaky skin dandruff inflammation lesion wound injury cut scratch bite mark itchy scratching licking painful hurting vet emergency contagious dangerous treatment diagnosis'.split())
-        toy_keywords = set('toy play fetch chew ball frisbee tug rope squeaky bone treat reward fun exercise training obedience agility socialization companionship toy bone ball frisbee rope plush squeaky stuffed animal puzzle scratcher wand tunnel rubber plastic nylon latex fabric wood antler rawhide silicone splinter sharp edges swallow choke stuck blockage pieces stuffing break snap ingest digestive teeth gums chew destroy shred rip play fetch tug durability brand make model material non-toxic bpa-free heavy duty indestructible'.split())
-        injury_keyword= set('injury cut bite scratch burn wound bleeding hurt pain first aid emergency injured swelling bruise laceration puncture bandage paw leg arm hand'.split())
-        food_keywords = set('food eat eating safe toxic poison can dogs cats feed ingredient chocolate grape onion garlic xylitol dangerous healthy treat snack meal diet nutrition'.split())
-        # Simple heuristic for strategy decision
-
-        if any(keyword in query.lower() for keyword in diseases_keywords) or "condition" in query.lower():
-            state["strategy"] = "diseases_classifier"
-            state['model_to_use'] = 'diseases_classifier'
-            logger.info("Selected strategy: diseases_classifier")
-        elif any(keyword in query.lower() for keyword in toy_keywords) or "toy" in query.lower():
-            state["strategy"] = "toy_classifier"
-            state['model_to_use'] = 'toy_classifier'
-            logger.info("Selected strategy: toy_classifier")
-        elif any(keyword in query.lower() for keyword in injury_keyword) or 'injury' in query.lower():
-            state["strategy"] ="injury_assistance"
-            state["model_to_use"] ="injury_assistance"
-            logger.info('Selected Strategy: injury_assistance')
-        elif any(keyword in query.lower() for keyword in food_keywords) or 'food' in query.lower():
-            state["strategy"] = "food_safety"
-            state["model_to_use"] = "food_safety"
-            logger.info('Selected Strategy: food_safety')    
-        else:
-            state["strategy"] = "default"
-            logger.info("Selected strategy: default")
-        
+        state['strategy'] = extractor.select_strategy(query)
         return state
 
     except Exception as e: 
@@ -116,7 +93,7 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
             state["error"].append("No image provided")
             return state
         
-        if strategy == "diseases_classifier":
+        if strategy == "skin-and-health-diagnostic":
             from AI_Model.vision_model.model.diseases_model_prediction import predict, load_model
             model, preprocess, classifier, id2label, device = load_model()
             results = predict(image, preprocess, model, classifier, id2label, device)
@@ -132,21 +109,21 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
             elif isinstance(results, list) and len(results) > 0:
                 # If predict returns a list of dicts
                 if isinstance(results[0], dict):
-                    state["predicted_class"] = "unknown"  #results[0].get("label", "unknown")
-                    state["confidence_score"] =  0.0 #results[0].get("confidence", 0.0)
+                    state["predicted_class"] = results[0].get("label", "unknown")
+                    state["confidence_score"] = results[0].get("confidence", 0.0)
                 else:
                     # List of strings
                     state["predicted_class"] = str(results[0])
                     state["confidence_score"] = 1.0
             elif isinstance(results, dict):
                 # If predict returns a single dict
-                state["predicted_class"] = "unknown"  #results.get("label", "unknown")
-                state["confidence_score"] = 0.0 #results.get("confidence", 0.0)
+                state["predicted_class"] = results.get("label", "unknown")
+                state["confidence_score"] = results.get("confidence", 0.0)
             else:
                 state["predicted_class"] = "unknown"
                 state["confidence_score"] = 0.0
             
-        elif strategy == "toy_classifier":
+        elif strategy == "toys-safety-detection":
             from AI_Model.vision_model.model.toy_model_prediction import predict_toy, load_model_toy
             model, preprocess, classifier, id2label, device = load_model_toy()
             results = predict_toy(image, preprocess, model, classifier, id2label, device)
@@ -175,7 +152,7 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
             else:
                 state["predicted_class"] = "unknown"
                 state["confidence_score"] = 0.0
-        elif strategy == "emotion_detection":
+        elif strategy == "emotion-detection":
             from AI_Model.vision_model.model.emotion_detection import chatbot_emotion_detection
             user_query = state.get("query", "")
             images = [image]  # Assuming single image for emotion detection
@@ -184,7 +161,7 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
             state["predicted_class"] = "emotion_detected"
             state["confidence_score"] = 1.0  # Assuming full confidence for text response
         
-        elif strategy == "injury_assistance":
+        elif strategy == "injury-assistance":
             from AI_Model.vision_model.model.injury_assistance import chatbot_injury_assistance
             user_query = state.get("query", "")
             images = [image]
@@ -192,7 +169,7 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
             state['final_output'] = reply
             state['confidence_score'] = 0.85
             state['predicted_class'] = "injury_analyzed"
-        elif strategy == "food_safety":
+        elif strategy == "pet-food-image-analysis":
             from AI_Model.vision_model.model.pet_food_image_analysis import chatbot_food_analyzer
             user_query = state.get("query", "")
             images = [image]
@@ -244,24 +221,27 @@ def retrieval_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
             # Currently no retrieval logic for vision model
             class_name = state.get("predicted_class", "unknown")
             strategy = state.get("strategy", "default")
-            retriver = doc_retriver()
-            metadataclient = MetaDataStore()
-            client = metadataclient.get_client()
-            if strategy == 'diseases_classifier':
-                collection_name = 'DogDisease'
-                property_name = 'disease_name'
-            elif strategy == 'injury_assistance':
-                collection_name = 'MedicalProtocols'  # Your vector DB collection name for medical protocols
-                property_name = 'protocol_name'  
-            elif strategy == 'food_safety':
-                collection_name = 'FoodSafety'  # Your vector DB collection name
-                property_name = 'food_name'      # Your property name     # The property name in your collection
-            else:
-                collection_name = 'ToyDetection'
-                property_name = 'toy_name'
-            docs = retriver.retriver(client, query=class_name, collection_name=collection_name, property_name=property_name)
+
+            if strategy == 'skin-and-health-diagnostic':
+                host_name = 'https://dog-disease-6i6jnuf.svc.aped-4627-b74a.pinecone.io'
+            elif strategy == 'pet-food-image-analysis':
+                host_name = 'https://pet-food-image-analysis-6i6jnuf.svc.aped-4627-b74a.pinecone.io'
+            elif strategy == 'parasite-detection':
+                host_name = 'https://parasite-detection-6i6jnuf.svc.aped-4627-b74a.pinecone.io'
+            elif strategy == 'toys-safety-detection':
+                host_name = "https://toy-detection-6i6jnuf.svc.aped-4627-b74a.pinecone.io"
+            docs = retrieve_docs(class_name, host_name)
             # Convert list to dict format if needed
-            state["retrieved_docs"] = {"documents": docs} if isinstance(docs, list) else docs
+            if strategy == 'pet-food-image-analysis':
+                state['retrieved_docs'] = docs.get('metadata', {}) if isinstance(docs, dict) else {"documents": docs}
+            else:
+                if isinstance(docs, dict):
+                    state["retrieved_docs"] = docs
+                elif isinstance(docs, list):
+                    state["retrieved_docs"] = {"documents": docs}
+                else:
+                    state["retrieved_docs"] = {"documents": []}
+                
         state['end_time'] = time()
         start_time = state.get('start_time', 0)
         state['inference_time'] = state['end_time'] - start_time

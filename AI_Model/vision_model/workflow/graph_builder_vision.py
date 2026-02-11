@@ -2,11 +2,8 @@ from langgraph.graph import START, END, StateGraph
 from langgraph.graph.state import CompiledStateGraph
 from typing import cast
 import logging
-import sys 
-from pathlib import Path
 import time
-# Import nodes for subgraph A (Vision Processing)
-print(Path(__file__))
+import sys
 from AI_Model.vision_model.workflow.nodes_vision import (
     input_processing_node,
     decision_router_node,   
@@ -15,16 +12,14 @@ from AI_Model.vision_model.workflow.nodes_vision import (
     retrieval_node,
 )
 
-sys.path.append(str(Path(__file__).resolve().parent.parent.parent))
-
-from src.utils.exceptions import CustomException
+from AI_Model.src.utils.exceptions import CustomException
 
 logger = logging.getLogger(__name__)
 
 
 
 # Import nodes for subgraph B (Workflow Engineering)
-from src.workflow.nodes import (
+from AI_Model.src.workflow.nodes import (
     engineer_prompt_node,
     run_model_inference_node,
     validate_response_node,
@@ -33,7 +28,7 @@ from src.workflow.nodes import (
 )
 
 # Import state definitions
-from src.workflow.state_definition import WorkFlowState, create_initial_state as create_workflow_state
+from AI_Model.src.workflow.state_definition import WorkFlowState, create_initial_state as create_workflow_state
 from AI_Model.vision_model.workflow.state_definition_vision import VisionWorkFlowState, create_initial_state as create_vision_state
 
 
