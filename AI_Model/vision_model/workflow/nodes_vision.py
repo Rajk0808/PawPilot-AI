@@ -108,9 +108,9 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
                 state["confidence_score"] = 1.0
             elif isinstance(results, list) and len(results) > 0:
                 # If predict returns a list of dicts
-                if isinstance(results[0], dict):
-                    state["predicted_class"] = results[0].get("label", "unknown")
-                    state["confidence_score"] = results[0].get("confidence", 0.0)
+                if isinstance(results, dict):
+                    state["predicted_class"] = results.get("label", "unknown")
+                    state["confidence_score"] = results.get("confidence", 0.0)
                 else:
                     # List of strings
                     state["predicted_class"] = str(results[0])
@@ -138,9 +138,9 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
                 state["confidence_score"] = 1.0
             elif isinstance(results, list) and len(results) > 0:
                 # If predict returns a list of dicts
-                if isinstance(results[0], dict):
-                    state["predicted_class"] = results[0].get("label", "unknown")
-                    state["confidence_score"] = results[0].get("confidence", 0.0)
+                if isinstance(results, dict):
+                    state["predicted_class"] = results.get("label", "unknown")
+                    state["confidence_score"] = results.get("confidence", 0.0)
                 else:
                     # List of strings
                     state["predicted_class"] = str(results[0])
