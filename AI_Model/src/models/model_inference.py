@@ -2,6 +2,7 @@ import sys
 from dotenv import load_dotenv
 load_dotenv()
 import os
+import json
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).parent.parent))
 import time
@@ -19,6 +20,7 @@ from datetime import datetime
 from datetime import datetime
 from utils.exceptions import CustomException
 logger = logging.getLogger(__name__)
+from AI_Model.src.tools.web_search import web_search
 
 class Node5ModelInference:
     """
@@ -274,7 +276,6 @@ class Node5ModelInference:
                 "top_p": 0.95
             }
         }
-        
         # Get config for this module, or use defaults
         config = param_config.get(module_type, {
             "temperature": 0.7,
@@ -289,6 +290,33 @@ class Node5ModelInference:
             "stream": False  # For simplicity (can be enabled for streaming)
         }
     
+    def _get_tools(self) -> str:
+        """
+        Configured all the available tools e.g., WebSearch and else(upcoming)
+        """
+
+        tools = [
+                    {
+                        "type" : "function",
+                        "function" : {
+                            "name" : "web_search",
+                            "description" : "Search the web for pet health information, product recalls, and vet advice",
+                            "parameters" : {
+                                "type" : "object",
+                                "properties" :{
+                                    "query" :{
+                                        "type" : "string",
+                                        "description" : "The search query"
+                                    }
+                                },
+                                "required" : ["query"]
+                            }
+                        }
+                    }
+                ]
+
+        return tools
+        
     
     def _call_model_with_retry(
         self,
@@ -304,7 +332,7 @@ class Node5ModelInference:
         
         Retries on rate limits and connection errors
         """
-        
+        tools = self._get_tools()
         for attempt in range(self.max_retries):
             try:
                 from openai import OpenAI
@@ -319,12 +347,37 @@ class Node5ModelInference:
                             "content": prompt
                         }
                     ],
+                    tools=tools,
+                    tool_choice="auto",
                     temperature=temperature,
                     max_tokens=max_tokens,
                     top_p=top_p,
                     stream=stream
                 )
                 
+                if response.choices[0].message.tool_calls:
+                    tool_call = response.choices[0].message.tool_calls[0]
+                    args = json.loads(tool_call.function.arguments)
+
+                    search_results = web_search.invoke(args["query"])
+                    
+                    messages = [
+                        {"role" : "user", "content" : prompt},
+                        response.choices[0].message,
+                        {
+                            "role" : "tool",
+                            "tool_call_id" : tool_call.id,
+                            "content" : search_results
+                        }
+                    ]
+
+                    response = client.chat.completions.create(
+                        model=base_model,
+                        messages=messages,
+                        temperature=temperature,
+                        max_tokens=max_tokens
+                    )
+
                 logger.info(f"✓ API call successful on attempt {attempt + 1}")
                 return response
             
