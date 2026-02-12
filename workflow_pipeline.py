@@ -36,6 +36,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 workflow = None
 pipeline = None
+vision_pipeline = None
 
 class VisionPipeline:
     """Manages the vision workflow execution"""
@@ -57,7 +58,6 @@ class VisionPipeline:
 
             logger.info(f"Processing image with query: {query}...")
             result = self.vision_workflow_instance.invoke(initial_state)
-            print(result)
             # Extract response from result
             bot_response = self._extract_response(result)
             #logger.info("✓ Image processed successfully")
@@ -81,8 +81,8 @@ class VisionPipeline:
         """
         if isinstance(result, dict):
             # Try different possible keys where response might be stored
-            possible_keys = ["final_response"]
-            
+            possible_keys = ["final_response", "final_output"]
+             
             for key in possible_keys:
                 if key in result and result[key]:
                     value = result[key]
@@ -188,7 +188,7 @@ async def lifespan(app: FastAPI):
     Manages startup and shutdown events
     """
     # Startup
-    global workflow, pipeline
+    global workflow, pipeline, vision_pipeline
     
     logger.info("=" * 50)
     logger.info("Starting AI Chatbot Server")
@@ -197,13 +197,15 @@ async def lifespan(app: FastAPI):
     try:
         workflow = build_complete_workflow()
         pipeline = ChatbotPipeline(workflow)
+        vision_pipeline = VisionPipeline()
         logger.info("✓ Workflow compiled successfully")
     except Exception as e:
         logger.error(f"✗ Error compiling workflow: {e}")
         logger.error(traceback.format_exc())
         workflow = None
         pipeline = None
-    
+        vision_pipeline = None
+  
     if workflow is None:
         logger.error("CRITICAL: Workflow failed to compile!")
         logger.error("Check your graph_builder.py and node definitions")
@@ -294,37 +296,36 @@ async def upload_video(file: UploadFile = File(...)):
     }
 
 @app.post("/upload-photo/")
-async def upload_photo(file: UploadFile = File(...), query: str = ''):
+async def upload_photo(files: List[UploadFile] = File(...), query: str = ''):
     """
-    Upload a photo and perform basic processing (thumbnail generation).
+    Upload multiple photos and perform processing on each.
     """
-    # 1. Validate Content Type
-    if file.content_type is None or not file.content_type.startswith("image/"):
-        raise HTTPException(status_code=400, detail="File must be an image")
-
-    # 2. Validate filename
-    if file.filename is None:
-        raise HTTPException(status_code=400, detail="Filename is required")
-
-    # 3. Read image content for processing
-    contents = await file.read()
-    image = Image.open(io.BytesIO(contents))
+    results = []
+    global vision_pipeline
+    if vision_pipeline is None:
+        vision_pipeline = VisionPipeline()
     
-    vision_model = VisionPipeline()
-    result = vision_model.process_image(image, query)
-    # 3. Save Original
-    #original_path = os.path.join(UPLOAD_DIR, "photos", file.filename)
-    #with open(original_path, "wb") as f:
-    #    f.write(contents)
-    
-    #json = {
-    #    "message": "Photo uploaded and thumbnail created",
-    #    "original": file.filename,
-    #    "format": image.format,
-    #    "size": image.size
-    #}
+    for file in files:
+        # 1. Validate Content Type
+        if file.content_type is None or not file.content_type.startswith("image/"):
+            raise HTTPException(status_code=400, detail=f"File {file.filename} must be an image")
 
-    return result
+        # 2. Validate filename
+        if file.filename is None:
+            raise HTTPException(status_code=400, detail="Filename is required")
+
+        # 3. Read image content for processing
+        contents = await file.read()
+        image = Image.open(io.BytesIO(contents))
+        
+        result = vision_pipeline.process_image(image, query)
+        
+        results.append({
+            "filename": file.filename,
+            "result": result
+        })
+
+    return results
     
 
 @app.post(

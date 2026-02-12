@@ -41,6 +41,7 @@ def input_processing_node(state: WorkFlowState) -> WorkFlowState:
     logger.info("NODE 1: Input Processing")
     
     try:
+        state['to_use_model'] = True
         # Access state as dictionary
         query = state.get("query", "")
         user_id = state.get("user_id", "unknown")
@@ -206,133 +207,121 @@ def engineer_prompt_node(state: WorkFlowState) -> WorkFlowState:
     logger.info("NODE 4: Prompt Engineering")
     
     try:
-        query = state.get("query", "")
-        context = state.get("context", "")
-        strategy = state.get("strategy", "prompt_only")
-        
-        # Initialize prompt builder
-        prompt_builder = PawPilotPromptBuilder()
-        
-        # Check if this is a vision workflow (has predicted_class from vision model)
-        predicted_class = state.get("predicted_class", "")
-        confidence_score = state.get("confidence_score", 0.0)
-        model_type = state.get("model_to_use", "default")
-        
-        # Build pet profile from state if available
-        pet_profile = {
-            "name": state.get("pet_name", "Unknown"),
-            "species": state.get("pet_species", "Unknown"),
-            "breed": state.get("pet_breed", "Unknown"),
-            "age": state.get("pet_age", "Unknown"),
-            "weight": state.get("pet_weight", "Unknown"),
-            "allergies": state.get("pet_allergies", []),
-            "medical_history": state.get("pet_medical_history", "None reported"),
-        }
-        
-        # Determine which prompt to build based on workflow type
-        if predicted_class:
-            # Vision workflow - use vision prompts
-            logger.info(f"Building vision prompt for model_type: {model_type}")
+        if state.get('to_use_model', True):
+            query = state.get("query", "")
+            context = state.get("context", "")
+            strategy = state.get("strategy", "prompt_only")
             
-            if model_type == "toy_classifier":
-                prompt = prompt_builder.build_toy_classifier_prompt(
-                    predicted_class=predicted_class,
-                    confidence_score=confidence_score,
-                    user_query=query,
-                    rag_context=context,
-                    pet_profile=pet_profile if pet_profile.get("name") != "Unknown" else None
-                )
-            elif model_type == "diseases_classifier":
-                prompt = prompt_builder.build_diseases_classifier_prompt(
-                    predicted_class=predicted_class,
-                    confidence_score=confidence_score,
-                    user_query=query,
-                    rag_context=context,
-                    pet_profile=pet_profile if pet_profile.get("name") != "Unknown" else None
-                )
-            else:
-                # Default vision prompt
-                prompt = prompt_builder.build_vision_default_prompt(
-                    predicted_class=predicted_class,
-                    confidence_score=confidence_score,
-                    user_query=query,
-                    rag_context=context
-                )
-            state["prompt_template"] = f"vision_{model_type}"
+            # Initialize prompt builder
+            prompt_builder = PawPilotPromptBuilder()
             
-        elif context and strategy == "rag":
-            # RAG-based workflow - use RAG-aware prompts
-            logger.info("Building RAG-aware prompt")
+            # Check if this is a vision workflow (has predicted_class from vision model)
+            predicted_class = state.get("predicted_class", "")
+            confidence_score = state.get("confidence_score", 0.0)
+            model_type = state.get("model_to_use", "default")
             
-            # Determine module type based on query content
-            query_lower = query.lower()
+            # Build pet profile from state if available
+            pet_profile = {
+                "name": state.get("pet_name", "Unknown"),
+                "species": state.get("pet_species", "Unknown"),
+                "breed": state.get("pet_breed", "Unknown"),
+                "age": state.get("pet_age", "Unknown"),
+                "weight": state.get("pet_weight", "Unknown"),
+                "allergies": state.get("pet_allergies", []),
+                "medical_history": state.get("pet_medical_history", "None reported"),
+            }
             
-            if any(kw in query_lower for kw in ["emergency", "urgent", "bleeding", "poison", "choking"]):
-                module = "emergency"
-                user_query_dict = {
-                    "emergency_type": "general",
-                    "symptoms": query
-                }
-            elif any(kw in query_lower for kw in ["skin", "rash", "bump", "itch", "hair loss", "wound"]):
-                module = "skin_diagnosis"
-                user_query_dict = {
-                    "symptom_description": query
-                }
-            elif any(kw in query_lower for kw in ["food", "treat", "ingredient", "safe to eat", "toxic"]):
-                module = "product_safety"
-                user_query_dict = {
-                    "name": "Unknown Product",
-                    "type": "food",
-                    "ingredients": query
-                }
-            else:
-                # Fallback to simple RAG prompt
-                prompt = f"""Based on the following context, answer the user's query:
+            # Determine which prompt to build based on workflow type
+            if predicted_class:
+                # Vision workflow - use vision prompts
+                logger.info(f"Building vision prompt for model_type: {model_type}")
+                
+                if model_type == "toy_classifier":
+                    prompt = prompt_builder.build_toy_classifier_prompt(
+                        predicted_class=predicted_class,
+                        confidence_score=confidence_score,
+                        user_query=query,
+                        rag_context=context,
+                        pet_profile=pet_profile if pet_profile.get("name") != "Unknown" else None
+                    )
+                elif model_type == "diseases_classifier":
+                    prompt = prompt_builder.build_diseases_classifier_prompt(
+                        predicted_class=predicted_class,
+                        confidence_score=confidence_score,
+                        user_query=query,
+                        rag_context=context,
+                        pet_profile=pet_profile if pet_profile.get("name") != "Unknown" else None
+                    )
+                else:
+                    # Default vision prompt
+                    prompt = prompt_builder.build_vision_default_prompt(
+                        predicted_class=predicted_class,
+                        confidence_score=confidence_score,
+                        user_query=query,
+                        rag_context=context
+                    )
+                state["prompt_template"] = f"vision_{model_type}"
+                
+            elif context and strategy == "rag":
+                # RAG-based workflow - use RAG-aware prompts
+                logger.info("Building RAG-aware prompt")
+                
+                # Determine module type based on query content
+                query_lower = query.lower()
+                
+                if any(kw in query_lower for kw in ["emergency", "urgent", "bleeding", "poison", "choking"]):
+                    module = "emergency"
+                    user_query_dict = {
+                        "emergency_type": "general",
+                        "symptoms": query
+                    }
+                elif any(kw in query_lower for kw in ["skin", "rash", "bump", "itch", "hair loss", "wound"]):
+                    module = "skin_diagnosis"
+                    user_query_dict = {
+                        "symptom_description": query
+                    }
+                elif any(kw in query_lower for kw in ["food", "treat", "ingredient", "safe to eat", "toxic"]):
+                    module = "product_safety"
+                    user_query_dict = {
+                        "name": "Unknown Product",
+                        "type": "food",
+                        "ingredients": query
+                    }
+                else:
+                    # Fallback to simple RAG prompt
+                    prompt = f"""Based on the following context, answer the user's query:
+    
+                            Context:    
+                            {context}
+                                
+                            User Query: {query}
+                                
+                            Please provide a comprehensive and accurate answer based on the provided context."""
+                    state["final_prompt"] = prompt
+                    state["prompt_template"] = "rag_default"
+                    logger.info(f"Prompt engineered using default RAG template ({len(prompt)} chars)")
+                    return state
+                
+                try:
+                    prompt = prompt_builder.build_rag_aware_prompt(
+                        module=module,
+                        user_query=user_query_dict,
+                        pet_profile=pet_profile,
+                        rag_retrieved_data=context
+                    )
+                    state["prompt_template"] = f"rag_{module}"
+                except Exception as e:
+                    logger.warning(f"Failed to build specialized prompt: {e}, using default")
+                    prompt = f"""Based on the following context, answer the user's query:
 
-Context:
-{context}
-
-User Query: {query}
-
-Please provide a comprehensive and accurate answer based on the provided context."""
-                state["final_prompt"] = prompt
-                state["prompt_template"] = "rag_default"
-                logger.info(f"Prompt engineered using default RAG template ({len(prompt)} chars)")
-                return state
-            
-            try:
-                prompt = prompt_builder.build_rag_aware_prompt(
-                    module=module,
-                    user_query=user_query_dict,
-                    pet_profile=pet_profile,
-                    rag_retrieved_data=context
-                )
-                state["prompt_template"] = f"rag_{module}"
-            except Exception as e:
-                logger.warning(f"Failed to build specialized prompt: {e}, using default")
-                prompt = f"""Based on the following context, answer the user's query:
-
-Context:
-{context}
-
-User Query: {query}
-
-Please provide a comprehensive and accurate answer."""
-                state["prompt_template"] = "rag_default"
-        
-        else:
-            # Simple prompt-only workflow
-            logger.info("Building simple prompt (no RAG)")
-            prompt = f"""Answer the following query:
-
-User Query: {query}
-
-Please provide a comprehensive and accurate answer."""
-            state["prompt_template"] = "prompt_only"
-        
-        state["final_prompt"] = prompt
-        logger.info(f"Prompt engineered using template: {state['prompt_template']} ({len(prompt)} chars)")
-        print(prompt)
+                            Context:    
+                            {context}
+                                
+                            User Query: {query}
+                                
+                            Please provide a comprehensive and accurate answer based on the provided context."""
+                    state["prompt_template"] = "rag_default"
+                  
         return state
         
     except Exception as e:
@@ -360,11 +349,12 @@ def run_model_inference_node(state: WorkFlowState) -> WorkFlowState:
     logger.info("NODE 5: Model Inference")
     
     try:
-        from AI_Model.src.models.model_inference import Node5ModelInference
-        node = Node5ModelInference()
-        result = node.run_inference(dict(state))
-        logger.info("Model inference completed")
-        state.update(result) 
+        if state.get('to_use_model', True):
+            from AI_Model.src.models.model_inference import Node5ModelInference
+            node = Node5ModelInference()
+            result = node.run_inference(dict(state))
+            logger.info("Model inference completed")
+            state.update(result) 
 
 
         return state    
@@ -396,11 +386,12 @@ def validate_response_node(state: WorkFlowState) -> WorkFlowState:
     logger.info("NODE 6: Response Validation")
     
     try:
-        from AI_Model.src.utils.reponse_validator import Node6ResponseValidator
-        validator = Node6ResponseValidator()
-        validated_result = validator.validate_response(dict(state))
-        state.update(validated_result)
-        logger.info("Response validation completed")
+        if state.get('to_use_model', True):
+            from AI_Model.src.utils.reponse_validator import Node6ResponseValidator
+            validator = Node6ResponseValidator()
+            validated_result = validator.validate_response(dict(state))
+            state.update(validated_result)
+            logger.info("Response validation completed")
         return state
         
     except Exception as e:
@@ -427,11 +418,12 @@ def log_interaction_node(state: WorkFlowState) -> WorkFlowState:
     logger.info("NODE 7: Logging & Feedback")
     
     try:
-        from AI_Model.src.logging.interaction_logger import Node7InteractionLogger
-        logger_node = Node7InteractionLogger()
-        result = logger_node.log_interaction(dict(state))
-        state.update(result)
-        logger.info("Interaction logged")
+        if state.get('to_use_model', True):
+            from AI_Model.src.logging.interaction_logger import Node7InteractionLogger
+            logger_node = Node7InteractionLogger()
+            result = logger_node.log_interaction(dict(state))
+            state.update(result)
+            logger.info("Interaction logged")
         return state
         
     except Exception as e:
@@ -456,10 +448,11 @@ def check_fine_tuning_trigger_node(state: WorkFlowState) -> WorkFlowState:
     logger.info("NODE 8: Fine-Tuning Check")
     
     try:
-        from AI_Model.src.fine_tuning.fine_tuner import check_fine_tuning_trigger
-        result = check_fine_tuning_trigger(dict(state))
-        state.update(result)
-        logger.info("Fine-tuning check completed")
+        if state.get('to_use_model', True):
+            from AI_Model.src.fine_tuning.fine_tuner import check_fine_tuning_trigger
+            result = check_fine_tuning_trigger(dict(state))
+            state.update(result)
+            logger.info("Fine-tuning check completed")
         return state
         
     except Exception as e:
