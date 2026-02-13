@@ -2,6 +2,7 @@ import sys
 import time
 import json
 from pathlib import Path
+import traceback
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 from workflow.state_definition import WorkFlowState
@@ -233,25 +234,21 @@ def engineer_prompt_node(state: WorkFlowState) -> WorkFlowState:
             
             # Determine which prompt to build based on workflow type
             if predicted_class:
-                # Vision workflow - use vision prompts
-                logger.info(f"Building vision prompt for model_type: {model_type}")
-                
-                if model_type == "toy_classifier":
-                    prompt = prompt_builder.build_toy_classifier_prompt(
-                        predicted_class=predicted_class,
-                        confidence_score=confidence_score,
-                        user_query=query,
-                        rag_context=context,
-                        pet_profile=pet_profile if pet_profile.get("name") != "Unknown" else None
-                    )
-                elif model_type == "diseases_classifier":
-                    prompt = prompt_builder.build_diseases_classifier_prompt(
-                        predicted_class=predicted_class,
-                        confidence_score=confidence_score,
-                        user_query=query,
-                        rag_context=context,
-                        pet_profile=pet_profile if pet_profile.get("name") != "Unknown" else None
-                    )
+                if predicted_class != "unknown":
+                    try:
+                        prompt = prompt_builder.build_vision_prompt(
+                            model_type=model_type,
+                            predicted_class=predicted_class,
+                            confidence_score=confidence_score,
+                            user_query=query,
+                            rag_context=context,
+                            pet_profile=pet_profile
+                        )
+                        state['prompt_template'] = prompt
+                    except Exception as e:
+                        print(traceback.format_exc())
+            
+
                 else:
                     # Default vision prompt
                     prompt = prompt_builder.build_vision_default_prompt(
@@ -260,7 +257,7 @@ def engineer_prompt_node(state: WorkFlowState) -> WorkFlowState:
                         user_query=query,
                         rag_context=context
                     )
-                state["prompt_template"] = f"vision_{model_type}"
+                    state["prompt_template"] = f"vision_{model_type}"
                 
             elif context and strategy == "rag":
                 # RAG-based workflow - use RAG-aware prompts
@@ -321,7 +318,7 @@ def engineer_prompt_node(state: WorkFlowState) -> WorkFlowState:
                                 
                             Please provide a comprehensive and accurate answer based on the provided context."""
                     state["prompt_template"] = "rag_default"
-                  
+        print(prompt)        
         return state
         
     except Exception as e:

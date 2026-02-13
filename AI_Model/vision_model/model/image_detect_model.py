@@ -6,7 +6,7 @@ load_dotenv()
 import requests
 def call_nvdia(image_path, prompt="What is in this image?"):
     Loader = LoadImages()
-    base64_images = Loader.image_to_data_url(image_path if isinstance(image_path, list) else [image_path])
+    base64_images = Loader.image_loader("ByteIO", image_path)
     message_loader = MessageLoader()
     message = message_loader.LoadMessages("",prompt, base64_images)
     # First API call with reasoning
@@ -23,5 +23,5 @@ def call_nvdia(image_path, prompt="What is in this image?"):
       }
     )
     response = response.json()
-    response = response['choices'][0]['message']
+    response = response
     return response

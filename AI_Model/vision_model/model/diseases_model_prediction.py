@@ -6,7 +6,7 @@ from AI_Model.vision_model.utils.method_aggregation import Aggregation
 from AI_Model.vision_model.utils.load_images import LoadImages
 def load_model():
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    load_path = "D:\\codeSutra AI\\project\\AI_chat\\AI_Model\\vision_model\\model\\models\\diseases_clip_classifier.pth" 
+    load_path = "AI_Model/vision_model/model/models/diseases_clip_classifier.pth" 
     
     model, preprocess = clip.load("ViT-B/32", device=device)
     model.eval() 

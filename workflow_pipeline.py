@@ -55,7 +55,7 @@ class VisionPipeline:
                 'image' : image,
                 'query': query,
             }
-
+            
             logger.info(f"Processing image with query: {query}...")
             result = self.vision_workflow_instance.invoke(initial_state)
             # Extract response from result
@@ -296,7 +296,7 @@ async def upload_video(file: UploadFile = File(...)):
     }
 
 @app.post("/upload-photo/")
-async def upload_photo(files: List[UploadFile] = File(...), query: str = ''):
+async def upload_photo(files: List[UploadFile] = File(default=[]), query: str = ''):
     """
     Upload multiple photos and perform processing on each.
     """

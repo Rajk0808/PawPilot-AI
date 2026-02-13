@@ -4,8 +4,7 @@ from pathlib import Path
 import logging
 from .food_model_prompts import (
     get_response_prompt as get_food_response_prompt,
-    route_food_query,
-    FoodQueryRouter
+    route_food_query
 )
 from .Injury_model_prompt import get_prompt_for_context, get_generation_prompt_for_context, detect_injury_context_from_text  
 logger = logging.getLogger(__name__)
@@ -37,83 +36,7 @@ class PawPilotPromptBuilder:
         except json.JSONDecodeError as e:
             logger.error(f"Invalid JSON in {path}: {e}")
             return {}
-    
-    # ==========================================
-    # SKIN DIAGNOSIS PROMPT
-    # ==========================================
-    
-    def build_skin_diagnosis_prompt(
-        self,
-        pet_profile: Dict,
-        symptom_description: str,
-        rag_context: str
-    ) -> str:
-        """
-        Build prompt for analyzing pet skin conditions
-        
-        Args:
-            pet_profile: {"name": "Max", "breed": "Golden", "age": 4, "allergies": [...]}
-            symptom_description: Description of what's visible in image
-            rag_context: Retrieved relevant conditions from RAG database
-        """
-        
-        system = self.system_prompts["skin_health_diagnostic"]
-        
-        prompt = f"""You are a {system['role']}
-        
-        {system['context']}
-        
-        KEY PRINCIPLES:
-        {chr(10).join(f"- {p}" for p in system['key_principles'])}
-        
-        PET INFORMATION:
-        - Name: {pet_profile.get('name', 'Unknown')}
-        - Breed: {pet_profile.get('breed', 'Unknown')}
-        - Age: {pet_profile.get('age', 'Unknown')} years
-        - Allergies: {', '.join(pet_profile.get('allergies', ['None known']))}
-        - Medical History: {pet_profile.get('medical_history', 'None reported')}
-        
-        KNOWLEDGE BASE REFERENCE (Similar conditions from RAG):
-        {rag_context}
-        
-        SYMPTOM ANALYSIS:
-        {symptom_description}
-        
-        ANALYSIS REQUIRED:
-        1. Examine described symptoms
-        2. Cross-reference with RAG knowledge base
-        3. Consider pet's health history
-        4. Assess severity and urgency
-        5. Provide first aid steps
-        6. Recommend when to see vet
-        
-        OUTPUT FORMAT:
-        ## Observations
-        [What you see in the symptoms]
-        
-        ## Possible Conditions
-        - [Condition 1] - Likelihood: [High/Medium/Low]
-        - [Condition 2] - Likelihood: [High/Medium/Low]
-        
-        ## Severity Level
-        [Low/Medium/High/Emergency]
-        
-        ## Urgency for Vet Visit
-        [Within 1 week / 48-72 hours / 24 hours / IMMEDIATE]
-        
-        ## First Aid Steps
-        1. [Action]
-        2. [Action]
-        3. [Action]
-        
-        ## Monitoring
-        What to watch for and when to escalate
-        
-        ## Important Notes
-        Always phrase as "possible conditions" not diagnosis. When uncertain, recommend vet visit."""
                 
-        return prompt
-            
     # ==========================================
     # EMOTION DETECTION PROMPT
     # ==========================================
@@ -127,7 +50,7 @@ class PawPilotPromptBuilder:
     ) -> str:
         """Build prompt for EmoDetect emotion analysis"""
         
-        system = self.system_prompts["voice_emotion_translator"]
+        system = self.system_prompts["emotion-detection"]
         
         prompt = f"""You are an {system['role']}
         
@@ -195,7 +118,7 @@ class PawPilotPromptBuilder:
     ) -> str:
         """Build CRITICAL CARE prompt for emergencies"""
         
-        system = self.system_prompts["emergency_assistant"]
+        system = self.system_prompts["injury-assistance"]
         
         prompt = f"""You are a {system['role']}
 
@@ -265,7 +188,7 @@ class PawPilotPromptBuilder:
     ) -> str:
         """Build prompt for product safety evaluation"""
         
-        system = self.system_prompts["product_safety_evaluator"]
+        system = self.system_prompts["packaged-product-scanner"]
         
         prompt = f"""You are a {system['role']}
         
@@ -349,7 +272,7 @@ class PawPilotPromptBuilder:
             pet_profile: Optional pet info for personalized recommendations
         """
         
-        vision_config = self.vision_prompts.get("toy_classifier", {})
+        vision_config = self.vision_prompts.get("toy-safety-detection", {})
         system = vision_config.get("system_prompt", {})
         template = vision_config.get("response_template", {})
         thresholds = self.vision_prompts.get("confidence_thresholds", {})
@@ -443,7 +366,7 @@ CONSTRAINTS:
             pet_profile: Optional pet info for personalized assessment
         """
         
-        vision_config = self.vision_prompts.get("diseases_classifier", {})
+        vision_config = self.vision_prompts.get("skin-and-health-diagnostic", {})
         system = vision_config.get("system_prompt", {})
         template = vision_config.get("response_template", {})
         thresholds = self.vision_prompts.get("confidence_thresholds", {})
@@ -600,6 +523,404 @@ OUTPUT FORMAT:
         return final_prompt
     
     # ==========================================
+    # PARASITE DETECTION PROMPT
+    # ==========================================
+    def build_parasite_detection_prompt(
+        self,
+        predicted_class: str,
+        confidence_score: float,
+        user_query: str,
+        rag_context: str,
+        pet_profile: Optional[Dict] = None
+    ) -> str:
+        """
+        Build prompt for parasitic infection detection and analysis
+        """
+        vision_config = self.vision_prompts.get("parasite-detection", {})
+        system = vision_config.get("system_prompt", {})
+        template = vision_config.get("response_template", {})
+        thresholds = self.vision_prompts.get("confidence_thresholds", {})
+        
+        if confidence_score >= thresholds.get("high_confidence", 0.85):
+            confidence_level = "High"
+        elif confidence_score >= thresholds.get("medium_confidence", 0.65):
+            confidence_level = "Medium"
+        else:
+            confidence_level = "Low"
+        
+        pet_context = ""
+        if pet_profile:
+            pet_context = f"""
+PET INFORMATION:
+- Name: {pet_profile.get('name', 'Unknown')}
+- Species: {pet_profile.get('species', 'Unknown')}
+- Breed: {pet_profile.get('breed', 'Unknown')}
+- Age: {pet_profile.get('age', 'Unknown')} years
+- Weight: {pet_profile.get('weight', 'Unknown')} kg
+- Current Treatments: {pet_profile.get('treatments', 'None')}
+"""
+        
+        prompt = f"""You are a {system.get('role', 'veterinary parasitologist')}
+
+{system.get('context', '')}
+
+KEY PRINCIPLES:
+{chr(10).join(f"- {p}" for p in system.get('key_principles', []))}
+
+TONE: {system.get('tone', 'Professional, urgent but calm')}
+
+PARASITE ANALYSIS:
+- Suspected Parasite: {predicted_class}
+- Model Confidence: {confidence_score:.1%} ({confidence_level})
+{pet_context}
+PARASITOLOGY KNOWLEDGE BASE:
+{rag_context if rag_context else "No additional parasite information available."}
+
+USER CONCERN:
+{user_query}
+
+OUTPUT FORMAT:
+## 🪱 Parasite Identified
+[Suspected parasite type and confidence]
+
+## 🚨 Severity Assessment
+[Mild / Moderate / Severe / Critical]
+
+## ⚠️ Health Risks
+[Specific health risks for this pet]
+
+## 🏥 Immediate Actions
+1. [First action]
+2. [Second action]
+3. [Protective measure]
+
+## 📞 Veterinary Care Required
+[IMMEDIATE / Within 24 hours / Within 48 hours]
+
+## 🛡️ Prevention & Treatment
+[Treatment options and prevention strategies]
+
+CONSTRAINTS:
+- Maximum {template.get('constraints', {}).get('max_words', 300)} words
+- Always recommend veterinary consultation immediately
+- Include transmission risks to other pets"""
+        
+        return prompt
+    
+    # ==========================================
+    # POOP/VOMIT DETECTION PROMPT
+    # ==========================================
+    def build_poop_vomit_detection_prompt(
+        self,
+        predicted_class: str,
+        confidence_score: float,
+        user_query: str,
+        rag_context: str,
+        pet_profile: Optional[Dict] = None
+    ) -> str:
+        """
+        Build prompt for gastrointestinal health assessment
+        """
+        vision_config = self.vision_prompts.get("poop-vomit-detection", {})
+        system = vision_config.get("system_prompt", {})
+        template = vision_config.get("response_template", {})
+        thresholds = self.vision_prompts.get("confidence_thresholds", {})
+        
+        if confidence_score >= thresholds.get("high_confidence", 0.85):
+            confidence_level = "High"
+        elif confidence_score >= thresholds.get("medium_confidence", 0.65):
+            confidence_level = "Medium"
+        else:
+            confidence_level = "Low"
+        
+        pet_context = ""
+        if pet_profile:
+            pet_context = f"""
+PET INFORMATION:
+- Species: {pet_profile.get('species', 'Unknown')}
+- Age: {pet_profile.get('age', 'Unknown')} years
+- Diet: {pet_profile.get('diet', 'Unknown')}
+- Recent Diet Changes: {pet_profile.get('recent_diet_changes', 'None')}
+- Medical History: {pet_profile.get('medical_history', 'None')}
+"""
+        
+        prompt = f"""You are a {system.get('role', 'veterinary diagnostician')}
+
+{system.get('context', '')}
+
+KEY PRINCIPLES:
+{chr(10).join(f"- {p}" for p in system.get('key_principles', []))}
+
+TONE: {system.get('tone', 'Clinical, caring, actionable')}
+
+GI HEALTH ANALYSIS:
+- Finding Type: {predicted_class}
+- Model Confidence: {confidence_score:.1%} ({confidence_level})
+{pet_context}
+GASTROINTESTINAL KNOWLEDGE BASE:
+{rag_context if rag_context else "No additional GI information available."}
+
+USER CONCERN:
+{user_query}
+
+OUTPUT FORMAT:
+## 👀 Visual Assessment
+[What the image shows - color, consistency, contents]
+
+## 🔍 Possible Causes
+[Likely reasons for this presentation]
+
+## ⚠️ Severity Level
+[{' / '.join(template.get('severity_levels', ['Low', 'Medium', 'High', 'Emergency']))}]
+
+## 🏥 Immediate Care
+1. [Hydration step]
+2. [Diet modification]
+3. [Monitoring protocol]
+
+## 📞 When to See Vet
+[Duration: Immediately / Within hours / Within 24 hours]
+
+## 🚨 Emergency Symptoms to Watch
+[When to escalate to emergency care]
+
+CONSTRAINTS:
+- Maximum {template.get('constraints', {}).get('max_words', 280)} words
+- Always recommend veterinary consultation
+- Include hydration importance"""
+        
+        return prompt
+    
+    # ==========================================
+    # HOME ENVIRONMENT SAFETY SCAN PROMPT
+    # ==========================================
+    def build_home_environment_safety_prompt(
+        self,
+        predicted_class: str,
+        confidence_score: float,
+        user_query: str,
+        rag_context: str,
+        pet_profile: Optional[Dict] = None
+    ) -> str:
+        """
+        Build prompt for home environment hazard assessment
+        """
+        vision_config = self.vision_prompts.get("home-environment-safety-scan", {})
+        system = vision_config.get("system_prompt", {})
+        template = vision_config.get("response_template", {})
+        
+        pet_context = ""
+        if pet_profile:
+            pet_context = f"""
+PET INFORMATION:
+- Age: {pet_profile.get('age', 'Unknown')} years
+- Size: {pet_profile.get('size', 'Unknown')}
+- Curiosity Level: {pet_profile.get('curiosity_level', 'Unknown')}
+- Special Needs: {pet_profile.get('special_needs', 'None')}
+"""
+        
+        prompt = f"""You are a {system.get('role', 'pet safety specialist')}
+
+{system.get('context', '')}
+
+KEY PRINCIPLES:
+{chr(10).join(f"- {p}" for p in system.get('key_principles', []))}
+
+TONE: {system.get('tone', 'Proactive, helpful, safety-focused')}
+
+ENVIRONMENT ANALYSIS:
+- Room/Area Type: {predicted_class}
+{pet_context}
+SAFETY KNOWLEDGE BASE:
+{rag_context if rag_context else "No additional safety information available."}
+
+USER QUESTION:
+{user_query}
+
+OUTPUT FORMAT:
+## 🏠 Environment Assessment
+[What type of space and overall safety impression]
+
+## 🚨 Identified Hazards
+1. [Hazard - be specific]
+2. [Hazard - be specific]
+3. [Hazard - be specific]
+
+## ⚠️ Risk Level
+[{' / '.join(template.get('risk_levels', ['Low', 'Medium', 'High']))}]
+
+## ✅ Safety Improvements
+1. [Remove/Secure this item]
+2. [Move this out of reach]
+3. [Add this safety feature]
+
+## 📋 Best Practices
+- [Practice for this environment]
+- [Practice for pet safety]
+- [Emergency preparation]
+
+CONSTRAINTS:
+- Maximum {template.get('constraints', {}).get('max_words', 300)} words
+- Be specific about hazards and solutions
+- Consider different pet sizes and ages"""
+        
+        return prompt
+    
+    # ==========================================
+    # PACKAGED PRODUCT SCANNER PROMPT
+    # ==========================================
+    def build_packaged_product_scanner_prompt(
+        self,
+        predicted_class: str,
+        confidence_score: float,
+        user_query: str,
+        rag_context: str,
+        pet_profile: Optional[Dict] = None
+    ) -> str:
+        """
+        Build prompt for packaged product ingredient analysis and safety
+        """
+        vision_config = self.vision_prompts.get("packaged-product-scanner", {})
+        system = vision_config.get("system_prompt", {})
+        template = vision_config.get("response_template", {})
+        
+        pet_context = ""
+        if pet_profile:
+            pet_context = f"""
+PET INFORMATION:
+- Species: {pet_profile.get('species', 'Unknown')}
+- Age: {pet_profile.get('age', 'Unknown')} years
+- Weight: {pet_profile.get('weight', 'Unknown')} kg
+- Known Allergies: {', '.join(pet_profile.get('allergies', ['None']))}
+- Health Conditions: {pet_profile.get('health_conditions', 'None')}
+"""
+        
+        prompt = f"""You are a {system.get('role', 'pet product expert')}
+
+{system.get('context', '')}
+
+KEY PRINCIPLES:
+{chr(10).join(f"- {p}" for p in system.get('key_principles', []))}
+
+TONE: {system.get('tone', 'Informative, professional, consumer-friendly')}
+
+PRODUCT ANALYSIS:
+- Product Identified: {predicted_class}
+- Analysis Confidence: {confidence_score:.1%}
+{pet_context}
+PRODUCT SAFETY DATABASE:
+{rag_context if rag_context else "No additional product information available."}
+
+USER QUERY:
+{user_query}
+
+OUTPUT FORMAT:
+## 📦 Product Identification
+[Product name, type, and brand]
+
+## 📋 Ingredient Analysis
+[Key ingredients and their quality assessment]
+
+## 🥗 Nutritional Profile
+[AAFCO compliance, nutritional completeness]
+
+## ✅ Safety Assessment
+[Ingredient safety, allergen concerns, harmful substances]
+
+## 💬 Value Verdict
+[Price vs quality assessment and recommendations]
+
+## 💡 Better Alternatives
+[Similar products with better nutritional profiles]
+
+CONSTRAINTS:
+- Maximum {template.get('constraints', {}).get('max_words', 280)} words
+- Extract and list key ingredients
+- Flag any concerning additives or allergens
+- Include AAFCO reference if available"""
+        
+        return prompt
+    
+    # ==========================================
+    # FULL BODY SCAN PROMPT
+    # ==========================================
+    def build_full_body_scan_prompt(
+        self,
+        predicted_class: str,
+        confidence_score: float,
+        user_query: str,
+        rag_context: str,
+        pet_profile: Optional[Dict] = None
+    ) -> str:
+        """
+        Build prompt for comprehensive pet health assessment
+        """
+        vision_config = self.vision_prompts.get("full-body-scan", {})
+        system = vision_config.get("system_prompt", {})
+        template = vision_config.get("response_template", {})
+        
+        pet_context = ""
+        if pet_profile:
+            pet_context = f"""
+PET INFORMATION:
+- Name: {pet_profile.get('name', 'Unknown')}
+- Species: {pet_profile.get('species', 'Unknown')}
+- Age: {pet_profile.get('age', 'Unknown')} years
+- Weight: {pet_profile.get('weight', 'Unknown')} kg
+- Breed: {pet_profile.get('breed', 'Unknown')}
+- Medical History: {pet_profile.get('medical_history', 'None reported')}
+"""
+        
+        prompt = f"""You are a {system.get('role', 'veterinary examination specialist')}
+
+{system.get('context', '')}
+
+KEY PRINCIPLES:
+{chr(10).join(f"- {p}" for p in system.get('key_principles', []))}
+
+TONE: {system.get('tone', 'Thorough, professional, preventative-care focused')}
+
+FULL BODY ASSESSMENT:
+{pet_context}
+VETERINARY REFERENCE DATABASE:
+{rag_context if rag_context else "No additional veterinary information available."}
+
+USER CONCERN/QUESTION:
+{user_query}
+
+OUTPUT FORMAT:
+## 📊 Overall Condition
+[General health appearance and body condition score]
+
+## 🔍 Body System Assessment
+- Head/Neck: [Observations]
+- Eyes/Ears: [Observations]
+- Skin/Coat: [Observations]
+- Limbs/Joints: [Observations]
+- Gait/Movement: [Observations]
+- Abdomen: [Observations]
+
+## ⚠️ Areas of Concern
+[Any abnormalities or areas requiring attention]
+
+## 📝 Observations Summary
+[Overall assessment of health indicators]
+
+## 🏥 Veterinary Recommendations
+[Recommended veterinary evaluation areas]
+
+## 💡 Preventative Care Tips
+[Actions to maintain good health]
+
+CONSTRAINTS:
+- Maximum {template.get('constraints', {}).get('max_words', 320)} words
+- Systematic assessment from head to tail
+- Include body condition score
+- Note any visible abnormalities"""
+        
+        return prompt
+    
+    # ==========================================
     # FOOD ANALYSIS MODEL PROMPT
     # ==========================================
     def build_food_analysis_model_prompt(self, user_query:str, rag_context:str="") -> str:
@@ -635,7 +956,7 @@ OUTPUT FORMAT:
         Unified vision prompt builder that routes to appropriate template
         
         Args:
-            model_type: "toy_classifier", "diseases_classifier", or "default"
+            model_type: Type of vision model (toy-safety-detection, skin-and-health-diagnostic, etc.)
             predicted_class: Classification result from vision model
             confidence_score: Model confidence (0-1)
             user_query: User's question
@@ -643,20 +964,48 @@ OUTPUT FORMAT:
             pet_profile: Optional pet information
         """
         
-        if model_type == "toy_classifier":
+        if model_type == "toy-safety-detection":
             return self.build_toy_classifier_prompt(
                 predicted_class, confidence_score, user_query, rag_context, pet_profile
             )
-        elif model_type == "diseases_classifier":
+        elif model_type == "skin-and-health-diagnostic":
             return self.build_diseases_classifier_prompt(
                 predicted_class, confidence_score, user_query, rag_context, pet_profile
             )
-        elif model_type == 'injury_assistance':
+        elif model_type == "parasite-detection":
+            return self.build_parasite_detection_prompt(
+                predicted_class, confidence_score, user_query, rag_context, pet_profile
+            )
+        elif model_type == "poop-vomit-detection":
+            return self.build_poop_vomit_detection_prompt(
+                predicted_class, confidence_score, user_query, rag_context, pet_profile
+            )
+        elif model_type == "home-environment-safety-scan":
+            return self.build_home_environment_safety_prompt(
+                predicted_class, confidence_score, user_query, rag_context, pet_profile
+            )
+        elif model_type == "packaged-product-scanner":
+            return self.build_packaged_product_scanner_prompt(
+                predicted_class, confidence_score, user_query, rag_context, pet_profile
+            )
+        elif model_type == "full-body-scan":
+            return self.build_full_body_scan_prompt(
+                predicted_class, confidence_score, user_query, rag_context, pet_profile
+            )
+        elif model_type == "injury-assistance":
             return self.build_injury_assistance_prompt(
                 user_query, rag_context
             )
-        elif model_type == 'pet_food_image_analysis':
-            return self.build_food_analysis_model_prompt(user_query, rag_context
+        elif model_type == "pet-food-image-analysis":
+            return self.build_food_analysis_model_prompt(
+                user_query, rag_context
+            )
+        elif model_type == "emotion-detection":
+            return self.build_emotion_detection_prompt(
+                user_query if isinstance(user_query, str) else "",
+                "",
+                pet_profile or {},
+                rag_context
             )
         else:
             return self.build_vision_default_prompt(
@@ -679,35 +1028,29 @@ OUTPUT FORMAT:
         Build prompt that intelligently uses RAG context
         
         The key to PawPilot: RAG data directly informs the prompt
+        Supports all vision detection strategies and emergency scenarios
         """
-        
-        if module == "skin_diagnosis":
-            return self.build_skin_diagnosis_prompt(
-                pet_profile, 
-                user_query.get("symptom_description", ""),
-                rag_retrieved_data
-            )
-        elif module == "emotion_detection":
+        if module == "emotion-detection":
             return self.build_emotion_detection_prompt(
-                user_query["image_features"],
-                user_query["audio_analysis"],
+                user_query.get("image_features", ""),
+                user_query.get("audio_analysis", ""),
                 pet_profile,
                 rag_retrieved_data
             )
         elif module == "emergency":
             return self.build_emergency_prompt(
-                user_query["emergency_type"],
-                user_query["symptoms"],
+                user_query.get("emergency_type", ""),
+                user_query.get("symptoms", ""),
                 pet_profile,
                 rag_retrieved_data
             )
-        elif module == "product_safety":
+        elif module == "product-safety":
             return self.build_product_analysis_prompt(
                 user_query,
                 pet_profile,
                 rag_retrieved_data
             )
-        elif module == "toy_classifier":
+        elif module == "toy-safety-detection":
             return self.build_toy_classifier_prompt(
                 user_query.get("predicted_class", "Unknown"),
                 user_query.get("confidence_score", 0.0),
@@ -715,8 +1058,48 @@ OUTPUT FORMAT:
                 rag_retrieved_data,
                 pet_profile
             )
-        elif module == "diseases_classifier":
+        elif module == "skin-and-health-diagnostic":
             return self.build_diseases_classifier_prompt(
+                user_query.get("predicted_class", "Unknown"),
+                user_query.get("confidence_score", 0.0),
+                user_query.get("query", ""),
+                rag_retrieved_data,
+                pet_profile
+            )
+        elif module == "parasite-detection":
+            return self.build_parasite_detection_prompt(
+                user_query.get("predicted_class", "Unknown"),
+                user_query.get("confidence_score", 0.0),
+                user_query.get("query", ""),
+                rag_retrieved_data,
+                pet_profile
+            )
+        elif module == "poop-vomit-detection":
+            return self.build_poop_vomit_detection_prompt(
+                user_query.get("predicted_class", "Unknown"),
+                user_query.get("confidence_score", 0.0),
+                user_query.get("query", ""),
+                rag_retrieved_data,
+                pet_profile
+            )
+        elif module == "home-environment-safety-scan":
+            return self.build_home_environment_safety_prompt(
+                user_query.get("predicted_class", "Unknown"),
+                user_query.get("confidence_score", 0.0),
+                user_query.get("query", ""),
+                rag_retrieved_data,
+                pet_profile
+            )
+        elif module == "packaged-product-scanner":
+            return self.build_packaged_product_scanner_prompt(
+                user_query.get("predicted_class", "Unknown"),
+                user_query.get("confidence_score", 0.0),
+                user_query.get("query", ""),
+                rag_retrieved_data,
+                pet_profile
+            )
+        elif module == "full-body-scan":
+            return self.build_full_body_scan_prompt(
                 user_query.get("predicted_class", "Unknown"),
                 user_query.get("confidence_score", 0.0),
                 user_query.get("query", ""),
@@ -733,14 +1116,15 @@ OUTPUT FORMAT:
                 rag_retrieved_data,
                 pet_profile
             )
-        elif module == 'injury_assistance':
+        elif module == "injury-assistance":
             return self.build_injury_assistance_prompt(
-                user_query,
+                user_query.get("query", ""),
                 rag_retrieved_data
             )
-        elif module=='pet_food_image_analysis':
+        elif module == "pet-food-image-analysis":
             return self.build_food_analysis_model_prompt(
-                user_query, rag_retrieved_data
+                user_query.get("query", ""),
+                rag_retrieved_data
             )
         else:
             raise ValueError(f"Unknown module: {module}")

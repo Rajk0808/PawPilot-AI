@@ -7,7 +7,7 @@ from src.database import model
 
 def load_model_toy():
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    load_path = "D:\\codeSutra AI\\project\\AI_chat\\AI_Model\\vision_model\\model\\models\\toy_clip_model_final.pth" # Or your local path
+    load_path = "AI_Model/vision_model/model/models/toy_clip_model_final.pth" # Or your local path
     # Recreate classifier
     num_classes = 77
     classifier = nn.Linear(512, num_classes).to(device)

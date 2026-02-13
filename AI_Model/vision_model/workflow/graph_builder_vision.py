@@ -55,7 +55,7 @@ class StateTransformer:
             )
             if vision_state.get("strategy") in ("emotion-detection", "full-body-scan", "packaged-product-scanner"):
                 workflow_state["to_use_model"] = False
-                workflow_state['final_output'] = vision_state.get("final_output", "")
+                workflow_state['validated_response'] = vision_state.get("final_output", "")
             # Map vision-specific outputs to workflow inputs
             workflow_state["context"] = f"""
 Vision Model Analysis:
@@ -146,8 +146,6 @@ class MultiGraphWorkflow:
             # Define edges for subgraph A
             graph_a.add_edge(START, "input_processing")
             graph_a.add_edge("input_processing", "decision_router")
-            
-            # Conditional routing in subgraph A
             graph_a.add_edge("decision_router", "model_call")
             graph_a.add_edge("model_call", "retrieval")
             graph_a.add_edge("retrieval", "second_model")

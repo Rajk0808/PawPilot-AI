@@ -284,6 +284,7 @@ def retrieval_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
                 host_name = "https://toy-detection-6i6jnuf.svc.aped-4627-b74a.pinecone.io"
             docs = retrieve_docs(class_name, host_name)
             # Convert list to dict format if needed
+            print(state.get('retrieved_docs'))
             if strategy == 'pet-food-image-analysis':
                 state['retrieved_docs'] = docs.get('metadata', {}) if isinstance(docs, dict) else {"documents": docs}
             else:
