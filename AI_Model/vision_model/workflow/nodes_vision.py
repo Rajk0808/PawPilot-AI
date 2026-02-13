@@ -252,7 +252,8 @@ def second_model_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
 
     try:
         if state.get("strategy") not in SKIP_SECOND_MODEL_STRATEGIES:
-            state['raw_model2_response'] = call_nvdia(state.get('image'))            
+            response = call_nvdia(state.get('image'), prompt=state.get('query', ''))  
+            state['raw_model2_response'] = response.get('choices', [{}])[0].get('message', {}).get('content', '')        
         return state
 
     except Exception as e: 

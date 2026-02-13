@@ -69,7 +69,7 @@ def retrieve_docs(query: str, index_or_hostname):
         
         # If exact ID match found, return it
         if results and results.vectors:
-            return results
+            return decode_results(results)
     except Exception as e:
         print(f"ID fetch failed: {e}")
     
