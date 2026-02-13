@@ -3,24 +3,17 @@ from dotenv import load_dotenv
 load_dotenv()
 import os
 import json
-from pathlib import Path
-sys.path.insert(0,str(Path(__file__).parent.parent))
 import time
 import logging
 from typing import Dict, Optional
 from datetime import datetime
 from openai import OpenAI, RateLimitError, APIConnectionError
-from models.model_factory import ModelFactory
-from utils.exceptions import CustomException
-from utils.metrics import MetricsTracker
-import sys
-from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-from datetime import datetime
-from datetime import datetime
-from utils.exceptions import CustomException
+from AI_Model.src.models.model_factory import ModelFactory
+from AI_Model.src.utils.exceptions import CustomException
+from AI_Model.src.utils.metrics import MetricsTracker
+from AI_Model.src.utils.exceptions import CustomException
 logger = logging.getLogger(__name__)
-from AI_Model.src.tools.web_search import web_search
+from AI_Model.src.utils.web_search import web_search
 
 class Node5ModelInference:
     """
@@ -290,7 +283,7 @@ class Node5ModelInference:
             "stream": False  # For simplicity (can be enabled for streaming)
         }
     
-    def _get_tools(self) -> str:
+    def _get_tools(self) -> list:
         """
         Configured all the available tools e.g., WebSearch and else(upcoming)
         """
@@ -352,14 +345,17 @@ class Node5ModelInference:
                     temperature=temperature,
                     max_tokens=max_tokens,
                     top_p=top_p,
-                    stream=stream
+                    stream=False
                 )
                 
                 if response.choices[0].message.tool_calls:
                     tool_call = response.choices[0].message.tool_calls[0]
-                    args = json.loads(tool_call.function.arguments)
+                    args = json.loads(getattr(tool_call, 'arguments', '{}')) if getattr(tool_call, 'arguments', None) else {}
 
-                    search_results = web_search.invoke(args["query"])
+                    if args:
+                        search_results = web_search.invoke(args["query"])
+                    else:
+                        search_results = ""
                     
                     messages = [
                         {"role" : "user", "content" : prompt},
