@@ -7,6 +7,8 @@ from AI_Model.src.utils.exceptions import CustomException
 import logging
 
 logger = logging.getLogger(__name__)
+ROUTER_INSTANCE = None
+SKIP_SECOND_MODEL_STRATEGIES = ("emotion-detection", "full-body-scan", "packaged-product-scanner")
 
 
 
@@ -53,15 +55,20 @@ def decision_router_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
     Decide on the model strategy based on the state.
     
     Args:
-        state: Current workflow state as a dictionary.
+        state: Current workflow state as a VisionWorkFlowState.
     """
     logger.info('Deciding on model strategy...')
 
     try:
-        from AI_Model.vision_model.utils.keyword_extractor import KeyWordExtractor
-        extractor = KeyWordExtractor()
+        from AI_Model.vision_model.utils.keyword_extractor import QueryRouter
+        global ROUTER_INSTANCE
+        if ROUTER_INSTANCE is None:
+            ROUTER_INSTANCE = QueryRouter()
+        router = ROUTER_INSTANCE
         query = state.get("query", "")
-        state['strategy'] = extractor.select_strategy(query)
+        result = router.route_query(query)
+        state["strategy"] = result.primary_strategy.value if result.primary_strategy is not None else "unknown"
+        state['confidence_score'] = result.primary_confidence if result.primary_confidence is not None else 0.0
         return state
 
     except Exception as e: 
@@ -157,7 +164,7 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
             user_query = state.get("query", "")
             images = [image]  # Assuming single image for emotion detection
             reply = chatbot_emotion_detection(user_query, images)
-            state["final_output"] = reply
+            state["final_output"] = str(reply)
             state["predicted_class"] = "emotion_detected"
             state["confidence_score"] = 1.0  # Assuming full confidence for text response
         
@@ -166,23 +173,68 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
             user_query = state.get("query", "")
             images = [image]
             reply = chatbot_injury_assistance(user_query, images)
-            state['final_output'] = reply
+            state['final_output'] = str(reply)
             state['confidence_score'] = 0.85
             state['predicted_class'] = "injury_analyzed"
+
         elif strategy == "pet-food-image-analysis":
             from AI_Model.vision_model.model.pet_food_image_analysis import chatbot_food_analyzer
             user_query = state.get("query", "")
             images = [image]
             reply = chatbot_food_analyzer(user_query, images)
-            state['final_output'] = reply
+            state['final_output'] = str(reply)
             state['predicted_class'] = "food_analyzed"
             state['confidence_score'] = 0.9
+        elif strategy == "full-body-scan":
+            from AI_Model.vision_model.model.full_body_scan import chatbot_full_body_scan
+            user_query = state.get("query", "")
+            images = [image]
+            reply = chatbot_full_body_scan(user_query, images)
+            state['final_output'] = str(reply)
+            state['predicted_class'] = "full_body_scan_analyzed"
+            state['confidence_score'] = 0.9
+
+        elif strategy == "packaged-product-scanner":
+            from AI_Model.vision_model.model.packaged_product_scanner import process_food_image
+            user_query = state.get("query", "")
+            images = [image]
+            reply = process_food_image(images)
+            state['final_output'] = str(reply)
+            state['predicted_class'] = "packaged_product_analyzed"
+            state['confidence_score'] = 0.9
+
+        elif strategy == "home-enviroment-safety-scan":
+            #from AI_Model.vision_model.model.home_enviroment_safety_scan import chatbot_home_safety_scan
+            user_query = state.get("query", "")
+            #images = [image]
+            #reply = chatbot_home_safety_scan(user_query, images)
+            #state['final_output'] = str(reply)
+            #state['predicted_class'] = "home_safety_scan_analyzed"
+            #state['confidence_score'] = 0.9
+        
+        elif strategy == "parasite-detection":
+            from AI_Model.vision_model.model.parasites_detection import predict
+            user_query = state.get("query", "")
+            images = [image]
+            reply = predict(images)
+            state['predicted_class'] = str(reply[0])
+            confidence = reply[1]
+            state['confidence_score'] = float(confidence) if isinstance(confidence, (int, float, str)) else 0.0
+
+        elif strategy == "poop-vomit-detection":
+            #from AI_Model.vision_model.model.poop_vomit_detection import predict_poop_vomit
+            user_query = state.get("query", "")
+            #images = [image]
+            #reply = predict_poop_vomit(images)
+            #state['predicted_class'] = str(reply[0])
+            #confidence = reply[1]
+            #state['confidence_score'] = float(confidence) if isinstance(confidence, (int, float, str)) else 0.04
+
         else:
             logger.warning(f"Unknown strategy: {strategy}")
             state["predicted_class"] = "unknown"
             state["confidence_score"] = 0.0
         
-        logger.info(f"Prediction result: {state['predicted_class']} (confidence: {state['confidence_score']:.2f})")
         return state
 
     except Exception as e: 
@@ -199,7 +251,7 @@ def second_model_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
     logger.info('Evaluating need for second model call...')
 
     try:
-        if state.get("strategy") != "emotion_detection":
+        if state.get("strategy") not in SKIP_SECOND_MODEL_STRATEGIES:
             state['raw_model2_response'] = call_nvdia(state.get('image'))            
         return state
 
@@ -217,7 +269,7 @@ def retrieval_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
     logger.info('Retrieval node - no operation for vision model.')
 
     try:
-        if state.get("strategy") != "emotion_detection":
+        if state.get("strategy") not in SKIP_SECOND_MODEL_STRATEGIES:
             # Currently no retrieval logic for vision model
             class_name = state.get("predicted_class", "unknown")
             strategy = state.get("strategy", "default")
@@ -232,6 +284,7 @@ def retrieval_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
                 host_name = "https://toy-detection-6i6jnuf.svc.aped-4627-b74a.pinecone.io"
             docs = retrieve_docs(class_name, host_name)
             # Convert list to dict format if needed
+            print(state.get('retrieved_docs'))
             if strategy == 'pet-food-image-analysis':
                 state['retrieved_docs'] = docs.get('metadata', {}) if isinstance(docs, dict) else {"documents": docs}
             else:

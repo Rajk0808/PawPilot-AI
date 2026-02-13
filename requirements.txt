@@ -35,3 +35,5 @@ nltk
 google-genai
 gradio-client
 pinecone-client
+langchain_openai
+langchain_google_genai

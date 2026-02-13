@@ -9,14 +9,23 @@ load_dotenv()
 def markdown_bold_to_html(text):
     return re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', text)
 def base64_encode_image(image_path):
-    # Accepts either a file-like object or a file path (str)
+    # Accepts either a file-like object, a file path (str), or a PIL Image
     if hasattr(image_path, 'read'):
         return base64.b64encode(image_path.read()).decode('utf-8')
     elif isinstance(image_path, str):
         with open(image_path, 'rb') as f:
             return base64.b64encode(f.read()).decode('utf-8')
+    elif hasattr(image_path, 'save'):  # PIL Image
+        from io import BytesIO
+        # Convert to RGB if necessary (JPEG doesn't support alpha channels)
+        if image_path.mode in ('RGBA', 'LA', 'P'):
+            image_path = image_path.convert('RGB')
+        buffer = BytesIO()
+        image_path.save(buffer, format='JPEG')
+        buffer.seek(0)
+        return base64.b64encode(buffer.read()).decode('utf-8')
     else:
-        raise TypeError("image_path must be a file-like object or a file path string")
+        raise TypeError("image_path must be a file-like object, a file path string, or a PIL Image")
 def create_content(prompt, images):
     parts = [types.Part(text=prompt)]
     for img in images:
@@ -35,7 +44,7 @@ def chatbot_full_body_scan(user_query, images):
     prompt = f"""
            Suppose you are a veterinary expert specializing in dog and cat health assessments, you have been provided with multiple images of a dog from different angles. Your task is to analyze these images to estimate the dog's weight range and overall body condition.
            provide output in more human friendly way, add some emojies according to heading and answer for each point in detail. 
-
+           and if images are not of different animals then create a single report for the dog in the images, not a report for each image.
            Task:
            Estimate the dog's weight range (not exact weight) using all provided images.
            

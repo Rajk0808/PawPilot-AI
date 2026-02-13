@@ -1,9 +1,8 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
-from google.genai import types
-from langchain_openai import OpenAI
-import os
+from langchain_core.messages import HumanMessage
 import base64
 from dotenv import load_dotenv
+from typing import Any
 
 load_dotenv()
 
@@ -12,19 +11,16 @@ def base64_encode_image(image_path):
     image_path.seek(0)
     return base64.b64encode(image_path.read()).decode('utf-8')
 
-def create_content(prompt, image):
-    parts = [types.Part(text=prompt)]
-    for img in image:
+def create_message(prompt, image_list):
+    content: list[str | dict[str, Any]] = [{"type": "text", "text": prompt}]
+    for img in image_list:
         img.seek(0)
-        parts.append(
-            types.Part(
-                inline_data=types.Blob(
-                    mime_type='image/jpeg',
-                    data=base64.b64decode(base64_encode_image(img))
-                )
-            )
-        )
-    return types.Content(parts=parts)
+        base64_image = base64.b64encode(img.read()).decode('utf-8')
+        content.append({
+            "type": "image_url",
+            "image_url": {"url": f"data:image/jpeg;base64,{base64_image}"}
+        })
+    return HumanMessage(content=content)
 
 def chatbot_injury_assistance(user_query, image_path):
     client = ChatGoogleGenerativeAI(model="gemini-3-flash-preview")
@@ -45,6 +41,6 @@ Return ONLY a JSON object with keys:
 User's concern: {user_query}
 """
 
-    content = create_content(prompt, image_path)
-    result = client.invoke(content)
+    message = create_message(prompt, image_path)
+    result = client.invoke([message])
     return result

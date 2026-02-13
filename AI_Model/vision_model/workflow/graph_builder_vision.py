@@ -53,7 +53,9 @@ class StateTransformer:
                 model_to_use=vision_state.get("model_to_use", "gpt-4-turbo"),
                 strategy=vision_state.get("strategy", "prompt_only")
             )
-            
+            if vision_state.get("strategy") in ("emotion-detection", "full-body-scan", "packaged-product-scanner"):
+                workflow_state["to_use_model"] = False
+                workflow_state['validated_response'] = vision_state.get("final_output", "")
             # Map vision-specific outputs to workflow inputs
             workflow_state["context"] = f"""
 Vision Model Analysis:
@@ -144,8 +146,6 @@ class MultiGraphWorkflow:
             # Define edges for subgraph A
             graph_a.add_edge(START, "input_processing")
             graph_a.add_edge("input_processing", "decision_router")
-            
-            # Conditional routing in subgraph A
             graph_a.add_edge("decision_router", "model_call")
             graph_a.add_edge("model_call", "retrieval")
             graph_a.add_edge("retrieval", "second_model")
@@ -181,17 +181,7 @@ class MultiGraphWorkflow:
             graph_b.add_edge(START, "engineer_prompt")
             graph_b.add_edge("engineer_prompt", "run_inference")
             graph_b.add_edge("run_inference", "validate_response")
-            
-            # Conditional routing for validation
-            graph_b.add_conditional_edges(
-                "validate_response",
-                self._route_validation_b,
-                {
-                    "valid": "log_interaction",
-                    "invalid": "engineer_prompt",  # Re-engineer if invalid
-                }
-            )
-            
+            graph_b.add_edge("validate_response", "log_interaction")            
             graph_b.add_edge("log_interaction", "check_fine_tuning")
             graph_b.add_edge("check_fine_tuning", END)
             

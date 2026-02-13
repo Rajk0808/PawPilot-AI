@@ -1,4 +1,5 @@
 from typing import List, Dict, Any
+from sqlalchemy import Boolean
 from typing_extensions import TypedDict
 
 
@@ -60,6 +61,8 @@ class WorkFlowState(TypedDict, total=False):
     output: str                             # Alias for final_output
 
     predicted_class : str
+
+    to_use_model : bool
 # ============================================================================
 # Helper function to create initial state
 # ============================================================================
