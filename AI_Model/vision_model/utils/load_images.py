@@ -12,7 +12,6 @@ class LoadImages:
             return images
 
         elif strategy == 'Base64':
-
             for img_path in image_paths:
                 with open(img_path, "rb") as img_file:
                     b64_string = base64.b64encode(img_file.read()).decode('utf-8')

@@ -632,16 +632,7 @@ def check_fine_tuning_trigger(state: Dict, db_connection: Optional[DatabaseManag
         # STEP 5: TRIGGER IF READY (ASYNC - NON-BLOCKING)
         logger.info("STEP 5: Triggering fine-tuning job if ready...")
         
-        if trigger_conditions["overall_ready"]:
-            logger.warning(f"""
-🎯 ============================================
-🎯 FINE-TUNING TRIGGERED!
-🎯 Examples: {accumulated}
-🎯 Days: {days_since}
-🎯 Budget: ${remaining_budget:.2f}
-🎯 ============================================
-""")
-            
+        if trigger_conditions["overall_ready"]:            
             # Trigger async job (non-blocking)
             asyncio.create_task(
                 trigger_fine_tuning_pipeline(

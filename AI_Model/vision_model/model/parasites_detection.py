@@ -37,15 +37,3 @@ def predict(images):
         result_classes = result[0]
         result_confidence = float(result[1])
     return result_classes, result_confidence
-if __name__ == "__main__":
-    image_path = 'AI_Model\\vision_model\\data\\parasite detection\\Screenshot_2026-01-21_153332.png'
-    
-    try:
-        result = predict([image_path])
-        print(f"Predicted Parasite: {result[0]}, Confidence: {result[1]}")
-    except FileNotFoundError as e:
-        print(f"Error: {e}")
-    except RuntimeError as e:
-        print(f"Error: {e}")
-    except Exception as e:
-        print(f"Unexpected error: {e}")

@@ -677,7 +677,7 @@ class OptimizedKeywordExtractor:
             # ====================================================================
             StrategyType.FULL_BODY_SCAN: {
                 # Critical keywords (5.0)
-                "weight": 5.0, "kg": 5.0, "lbs": 5.0, "pounds": 5.0,
+                "weight": 5.0, "kg": 5.0, "lbs": 5.0, "pounds": 5.0, "full body scan": 5.0,
                 
                 # High priority (3.0-4.0)
                 "overweight": 4.0, "obese": 4.0, "underweight": 4.0,

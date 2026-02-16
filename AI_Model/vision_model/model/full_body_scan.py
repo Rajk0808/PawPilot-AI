@@ -4,6 +4,7 @@ import base64
 import re
 import os
 from dotenv import load_dotenv
+from AI_Model.vision_model.utils.load_images import LoadImages
 load_dotenv()
 
 def markdown_bold_to_html(text):
@@ -73,6 +74,8 @@ def chatbot_full_body_scan(user_query, images):
            - Reasoning based on visible features:
            
            """
+    loader = LoadImages()
+    images = loader.image_loader(strategy="PIL", image_paths=images)
     response = client.models.generate_content(
         model="gemini-3-flash-preview",
         contents=create_content(prompt, images)

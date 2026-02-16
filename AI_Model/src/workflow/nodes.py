@@ -1,17 +1,13 @@
 import sys
 import time
-import json
 from pathlib import Path
 import traceback
-PROJECT_ROOT = Path(__file__).parent.parent
-sys.path.insert(0, str(PROJECT_ROOT))
-from workflow.state_definition import WorkFlowState
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
+from src.workflow.state_definition import WorkFlowState
 from src.utils.exceptions import CustomException
 from src.prompt_engineering.prompts import PawPilotPromptBuilder
-import logging
-
+import logging  
 
 logger = logging.getLogger(__name__)
 
@@ -317,8 +313,7 @@ def engineer_prompt_node(state: WorkFlowState) -> WorkFlowState:
                             User Query: {query}
                                 
                             Please provide a comprehensive and accurate answer based on the provided context."""
-                    state["prompt_template"] = "rag_default"
-        print(prompt)        
+                    state["prompt_template"] = "rag_default"      
         return state
         
     except Exception as e:
@@ -329,7 +324,6 @@ def engineer_prompt_node(state: WorkFlowState) -> WorkFlowState:
         # Fallback to basic prompt
         state["final_prompt"] = state.get("query", "")
         state["prompt_template"] = "fallback"
-        print(state["final_prompt"])
         return state
 
 
@@ -349,7 +343,7 @@ def run_model_inference_node(state: WorkFlowState) -> WorkFlowState:
         if state.get('to_use_model', True):
             from AI_Model.src.models.model_inference import Node5ModelInference
             node = Node5ModelInference()
-            result = node.run_inference(dict(state))
+            result = node.run_inference(state)
             logger.info("Model inference completed")
             state.update(result) 
 
@@ -488,3 +482,5 @@ def should_use_rag(query) -> bool:
         return True
 
     return False
+
+

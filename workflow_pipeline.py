@@ -6,18 +6,11 @@ import traceback
 import sys
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, File, UploadFile, HTTPException
-import os
-import shutil
 from PIL import Image
 import io
 from AI_Model.src.utils.exceptions import CustomException
 from AI_Model.src.workflow.graph_builder import build_complete_workflow
 from AI_Model.vision_model.workflow.graph_builder_vision import MultiGraphWorkflow 
-
-UPLOAD_DIR = os.path.join(os.path.dirname(__file__),'AI_Model', "uploads")
-os.makedirs(os.path.join(UPLOAD_DIR, "audio"), exist_ok=True)
-os.makedirs(os.path.join(UPLOAD_DIR, "video"), exist_ok=True)
-os.makedirs(os.path.join(UPLOAD_DIR, "photos"), exist_ok=True)
 
 class ChatRequest(BaseModel):
     """Request model for chat endpoint"""
@@ -45,14 +38,14 @@ class VisionPipeline:
         self.vision_workflow_instance = MultiGraphWorkflow()
         
     
-    def process_image(self,image : Image.Image, query : str = '') -> Optional[str]:
+    def process_images(self, images: List[Image.Image], query: str = '') -> str:
         """
-        Docstring for process_image
+        Docstring for process_images
         
         """
         try:
             initial_state = {
-                'image' : image,
+                'image' : images,
                 'query': query,
             }
             
@@ -61,7 +54,7 @@ class VisionPipeline:
             # Extract response from result
             bot_response = self._extract_response(result)
             #logger.info("✓ Image processed successfully")
-            return  bot_response
+            return str(bot_response)
         
         except Exception as e:
             error_msg = f"Error processing image: {str(e)}"
@@ -157,7 +150,7 @@ class ChatbotPipeline:
         """
         if isinstance(result, dict):
             # Try different possible keys where response might be stored
-            possible_keys = ["final_response"]
+            possible_keys = ["final_response", "validated_response"]
             
             for key in possible_keys:
                 if key in result and result[key]:
@@ -240,27 +233,13 @@ async def upload_audio(file: UploadFile = File(...)):
     # 2. Validate filename
     if file.filename is None:
         raise HTTPException(status_code=400, detail="Filename is required")
-
-    # 3. Save File
-    file_path = os.path.join(UPLOAD_DIR, "audio", file.filename)
-    
-    # We can also check size before saving if needed
-    # Note: file.size is available in newer FastAPI versions, otherwise use os.path.getsize after saving
-    with open(file_path, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
-    
-    # 3. Check Size (e.g., limit to 10MB)
-    MAX_SIZE = 10 * 1024 * 1024 # 10MB
-    file_size = os.path.getsize(file_path)
-    if file_size > MAX_SIZE:
-        os.remove(file_path) # Delete the file if it's too large
         raise HTTPException(status_code=400, detail="File too large. Max size is 10MB.")
 
     return {
         "message": "Audio uploaded successfully",
         "filename": file.filename,
-        "size": file_size
-    }
+           "size": file.size
+           }
 
 @app.post("/upload-video/")
 async def upload_video(file: UploadFile = File(...)):
@@ -277,22 +256,10 @@ async def upload_video(file: UploadFile = File(...)):
     if file.filename is None:
         raise HTTPException(status_code=400, detail="Filename is required")
 
-    # 3. Save File
-    file_path = os.path.join(UPLOAD_DIR, "video", file.filename)
-    with open(file_path, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
-    
-    # 3. Check Size (e.g., limit to 50MB for video)
-    MAX_SIZE = 50 * 1024 * 1024 # 50MB
-    file_size = os.path.getsize(file_path)
-    if file_size > MAX_SIZE:
-        os.remove(file_path)
-        raise HTTPException(status_code=400, detail="Video too large. Max size is 50MB.")
-
     return {
         "message": "Video uploaded successfully",
         "filename": file.filename,
-        "size": file_size
+        "size": file.size
     }
 
 @app.post("/upload-photo/")
@@ -304,26 +271,17 @@ async def upload_photo(files: List[UploadFile] = File(default=[]), query: str = 
     global vision_pipeline
     if vision_pipeline is None:
         vision_pipeline = VisionPipeline()
-    
+    images = []
     for file in files:
-        # 1. Validate Content Type
-        if file.content_type is None or not file.content_type.startswith("image/"):
-            raise HTTPException(status_code=400, detail=f"File {file.filename} must be an image")
-
-        # 2. Validate filename
-        if file.filename is None:
-            raise HTTPException(status_code=400, detail="Filename is required")
-
-        # 3. Read image content for processing
         contents = await file.read()
-        image = Image.open(io.BytesIO(contents))
+        images.append(Image.open(io.BytesIO(contents)))
         
-        result = vision_pipeline.process_image(image, query)
+    result = vision_pipeline.process_images(images, query)
         
-        results.append({
-            "filename": file.filename,
-            "result": result
-        })
+    results.append({
+        "filename": file.filename,
+        "result": result
+    })
 
     return results
     
@@ -386,7 +344,7 @@ if __name__ == "__main__":
     import uvicorn
     
     uvicorn.run(
-        "main:app",  # Change "main" to your file name if different
+        "workflow_pipeline:app",  # Change "main" to your file name if different
         host="0.0.0.0",
         port=8000,
         reload=False,

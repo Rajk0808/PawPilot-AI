@@ -1,11 +1,13 @@
 import sys
 from dotenv import load_dotenv
 load_dotenv()
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent.parent.parent))
 import os
 import json
 import time
 import logging
-from typing import Dict, Optional
+from typing import Dict, Optional, Any
 from datetime import datetime
 from openai import OpenAI, RateLimitError, APIConnectionError
 from AI_Model.src.models.model_factory import ModelFactory
@@ -41,9 +43,9 @@ class Node5ModelInference:
         self.max_retries = 3
         self.retry_delay = 2  # seconds
     
-    def run_inference(self, state: Dict) -> Dict:
+    def run_inference(self, state) -> Dict:
         """
-        NODE 5: Execute model inference
+        NODE 5: Execute model inference with tool use support
         
         Args:
             state: WorkflowState with final_prompt and model selection
@@ -88,12 +90,14 @@ class Node5ModelInference:
             
             
             # ============================================================
-            # STEP 4: CALL MODEL WITH RETRY LOGIC
+            # STEP 4: CALL MODEL WITH RETRY LOGIC (WITH TOOL USE LOOP)
             # ============================================================
-            logger.info("STEP 4: Calling LLM...")
-            
-            response = self._call_model_with_retry(
-                prompt=state["final_prompt"],
+            logger.info("STEP 4: Calling LLM with tool support...")
+            prompt = state.get("final_prompt", "")
+            if not prompt:
+                prompt = state.get('prompt_template', 'No prompt template found')
+            response, messages_history = self._call_model_with_tools(
+                prompt=prompt,
                 model=model_name,
                 **inference_params
             )
@@ -104,9 +108,14 @@ class Node5ModelInference:
             # ============================================================
             logger.info("STEP 5: Extracting response...")
             
-            raw_response = response.choices[0].message.content #type: ignore
-            response_tokens = response.usage.completion_tokens if hasattr(response, 'usage') else len(raw_response.split()) #type: ignore
-            prompt_tokens = response.usage.prompt_tokens if hasattr(response, 'usage') else 0 #type: ignore
+            raw_response = response.choices[0].message.content
+            
+            # Fallback if content is still None (shouldn't happen now)
+            if raw_response is None:
+                raw_response = "Unable to generate response"
+            
+            response_tokens = response.usage.completion_tokens if response.usage and hasattr(response.usage, 'completion_tokens') else len(raw_response.split())
+            prompt_tokens = response.usage.prompt_tokens if response.usage and hasattr(response.usage, 'prompt_tokens') else 0
             
             state["raw_response"] = raw_response
             state["response_tokens"] = response_tokens
@@ -210,11 +219,7 @@ class Node5ModelInference:
         2. Otherwise → use base model
         """
         
-        try:
-            # Check if model was already selected in Node 2
-            if "model_to_use" in state:
-                return state["model_to_use"]
-            
+        try:            
             # Check if we have an active fine-tuned model
             fine_tuned_model = None #self.model_factory.get_active_fine_tuned_model()
             
@@ -326,74 +331,151 @@ class Node5ModelInference:
         Retries on rate limits and connection errors
         """
         tools = self._get_tools()
-        for attempt in range(self.max_retries):
-            try:
-                from openai import OpenAI
-                logger.info(f"API call attempt {attempt + 1}/{self.max_retries}...")
-                base_model = self.model_factory.get_base_model()
-                client = OpenAI(api_key=os.getenv('OPENAIAPI'))
-                response = client.chat.completions.create(
-                    model=base_model,
-                    messages=[
-                        {
-                            "role": "user",
-                            "content": prompt
-                        }
-                    ],
-                    tools=tools,
-                    tool_choice="auto",
-                    temperature=temperature,
-                    max_tokens=max_tokens,
-                    top_p=top_p,
-                    stream=False
-                )
+        try:
+            base_model = self.model_factory.get_base_model()
+            client = OpenAI(api_key=os.getenv('OPENAIAPI'))
+            response = client.chat.completions.create(
+                model=base_model,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ],
+                tools=tools,
+                tool_choice="auto",
+                temperature=temperature,
+                max_tokens=max_tokens,
+                top_p=top_p,
+                stream=False
+            )
+            print(response)
+            return response
+            
+        except Exception as e:
+            logger.error(f"Error during model call: {str(e)}", exc_info=True)
+    
+    
+    def _call_model_with_tools(
+        self,
+        prompt: str,
+        model: str,
+        temperature: float,
+        max_tokens: int,
+        top_p: float,
+        stream: bool = False,
+        max_tool_iterations: int = 3
+    ):
+        """
+        Call OpenAI model with tool use support (agentic loop)
+        
+        Handles:
+        1. Initial model call
+        2. If model requests tool use → execute tool
+        3. Feed tool result back to model
+        4. Continue until model generates text response
+        
+        Args:
+            prompt: Initial user prompt
+            model: Model name to use
+            max_tool_iterations: Max times to call tools before giving up
+            
+        Returns:
+            Tuple of (final_response, messages_history)
+        """
+        tools = self._get_tools()
+        client = OpenAI(api_key=os.getenv('OPENAIAPI'))
+        base_model = self.model_factory.get_base_model()
+        
+        # Initialize messages (use Any to avoid strict type checking)
+        messages: list[Any] = [{"role": "user", "content": prompt}]
+        
+        iteration = 0
+        while iteration < max_tool_iterations:
+            logger.info(f"Agentic Loop - Iteration {iteration + 1}/{max_tool_iterations}")
+            iteration += 1
+            
+            # Call model
+            response = client.chat.completions.create(
+                model=base_model,
+                messages=messages,
+                tools=tools,
+                tool_choice="auto",
+                temperature=temperature,
+                max_tokens=max_tokens,
+                top_p=top_p,
+                stream=False
+            )
+            
+            # Check if model generated text content
+            if response.choices[0].message.content is not None:
+                logger.info(f"✓ Model generated text response (iteration {iteration})")
+                return response, messages
+            
+            # Check if model wants to use tools
+            if response.choices[0].message.tool_calls:
+                logger.info(f"Model requesting tool use: {len(response.choices[0].message.tool_calls)} tool call(s)")
                 
-                if response.choices[0].message.tool_calls:
-                    tool_call = response.choices[0].message.tool_calls[0]
-                    args = json.loads(getattr(tool_call, 'arguments', '{}')) if getattr(tool_call, 'arguments', None) else {}
-
-                    if args:
-                        search_results = web_search.invoke(args["query"])
-                    else:
-                        search_results = ""
+                # Add assistant's tool call to messages (omit content when None)
+                messages.append({
+                    "role": "assistant",
+                    "tool_calls": response.choices[0].message.tool_calls
+                })
+                
+                # Execute each tool call and collect results
+                for tool_call in response.choices[0].message.tool_calls:
+                    # Cast to Any to avoid type checking issues with tool_call structure
+                    tool_call_any: Any = tool_call
                     
-                    messages = [
-                        {"role" : "user", "content" : prompt},
-                        response.choices[0].message,
-                        {
-                            "role" : "tool",
-                            "tool_call_id" : tool_call.id,
-                            "content" : search_results
-                        }
-                    ]
-
-                    response = client.chat.completions.create(
-                        model=base_model,
-                        messages=messages,
-                        temperature=temperature,
-                        max_tokens=max_tokens
-                    )
-
-                logger.info(f"✓ API call successful on attempt {attempt + 1}")
-                return response
-            
-            except RateLimitError as e:
-                logger.warning(f"Rate limit hit (attempt {attempt + 1})")
-                if attempt < self.max_retries - 1:
-                    wait_time = self.retry_delay * (2 ** attempt)  # Exponential backoff
-                    logger.info(f"Waiting {wait_time}s before retry...")
-                    time.sleep(wait_time)
-                else:
-                    raise
-            
-            except APIConnectionError as e:
-                logger.warning(f"Connection error (attempt {attempt + 1})")
-                if attempt < self.max_retries - 1:
-                    wait_time = self.retry_delay * (2 ** attempt)
-                    logger.info(f"Waiting {wait_time}s before retry...")
-                    time.sleep(wait_time)
-                else:
-                    raise
+                    # Extract tool name and arguments safely
+                    if hasattr(tool_call_any, 'function'):
+                        tool_name = tool_call_any.function.name
+                        tool_args = json.loads(tool_call_any.function.arguments)
+                    else:
+                        # Fallback for different tool_call structure
+                        tool_name = getattr(tool_call_any, 'name', 'unknown')
+                        arguments_str = getattr(tool_call_any, 'arguments', '{}')
+                        tool_args = json.loads(arguments_str) if isinstance(arguments_str, str) else arguments_str
+                    
+                    logger.info(f"Executing tool: {tool_name} with args: {tool_args}")
+                    
+                    # Execute the tool
+                    if tool_name == "web_search":
+                        try:
+                            query = tool_args.get("query", "")
+                            # Handle LangChain BaseTool or regular callable
+                            if hasattr(web_search, 'invoke'):
+                                tool_result = web_search.invoke({"query": query})
+                            elif callable(web_search):
+                                tool_result = web_search(query)
+                            else:
+                                tool_result = "web_search tool not properly configured"
+                            logger.info(f"✓ Web search returned: {len(str(tool_result))} characters")
+                        except Exception as e:
+                            tool_result = f"Error executing web search: {str(e)}"
+                            logger.error(f"✗ Web search failed: {str(e)}")
+                    else:
+                        tool_result = f"Unknown tool: {tool_name}"
+                        logger.warning(f"Unknown tool requested: {tool_name}")
+                    
+                    # Add tool result to messages
+                    messages.append({
+                        "role": "tool",
+                        "tool_call_id": tool_call.id,
+                        "content": str(tool_result)
+                    })
+                
+                # Loop continues to call model again with tool results
+                logger.info("Tool results added to conversation, calling model again...")
+            else:
+                # No text content and no tool calls = something went wrong
+                logger.warning(f"Unexpected state: no content and no tool calls")
+                # Create a fallback response
+                return response, messages
+        
+        # Max iterations reached
+        logger.warning(f"Max tool iterations ({max_tool_iterations}) reached without getting text response")
+        return response, messages
     
     
     def _calculate_cost(self, model: str, prompt_tokens: int, response_tokens: int) -> float:
@@ -513,3 +595,13 @@ class Node5ModelInference:
         ]
         
         return any(phrase.lower() in response.lower() for phrase in harmful_phrases)
+
+if __name__ == "__main__":
+    # Example usage
+    node = Node5ModelInference()
+    test_state = {
+        "final_prompt": "What should I do if my dog is having a seizure?",
+        "prompt_module": "emergency"
+    }
+    result_state = node.run_inference(test_state)
+    print(result_state["raw_response"])

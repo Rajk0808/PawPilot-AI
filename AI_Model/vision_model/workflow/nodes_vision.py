@@ -162,7 +162,7 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
         elif strategy == "emotion-detection":
             from AI_Model.vision_model.model.emotion_detection import chatbot_emotion_detection
             user_query = state.get("query", "")
-            images = [image]  # Assuming single image for emotion detection
+            images = image if isinstance(image, list) else [image]
             reply = chatbot_emotion_detection(user_query, images)
             state["final_output"] = str(reply)
             state["predicted_class"] = "emotion_detected"
@@ -171,7 +171,7 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
         elif strategy == "injury-assistance":
             from AI_Model.vision_model.model.injury_assistance import chatbot_injury_assistance
             user_query = state.get("query", "")
-            images = [image]
+            images = image if isinstance(image, list) else [image]
             reply = chatbot_injury_assistance(user_query, images)
             state['final_output'] = str(reply)
             state['confidence_score'] = 0.85
@@ -180,7 +180,7 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
         elif strategy == "pet-food-image-analysis":
             from AI_Model.vision_model.model.pet_food_image_analysis import chatbot_food_analyzer
             user_query = state.get("query", "")
-            images = [image]
+            images = image if isinstance(image, list) else [image]
             reply = chatbot_food_analyzer(user_query, images)
             state['final_output'] = str(reply)
             state['predicted_class'] = "food_analyzed"
@@ -188,7 +188,7 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
         elif strategy == "full-body-scan":
             from AI_Model.vision_model.model.full_body_scan import chatbot_full_body_scan
             user_query = state.get("query", "")
-            images = [image]
+            images = image if isinstance(image, list) else [image]
             reply = chatbot_full_body_scan(user_query, images)
             state['final_output'] = str(reply)
             state['predicted_class'] = "full_body_scan_analyzed"
@@ -197,7 +197,7 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
         elif strategy == "packaged-product-scanner":
             from AI_Model.vision_model.model.packaged_product_scanner import process_food_image
             user_query = state.get("query", "")
-            images = [image]
+            images = image if isinstance(image, list) else [image]
             reply = process_food_image(images)
             state['final_output'] = str(reply)
             state['predicted_class'] = "packaged_product_analyzed"
@@ -215,7 +215,7 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
         elif strategy == "parasite-detection":
             from AI_Model.vision_model.model.parasites_detection import predict
             user_query = state.get("query", "")
-            images = [image]
+            images = image if isinstance(image, list) else [image]
             reply = predict(images)
             state['predicted_class'] = str(reply[0])
             confidence = reply[1]

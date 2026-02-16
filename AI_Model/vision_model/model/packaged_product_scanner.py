@@ -146,8 +146,12 @@ def process_food_image(image_path):
         dict: Structured data with product_name, brand, ingredients, nutrition, etc.
               PLUS extraction_confidence and missing_fields
     """
+    raw_text = ""
     # Step 1: Extract raw text from image
-    raw_text = extract_text_from_image(image_path)
+    for img in image_path:
+        extracted = extract_text_from_image(img)
+        if extracted:
+            raw_text += extracted
     
     # Step 2: Parse raw text to JSON string
     json_string = parse_to_json(raw_text)

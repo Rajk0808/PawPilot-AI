@@ -120,11 +120,7 @@ class Node6ResponseValidator:
             state["citations"] = citations
             state["confidence_score"] = confidence_score
             state["response_quality"] = quality_check
-            state["safety_check"] = safety_check
-            logger.info("=" * 70)
-            logger.info("NODE 6 COMPLETE - Response validated and formatted")
-            logger.info("=" * 70)
-        
+            state["safety_check"] = safety_check        
         except Exception as e:
             logger.error(f"Error in Node 6: {str(e)}", exc_info=True)
             state["errors"] = state.get("errors", []) + [f"Validation error: {str(e)}"]

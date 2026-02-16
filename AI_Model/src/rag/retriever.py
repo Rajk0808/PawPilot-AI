@@ -9,6 +9,15 @@ load_dotenv()
 INDEX_NAME = os.getenv('PINECONE_INDEX_NAME')
 API_KEY = os.getenv('PINECONE_API_KEY')
 
+if not INDEX_NAME:
+    raise RuntimeError("PINECONE_INDEX_NAME is missing")
+if not API_KEY:
+    raise RuntimeError("PINECONE_API_KEY is missing")
+
+# Type narrowing: assert that INDEX_NAME and API_KEY are non-empty strings
+assert isinstance(INDEX_NAME, str) and INDEX_NAME, "INDEX_NAME must be a non-empty string"
+assert isinstance(API_KEY, str) and API_KEY, "API_KEY must be a non-empty string"
+
 EMBED_DIMENSION = 1536        
 METRIC = "cosine"
 CLOUD = "aws"
@@ -16,13 +25,10 @@ REGION = "us-east-1"
 
 class PineconeRetriever:
     def __init__(self):
-        if not API_KEY:
-            raise RuntimeError("PINECONE_API_KEY is missing")
-
         self.pc = Pinecone(api_key=API_KEY)
 
         self._ensure_index_exists()
-        self.index = self.pc.Index(INDEX_NAME)
+        self.index = self.pc.Index(INDEX_NAME)  # type: ignore
 
     def _ensure_index_exists(self):
         existing_indexes = [i["name"] for i in self.pc.list_indexes()]
@@ -31,7 +37,7 @@ class PineconeRetriever:
             print(f"[Pinecone] Creating index: {INDEX_NAME}")
 
             self.pc.create_index(
-                name=INDEX_NAME,
+                name=INDEX_NAME,  # type: ignore
                 dimension=EMBED_DIMENSION,
                 metric=METRIC,
                 spec=ServerlessSpec(
@@ -50,7 +56,7 @@ class PineconeRetriever:
         start = time.time()
         while time.time() - start < timeout:
             try:
-                self.pc.describe_index(INDEX_NAME)
+                self.pc.describe_index(INDEX_NAME)  # type: ignore
                 print("[Pinecone] Index is ready")
                 return
             except Exception:

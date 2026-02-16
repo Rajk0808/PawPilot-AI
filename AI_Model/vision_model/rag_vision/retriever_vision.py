@@ -44,51 +44,79 @@ def decode_results(results) -> Union[Dict, List[Dict]]:
 
 
 def retrieve_docs(query: str, index_or_hostname):
-    pc = Pinecone(api_key=os.getenv("PINECONE_API"))
+    """
+    Retrieve documents from Pinecone based on query.
     
-    # Check if it's a hostname (URL) or index name
-    if index_or_hostname.startswith("http"):
-        index = pc.Index(host=index_or_hostname)
-    else:
-        index = pc.Index(name=index_or_hostname)
-    
-    # Try exact ID match with various formats
-    possible_ids = [
-        query.lower(),
-        query.replace(" ", "_").lower(), 
-        query.replace(" ", "-").lower(),
-        query.title().lower(),
-        query
-    ]
-    
-    try:
-        results = index.fetch(
-            ids=possible_ids,
-            namespace="__default__"
-        )
+    Args:
+        query: Search query string
+        index_or_hostname: Either a Pinecone index name or hostname URL
         
-        # If exact ID match found, return it
-        if results and results.vectors:
+    Returns:
+        Decoded results from Pinecone or empty list if retrieval fails
+    """
+    try:
+        pc = Pinecone(api_key=os.getenv("PINECONE_API"))
+        
+        # Validate input
+        if not index_or_hostname:
+            print(f"Warning: No index or hostname provided, returning empty results")
+            return []
+        
+        # Check if it's a hostname (URL) or index name
+        try:
+            if index_or_hostname.startswith("http"):
+                index = pc.Index(host=index_or_hostname)
+            else:
+                index = pc.Index(name=index_or_hostname)
+        except Exception as e:
+            print(f"Error connecting to Pinecone index: {e}")
+            return []
+        
+        # Try exact ID match with various formats
+        possible_ids = [
+            query.lower(),
+            query.replace(" ", "_").lower(), 
+            query.replace(" ", "-").lower(),
+            query.title().lower(),
+            query
+        ]
+        
+        try:
+            results = index.fetch(
+                ids=possible_ids,
+                namespace="__default__"
+            )
+            
+            # If exact ID match found, return it
+            if results and hasattr(results, 'vectors') and results.vectors:
+                return decode_results(results)
+        except Exception as e:
+            print(f"ID fetch from Pinecone failed: {e}")
+        
+        # Fall back to vector similarity search
+        try:
+            client = OpenAI(api_key=os.getenv("OPENAIAPI"))
+            embedding = client.embeddings.create(
+                input=query,
+                model="text-embedding-3-large",
+                dimensions=512
+            )
+            
+            results = index.query(
+                namespace="__default__",
+                vector=embedding.data[0].embedding,
+                top_k=5,
+                include_metadata=True
+            )
+            
             return decode_results(results)
+        except Exception as e:
+            print(f"Vector similarity search failed: {e}")
+            return []
+    
     except Exception as e:
-        print(f"ID fetch failed: {e}")
-    
-    # Fall back to vector similarity search
-    client = OpenAI(api_key=os.getenv("OPENAIAPI"))
-    embedding = client.embeddings.create(
-        input=query,
-        model="text-embedding-3-large",
-        dimensions=512
-    )
-    
-    results = index.query(
-        namespace="__default__",
-        vector=embedding.data[0].embedding,
-        top_k=5,
-        include_metadata=True
-    )
-    
-    return decode_results(results)
+        print(f"Error in retrieve_docs: {e}")
+        return []
 
 
 if __name__ == "__main__":
