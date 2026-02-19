@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: ai-chatbot-api
+    env: docker
+    plan: starter # You may need 'standard' or 'plus' depending on model RAM usage
+    region: ohio
+    dockerContext: .
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/chat 
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: PYTHONUNBUFFERED
+        value: "1"
+    autoDeploy: true
