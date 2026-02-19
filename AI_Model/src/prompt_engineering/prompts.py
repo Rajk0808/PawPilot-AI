@@ -656,7 +656,7 @@ CONSTRAINTS:
         if pet_profile:
             pet_context = f"""
 PET INFORMATION:
-- Species: {pet_profile.get('species', 'Unknown')}
+- Species: {pet_profile.get('breed', 'Unknown')}
 - Age: {pet_profile.get('age', 'Unknown')} years
 - Diet: {pet_profile.get('diet', 'Unknown')}
 - Recent Diet Changes: {pet_profile.get('recent_diet_changes', 'None')}
@@ -957,7 +957,66 @@ CONSTRAINTS:
         specific_prompt = get_food_response_prompt(route_info['intent']) #get the specific prompt according to the intent
         final_prompt = str(specific_prompt) + "\n\n" + rag_context + "\n\n" + user_query #build the final prompt
         return final_prompt #return the full text
+    
+    def build_emotion_detection_audio_prompt(self,audio_analysis:str, pet_profile:Dict, rag_context:str) -> str:
+        """
+        Build prompt for emotion detection from audio analysis
+        
+        Args:
+            audio_analysis: Analysis of audio content
+            pet_profile: Pet profile information
+            rag_context: Retrieved context from RAG
+        
+        Returns:
+        Formatted prompt string for emotion detection from audio
+        """
+        pet_context = ""
+        if pet_profile:
+            pet_context = f"""
+PET INFORMATION:
+- Name: {pet_profile.get('name', 'Unknown')}
+- Species: {pet_profile.get('species', 'Unknown')}
+- Age: {pet_profile.get('age', 'Unknown')} years
+- Weight: {pet_profile.get('weight', 'Unknown')} kg
+- Breed: {pet_profile.get('breed', 'Unknown')}
+"""
+        
+        prompt = f"""You are an expert in analyzing pet emotional states from audio analysis.
 
+Predicted Action of pet from audio provided : {audio_analysis}
+
+retreived context from RAG:
+{rag_context if rag_context else "No additional context available."}
+
+Pet's profile information:
+{pet_context}
+
+ANALYSIS GUIDELINES:
+1. Identify emotional indicators in the audio (e.g., whining, barking, purring)
+2. Consider pet's behavior patterns and known traits
+3. Assess intensity and duration of emotional expressions
+4. Determine if emotions are positive, negative, or neutral
+
+OUTPUT FORMAT:
+## 🎵 Emotional Analysis Summary
+[General emotional state and mood]
+
+## 🧠 Emotional Indicators Found
+- [List specific vocalizations and their emotional significance]
+
+## 📊 Emotional Intensity Score
+[Score from 1-10 indicating intensity]
+
+## 📝 Behavioral Context Notes
+[Any relevant behavioral context or environmental factors]
+
+CONSTRAINTS:
+- Minimum 250 words
+- Focus on auditory cues only
+- Include specific examples of vocalizations analyzed"""
+        
+        return prompt
+    
     # ==========================================
     # VISION - UNIFIED PROMPT BUILDER
     # ==========================================
@@ -1025,6 +1084,18 @@ CONSTRAINTS:
                 "",
                 pet_profile or {},
                 rag_context
+            )
+        elif model_type == "poop-vomit-detection":
+            return self.build_poop_vomit_detection_prompt(
+                predicted_class, confidence_score, user_query, rag_context, pet_profile
+            )
+        elif model_type == "home-environment-safety-scan":
+            return self.build_home_environment_safety_prompt(
+                predicted_class, confidence_score, user_query, rag_context, pet_profile
+            )
+        elif model_type == "emotion-detection-audio":
+            return self.build_emotion_detection_audio_prompt(
+                audio_analysis = predicted_class, pet_profile= pet_profile or {}, rag_context=rag_context
             )
         else:
             return self.build_vision_default_prompt(

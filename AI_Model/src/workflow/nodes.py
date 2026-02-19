@@ -171,7 +171,6 @@ def rag_retrieval_node(state: WorkFlowState) -> WorkFlowState:
             state["retrieved_docs"] = docs if docs else []
             state["context"] = "\n---\n".join(doc['text'] for doc in docs) if docs else ""
             state["rag_time"] = float(time.time() - rag_start)
-            print((state['retrieved_docs']))
             logger.info(f'RAG retrieved {len(docs)} documents in {state["rag_time"]:.2f}s')
             return state
             
@@ -227,14 +226,10 @@ def engineer_prompt_node(state: WorkFlowState) -> WorkFlowState:
                 "allergies": state.get("pet_allergies", []),
                 "medical_history": state.get("pet_medical_history", "None reported"),
             }
-            print("*"*70)
-            print(state.get('predicted_class', 'No predicted class in state'))
             # Determine which prompt to build based on workflow type
             if predicted_class:
                 if predicted_class != "unknown":
                     try:
-                        print(f"Building vision prompt for predicted class: {predicted_class}")
-                        print(model_type)
                         prompt = prompt_builder.build_vision_prompt(
                             model_type=model_type,
                             predicted_class=predicted_class,

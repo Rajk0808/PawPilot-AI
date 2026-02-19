@@ -43,7 +43,7 @@ def decode_results(results) -> Union[Dict, List[Dict]]:
     return results
 
 
-def retrieve_docs(query: str, index_or_hostname):
+def retrieve_docs(query: str, index_or_hostname : str = "https://poop-and-vomit-6i6jnuf.svc.aped-4627-b74a.pinecone.io"):
     """
     Retrieve documents from Pinecone based on query.
     
@@ -119,7 +119,7 @@ def retrieve_docs(query: str, index_or_hostname):
             results = index.query(
                 namespace="__default__",
                 vector=embedding,
-                top_k=5,
+                top_k=1,
                 include_metadata=True
             )
             
@@ -132,60 +132,7 @@ def retrieve_docs(query: str, index_or_hostname):
         print(f"Error in retrieve_docs: {e}")
         return []
 
-def create_embeddings(model, text:str) -> List[float]:
-    """
-    Create embeddings for given text using OpenAI API.
-    
-    Args:
-        text: Input text to embed"""
-    try:
-        query_vector = model.encode([text])[0].tolist()
-        return query_vector
-    
-    except Exception as e:
-        print(f"Error creating embeddings: {e}")
-        return []
-def upsert_data(host_name : str, data : List[Dict]):
-    """
-    Upsert data into Pinecone index.
-    
-    Args:
-        host_name: Pinecone index hostname
-        data: List of dictionaries containing 'id', 'metadata', and 'vector' keys
-        
-    Returns:
-        None
-    """
-    try:
-        from sentence_transformers import SentenceTransformer
-        pc = Pinecone(api_key=os.getenv("PINECONE_API"))
-        index = pc.Index(host=host_name)
-        model = SentenceTransformer('all-mpnet-base-v2')
-        for item in data:
-            vectors = []
-            vector_id = create_embeddings(model, str(item.get('class_id')))
-            meta_data = {}
-            meta_data['primary_system'] = item.get('primary_system', '')
-            meta_data['sample_type'] = item.get('sample_type', '')
-            meta_data['arousal_level'] = item.get('arousal_level', 0)
-            meta_data['valence'] = item.get('valence', '')
-            meta_data['urgency_score'] = item.get('urgency_score', 0)
-            meta_data['is_pathological'] = item.get('is_pathological', '')
-            meta_data['description'] = item.get('description', '')
-
-            if vector_id and meta_data:
-                vectors.append({
-                    'id': str(item.get('class_id',"")),
-                    'values': vector_id,
-                    'metadata': meta_data
-                })
-            index.upsert(vectors=vectors, namespace="__default__")
-            
-    except Exception as e:
-        print(f"Error in upsert_data: {e}")
-
 if __name__ == "__main__":
-    import json 
-    data = json.load(open("AI_Model/vision_model/data/emotion-detection-audio.json"))
-    upsert_data(host_name="https://poop-and-vomit-6i6jnuf.svc.aped-4627-b74a.pinecone.io", data=data)
-    print("done")
+    query = "alert"
+    results = retrieve_docs(query)
+    print(results)

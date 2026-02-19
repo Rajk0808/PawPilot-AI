@@ -5,13 +5,16 @@ import logging
 import traceback
 import sys
 import asyncio
+import os
+import tempfile
+from pathlib import Path
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from PIL import Image
 import io
 from AI_Model.src.utils.exceptions import CustomException
 from AI_Model.src.workflow.graph_builder import build_complete_workflow
-from AI_Model.vision_model.workflow.graph_builder_vision import MultiGraphWorkflow 
+
 
 class ChatRequest(BaseModel):
     """Request model for chat endpoint"""
@@ -32,10 +35,81 @@ workflow = None
 pipeline = None
 vision_pipeline = None
 
+class AudioPipeline:
+    """Manages the audio workflow execution"""  
+    def __init__(self):
+        from AI_Model.audio_model.workflow.graph_builder import MultiGraphWorkflow
+        self.audio_workflow_instance = MultiGraphWorkflow()
+    
+    def process_audio(self, audio_files: List[UploadFile]) -> str:
+        """
+        Docstring for process_audio
+        
+        """
+        temp_audio_paths: List[str] = []
+        try:
+            if not audio_files:
+                raise ValueError("No audio files provided.")
+
+            for audio in audio_files:
+                audio.file.seek(0)
+                suffix = Path(audio.filename or "audio.wav").suffix or ".wav"
+                with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp_file:
+                    tmp_file.write(audio.file.read())
+                    temp_audio_paths.append(tmp_file.name)
+
+            initial_state = {
+                "audio_file": temp_audio_paths,
+            }
+
+            logger.info(f"Processing audio files: {[file.filename for file in audio_files]}...")
+            result = self.audio_workflow_instance.invoke(initial_state)
+            # Extract response from result
+            bot_response = self._extract_response(result)
+            #logger.info("✓ Audio processed successfully")
+            return str(bot_response)
+        
+        except Exception as e:
+            error_msg = f"Error processing audio: {str(e)}"
+            logger.error(error_msg)
+            logger.error(traceback.format_exc())
+            raise CustomException(e, sys)
+        finally:
+            for path in temp_audio_paths:
+                try:
+                    if os.path.exists(path):
+                        os.remove(path)
+                except Exception:
+                    pass
+    def _extract_response(self, result: dict) -> Optional[str]:
+        """
+        Extract the final response from workflow result
+        
+        Args:
+            result: The output from workflow.invoke()"""
+        if isinstance(result, dict):
+            # Try different possible keys where response might be stored
+            possible_keys = ["final_response", "final_output"]
+             
+            for key in possible_keys:
+                if key in result and result[key]:
+                    value = result[key]
+                    # If it's a list of messages, get the last one
+                    if isinstance(value, list) and len(value) > 0:
+                        last_msg = value[-1]
+                        if isinstance(last_msg, dict) and "content" in last_msg:
+                            return last_msg["content"]
+                        return str(last_msg)
+                    return str(value)
+
+        # Fallback
+        return None
+
 class VisionPipeline:
     """Manages the vision workflow execution"""
 
     def __init__(self):
+        from AI_Model.vision_model.workflow.graph_builder_vision import MultiGraphWorkflow 
         self.vision_workflow_instance = MultiGraphWorkflow()
         
     
@@ -225,25 +299,32 @@ app = FastAPI(
 )
 
 @app.post("/upload-audio/")
-async def upload_audio(file: UploadFile = File(...)):
+async def upload_audio(files: List[UploadFile] = File(default=[])):
     """
     Upload an audio file.
     Includes validation for content type and file size.
     """
+    audio_pipeline = None
+    if not files:
+        raise HTTPException(status_code=400, detail="At least one audio file is required")
+
     # 1. Validate Content Type
     allowed_types = ["audio/mpeg", "audio/wav", "audio/ogg", "audio/x-wav", "audio/mp3"]
-    if file.content_type not in allowed_types:
-        raise HTTPException(status_code=400, detail=f"Invalid file type: {file.content_type}. Allowed: {allowed_types}")
-
-    # 2. Validate filename
-    if file.filename is None:
-        raise HTTPException(status_code=400, detail="Filename is required")
-        raise HTTPException(status_code=400, detail="File too large. Max size is 10MB.")
+    for file in files:
+        if file.content_type not in allowed_types:
+            raise HTTPException(status_code=400, detail=f"Invalid file type: {file.content_type}. Allowed: {allowed_types}")
+    
+        # 2. Validate filename
+        if file.filename is None:
+            raise HTTPException(status_code=400, detail="Filename is required")
+    
+    if audio_pipeline is None:
+        audio_pipeline = AudioPipeline()
+    response = audio_pipeline.process_audio(files)
 
     return {
-        "message": "Audio uploaded successfully",
-        "filename": file.filename,
-           "size": file.size
+        "filenames": [uploaded_file.filename for uploaded_file in files],
+        "response": response
            }
 
 @app.post("/upload-video/")

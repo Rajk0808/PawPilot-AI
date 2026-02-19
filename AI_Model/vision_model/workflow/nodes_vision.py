@@ -8,7 +8,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 ROUTER_INSTANCE = None
-SKIP_SECOND_MODEL_STRATEGIES = ("emotion-detection", "full-body-scan", "packaged-product-scanner", "poop-vomit-detection", "parasite-detection")
+SKIP_SECOND_MODEL_STRATEGIES = ("emotion-detection", "full-body-scan")
 
 
 
@@ -267,8 +267,8 @@ def retrieval_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
     logger.info('Retrieval node - no operation for vision model.')
 
     try:
-        if state.get("strategy") not in SKIP_SECOND_MODEL_STRATEGIES:
-            # Currently no retrieval logic for vision model
+        if state.get("strategy") not in SKIP_SECOND_MODEL_STRATEGIES or state.get("strategy") != "packaged-product-scanner":
+            # Currently no retrieval logic for vision mode
             class_name = state.get("predicted_class", "unknown")
             strategy = state.get("strategy", "default")
 
@@ -280,6 +280,8 @@ def retrieval_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
                 host_name = 'https://parasite-detection-6i6jnuf.svc.aped-4627-b74a.pinecone.io'
             elif strategy == 'toys-safety-detection':
                 host_name = "https://toy-detection-6i6jnuf.svc.aped-4627-b74a.pinecone.io"
+            elif strategy == 'poop-vomit-detection':
+                host_name = "https://poop-vomit-detection-6i6jnuf.svc.aped-4627-b74a.pinecone.io"
             docs = retrieve_docs(class_name, host_name)
             # Convert list to dict format if needed
             if strategy == 'pet-food-image-analysis':

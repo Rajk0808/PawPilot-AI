@@ -96,13 +96,11 @@ class Node5ModelInference:
             prompt = state.get("final_prompt", "")
             if len(prompt)<1:
                 prompt = state.get('prompt_template', 'No prompt template found')
-            print(prompt)
             response, messages_history = self._call_model_with_tools(
                 prompt=prompt,
                 model=model_name,
                 **inference_params
             )
-            print(response.choices[0].message.content)
             
             # ============================================================
             # STEP 5: EXTRACT RESPONSE
@@ -350,7 +348,6 @@ class Node5ModelInference:
                 top_p=top_p,
                 stream=False
             )
-            print(response)
             return response
             
         except Exception as e:
