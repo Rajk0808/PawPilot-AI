@@ -1,9 +1,6 @@
 import torch
 import torch.nn as nn
-import traceback
 import clip
-
-from src.database import model  
 
 def load_model_toy():
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -29,7 +26,16 @@ def predict_toy(image_input, preprocess, model, classifier, id2label, device):
     import torch.nn.functional as F
     from AI_Model.vision_model.utils.load_images import LoadImages
     loader = LoadImages()
-    images = loader.image_loader('PIL', [image_input])
+
+    if isinstance(image_input, list):
+        image_inputs = image_input
+    else:
+        image_inputs = [image_input]
+
+    if not image_inputs:
+        raise ValueError("No image input provided for toy prediction")
+
+    images = loader.image_loader('PIL', image_inputs)
     image_tensor = [preprocess(image).unsqueeze(0).to(device) for image in images]
 
     with torch.no_grad():
@@ -49,13 +55,3 @@ def predict_toy(image_input, preprocess, model, classifier, id2label, device):
         })
 
     return results
-# --- Usage ---
-if __name__ == "__main__":
-    try:
-        model, preprocess, classifier, id2label, device = load_model_toy()
-        image_path = r"AI_Model/vision_model/data/wound avulsion.jpg"
-
-        result = predict_toy(image_path, preprocess, model, classifier, id2label, device)
-        print(f"Prediction: {result}")
-    except Exception:
-        traceback.print_exc()

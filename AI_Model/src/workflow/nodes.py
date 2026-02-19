@@ -215,7 +215,7 @@ def engineer_prompt_node(state: WorkFlowState) -> WorkFlowState:
             # Check if this is a vision workflow (has predicted_class from vision model)
             predicted_class = state.get("predicted_class", "")
             confidence_score = state.get("confidence_score", 0.0)
-            model_type = state.get("model_to_use", "default")
+            model_type = state.get("strategy", "default")
             
             # Build pet profile from state if available
             pet_profile = {
@@ -227,18 +227,22 @@ def engineer_prompt_node(state: WorkFlowState) -> WorkFlowState:
                 "allergies": state.get("pet_allergies", []),
                 "medical_history": state.get("pet_medical_history", "None reported"),
             }
-            
+            print("*"*70)
+            print(state.get('predicted_class', 'No predicted class in state'))
             # Determine which prompt to build based on workflow type
             if predicted_class:
                 if predicted_class != "unknown":
                     try:
+                        print(f"Building vision prompt for predicted class: {predicted_class}")
+                        print(model_type)
                         prompt = prompt_builder.build_vision_prompt(
                             model_type=model_type,
                             predicted_class=predicted_class,
                             confidence_score=confidence_score,
                             user_query=query,
                             rag_context=context,
-                            pet_profile=pet_profile
+                            pet_profile=pet_profile,
+                        
                         )
                         state['prompt_template'] = prompt
                     except Exception as e:
@@ -251,9 +255,10 @@ def engineer_prompt_node(state: WorkFlowState) -> WorkFlowState:
                         predicted_class=predicted_class,
                         confidence_score=confidence_score,
                         user_query=query,
-                        rag_context=context
+                        rag_context=context,
+                        strategy=strategy
                     )
-                    state["prompt_template"] = f"vision_{model_type}"
+                    state["prompt_template"] = prompt
                 
             elif context and strategy == "rag":
                 # RAG-based workflow - use RAG-aware prompts

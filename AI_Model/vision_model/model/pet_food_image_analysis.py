@@ -1,36 +1,51 @@
-import os
 import base64
-from langchain_google_genai import ChatGoogleGenerativeAI
 from AI_Model.src.prompt_engineering.food_model_prompts import get_food_vision_prompt, route_food_query
-from langchain_core.messages import HumanMessage
+import google.genai as genai
+from google.genai import types
+import os 
+import io
+from PIL import Image
+from dotenv import load_dotenv
+load_dotenv()
 
-
-
-def decode_image(image):
-    image.seek(0)
-    return base64.b64encode(image.read()).decode('utf-8')
+def _image_to_base64(image):
+    if isinstance(image, Image.Image):
+        buffer = io.BytesIO()
+        rgb_image = image.convert("RGB")
+        rgb_image.save(buffer, format="JPEG")
+        buffer.seek(0)
+        return base64.b64encode(buffer.read()).decode("utf-8")
+    if isinstance(image, (bytes, bytearray)):
+        return base64.b64encode(image).decode("utf-8")
+    if hasattr(image, "read"):
+        if hasattr(image, "seek"):
+            image.seek(0)
+        return base64.b64encode(image.read()).decode("utf-8")
+    raise ValueError(f"Unsupported image type: {type(image)}")
 
 def create_content(prompt, image):
-    content: list = [{"type": "text", "text": str(prompt)}]
-    for img in image:
-        img.seek(0)
-        content.append(
-            {
-                "type": "image_url",
-                "image_url": {
-                    "url": f"data:image/jpeg;base64,{base64.b64encode(img.read()).decode('utf-8')}"
-                }
-            }
+    parts = [types.Part(text=str(prompt))]
+    images = image if isinstance(image, list) else [image]
+    for img in images:
+        parts.append(
+            types.Part(
+                inline_data=types.Blob(
+                    mime_type="image/jpeg",
+                    data=base64.b64decode(_image_to_base64(img))
+                )
+            )
         )
-    return content
+    return types.Content(parts=parts)
 
 
 def chatbot_food_analyzer(user_query, image):
-    client = ChatGoogleGenerativeAI(model='gemini-3-flash-preview')
+    client = genai.Client(http_options={'api_version': 'v1alpha'}, api_key=os.getenv("GEMINI_API"))
     route_info = route_food_query(user_query)
     prompt = get_food_vision_prompt(route_info.get('vision_context', 'standard'), route_info.get('species', 'unknown'))
     content = create_content(prompt, image)
-    message = HumanMessage(content=content)
-    result = client.invoke([message])
-
-    return result
+    response = client.models.generate_content(
+        model="gemini-3-flash-preview",
+        contents=content
+    )
+    reply_text = response.text if hasattr(response, 'text') else str(response)
+    return reply_text

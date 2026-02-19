@@ -1,17 +1,45 @@
+from pathlib import Path
+import sys 
+sys.path.append(str(Path(__file__).parent.parent.parent.parent))  # Add project root to sys.path
 from AI_Model.vision_model.utils.load_images import MessageLoader, LoadImages
+from PIL import Image
 import json
 from openai import OpenAI
 from dotenv import load_dotenv
 load_dotenv()
 import os
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+OPENAI_API_KEY = os.getenv("OPENAIAPI")
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 
-def extract_text_from_image(image_path):
-    """Extract text from an image using OpenAI gpt-4o-mini."""
+def _normalize_image_inputs(image_input):
+    if isinstance(image_input, list):
+        inputs = image_input
+    else:
+        inputs = [image_input]
+
+    if not inputs:
+        raise ValueError("No image input provided")
+
     image_loader = LoadImages()
-    image_base64 = image_loader.image_loader('Base64',image_path)
+    normalized = []
+    for item in inputs:
+        if isinstance(item, Image.Image):
+            normalized.extend(image_loader.image_to_data_url([item]))
+        elif isinstance(item, str):
+            if item.startswith("http://") or item.startswith("https://"):
+                normalized.append(item)
+            else:
+                normalized.extend(image_loader.image_to_data_url([item]))
+        else:
+            raise ValueError(f"Unsupported image input type: {type(item)}")
+
+    return normalized
+
+
+def extract_text_from_image(image_input):
+    """Extract text from an image using OpenAI gpt-4o-mini."""
+    image_base64 = _normalize_image_inputs(image_input)
     vision_prompt = """
     You are a vision-based text extraction system for pet products.
     
@@ -148,7 +176,8 @@ def process_food_image(image_path):
     """
     raw_text = ""
     # Step 1: Extract raw text from image
-    for img in image_path:
+    images = image_path if isinstance(image_path, list) else [image_path]
+    for img in images:
         extracted = extract_text_from_image(img)
         if extracted:
             raw_text += extracted

@@ -31,9 +31,24 @@ class LoadImages:
     def image_to_data_url(self, image_path):
         result = []
         for img in image_path:
-            with open(img, "rb") as img_file:
-                b64_string = base64.b64encode(img_file.read()).decode('utf-8')
+            # Handle PIL Image objects
+            if isinstance(img, Image.Image):
+                from io import BytesIO
+                # Convert to RGB if necessary (JPEG doesn't support alpha channels)
+                if img.mode in ('RGBA', 'LA', 'P'):
+                    img = img.convert('RGB')
+                buffer = BytesIO()
+                img.save(buffer, format='JPEG')
+                buffer.seek(0)
+                b64_string = base64.b64encode(buffer.getvalue()).decode('utf-8')
                 result.append(f"data:image/jpeg;base64,{b64_string}")
+            # Handle file paths
+            elif isinstance(img, str):
+                with open(img, "rb") as img_file:
+                    b64_string = base64.b64encode(img_file.read()).decode('utf-8')
+                    result.append(f"data:image/jpeg;base64,{b64_string}")
+            else:
+                raise ValueError(f"Expected PIL Image or file path string, got {type(img)}")
         return result
 
 class MessageLoader:
@@ -46,12 +61,11 @@ class MessageLoader:
                 ],
             }
         ]
-        if model == "gpt-4o-mini":
-            for img in images:
-                base_message[0]["content"].append({"type": "image", "image": img})
-            return base_message
-        elif model == "nvidia/nemotron-nano-12b-v2-vl:free" or model == "allenai/molmo-2-8b:free":
-            for img in images:
-                base_message[0]["content"].append({"type": "image_url", "image_url": img})
+        for img in images:
+            if isinstance(img, dict):
+                image_url = img
+            else:
+                image_url = {"url": img}
+            base_message[0]["content"].append({"type": "image_url", "image_url": image_url})
         return base_message
     

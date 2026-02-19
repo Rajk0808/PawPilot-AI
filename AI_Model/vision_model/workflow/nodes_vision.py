@@ -8,7 +8,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 ROUTER_INSTANCE = None
-SKIP_SECOND_MODEL_STRATEGIES = ("emotion-detection", "full-body-scan", "packaged-product-scanner")
+SKIP_SECOND_MODEL_STRATEGIES = ("emotion-detection", "full-body-scan", "packaged-product-scanner", "poop-vomit-detection", "parasite-detection")
 
 
 
@@ -104,7 +104,6 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
             from AI_Model.vision_model.model.diseases_model_prediction import predict, load_model
             model, preprocess, classifier, id2label, device = load_model()
             results = predict(image, preprocess, model, classifier, id2label, device)
-            
             # Handle different return types
             if results is None:
                 state["predicted_class"] = "unknown"
@@ -124,7 +123,7 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
                     state["confidence_score"] = 1.0
             elif isinstance(results, dict):
                 # If predict returns a single dict
-                state["predicted_class"] = results.get("label", "unknown")
+                state["predicted_class"] = results.get("label", "error")
                 state["confidence_score"] = results.get("confidence", 0.0)
             else:
                 state["predicted_class"] = "unknown"
@@ -199,7 +198,7 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
             user_query = state.get("query", "")
             images = image if isinstance(image, list) else [image]
             reply = process_food_image(images)
-            state['final_output'] = str(reply)
+            state['retrieved_docs'] = reply
             state['predicted_class'] = "packaged_product_analyzed"
             state['confidence_score'] = 0.9
 
@@ -213,28 +212,26 @@ def model_call_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
             #state['confidence_score'] = 0.9
         
         elif strategy == "parasite-detection":
-            from AI_Model.vision_model.model.parasites_detection import predict
+            from AI_Model.vision_model.model.parasites_detection import predict_parasites
             user_query = state.get("query", "")
             images = image if isinstance(image, list) else [image]
-            reply = predict(images)
+            reply = predict_parasites(images)
             state['predicted_class'] = str(reply[0])
             confidence = reply[1]
             state['confidence_score'] = float(confidence) if isinstance(confidence, (int, float, str)) else 0.0
 
         elif strategy == "poop-vomit-detection":
-            #from AI_Model.vision_model.model.poop_vomit_detection import predict_poop_vomit
+            from AI_Model.vision_model.model.poop_vomit_detection import predict_poop_vomit
             user_query = state.get("query", "")
-            #images = [image]
-            #reply = predict_poop_vomit(images)
-            #state['predicted_class'] = str(reply[0])
-            #confidence = reply[1]
-            #state['confidence_score'] = float(confidence) if isinstance(confidence, (int, float, str)) else 0.04
-
+            images = image if isinstance(image, list) else [image]
+            reply = predict_poop_vomit(images)
+            state['predicted_class'] = reply['label']
+            confidence = reply['confidence']
+            state['confidence_score'] = float(confidence) if isinstance(confidence, (int, float, str)) else 0.04
         else:
             logger.warning(f"Unknown strategy: {strategy}")
             state["predicted_class"] = "unknown"
             state["confidence_score"] = 0.0
-        
         return state
 
     except Exception as e: 
@@ -252,13 +249,13 @@ def second_model_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
 
     try:
         if state.get("strategy") not in SKIP_SECOND_MODEL_STRATEGIES:
-            response = call_nvdia(state.get('image'), prompt=state.get('query', ''))  
-            state['raw_model2_response'] = response.get('choices', [{}])[0].get('message', {}).get('content', '')        
+            response = call_nvdia(state.get('image'), prompt=state.get('query', '')+" Predicted class : " + state.get('predicted_class', ''))  
+            state['raw_model2_response'] = response.get('choices', [{}])[0].get('message', {}).get('content', '')      
         return state
 
     except Exception as e: 
         raise CustomException(e, sys)
-
+    
 
 def retrieval_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
     """
@@ -285,7 +282,6 @@ def retrieval_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
                 host_name = "https://toy-detection-6i6jnuf.svc.aped-4627-b74a.pinecone.io"
             docs = retrieve_docs(class_name, host_name)
             # Convert list to dict format if needed
-            print(state.get('retrieved_docs'))
             if strategy == 'pet-food-image-analysis':
                 state['retrieved_docs'] = docs.get('metadata', {}) if isinstance(docs, dict) else {"documents": docs}
             else:
@@ -295,7 +291,7 @@ def retrieval_node(state: VisionWorkFlowState) -> VisionWorkFlowState:
                     state["retrieved_docs"] = {"documents": docs}
                 else:
                     state["retrieved_docs"] = {"documents": []}
-                
+        print(state.get('retrieved_docs'))     
         state['end_time'] = time()
         start_time = state.get('start_time', 0)
         state['inference_time'] = state['end_time'] - start_time

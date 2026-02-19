@@ -4,6 +4,7 @@ from typing import Optional, List
 import logging
 import traceback
 import sys
+import asyncio
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from PIL import Image
@@ -208,10 +209,14 @@ async def lifespan(app: FastAPI):
         logger.info("  POST   /api/chat      - Send message")
         logger.info("=" * 50)
     
-    yield
-    
-    # Shutdown
-    logger.info("Shutting down server...")
+    try:
+        yield
+    except asyncio.CancelledError:
+        logger.info("Lifespan cancelled during shutdown")
+        raise
+    finally:
+        logger.info("Shutting down server...")
+
 app = FastAPI(
     title="AI Chatbot API",
     description="FastAPI backend for AI Chatbot with LangGraph workflow",
@@ -342,11 +347,14 @@ async def chat(request: ChatRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    
-    uvicorn.run(
-        "workflow_pipeline:app",  # Change "main" to your file name if different
-        host="0.0.0.0",
-        port=8000,
-        reload=False,
-        log_level="info"
-    )   
+
+    try:
+        uvicorn.run(
+            "workflow_pipeline:app",  # Change "main" to your file name if different
+            host="0.0.0.0",
+            port=8000,
+            reload=False,
+            log_level="info"
+        )
+    except KeyboardInterrupt:
+        logger.info("Server stopped by user")

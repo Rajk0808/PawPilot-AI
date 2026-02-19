@@ -22,13 +22,13 @@ class Aggregation:
             most_common_label = max(label_counts, key=lambda k: label_counts[k])
             count = label_counts[most_common_label]
             return {
-                "most_common_label": most_common_label,
-                "count": count
+                "label": most_common_label,
+                "confidence": count / 4.0 
             }
         except:
             return {
-                "most_common_label": None,
-                "count": 0
+                "label": None,
+                "confidence": 0
             }
         
     def aggregate_by_voting(self,predictions):

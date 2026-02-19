@@ -444,7 +444,7 @@ OUTPUT FORMAT:
 *This is an AI-assisted assessment and NOT a medical diagnosis. Always consult a licensed veterinarian for proper examination and treatment.*
 
 CONSTRAINTS:
-- Maximum {template.get('constraints', {}).get('max_words', 300)} words
+- Minimum {template.get('constraints', {}).get('max_words', 300)} words
 - Always phrase as "possible condition" not "diagnosis"
 - Always recommend veterinary consultation
 - Include severity assessment
@@ -461,44 +461,63 @@ CONSTRAINTS:
         predicted_class: str,
         confidence_score: float,
         user_query: str,
-        rag_context: str = ""
+        rag_context: str = "",
+        strategy : str = "default"
     ) -> str:
         """
         Build a general vision analysis prompt for unclassified images
         """
+        # Default configuration
+        system = {
+            'role': 'pet care assistant',
+            'context': 'You are helping users understand and care for their pets.',
+            'key_principles': ['Be helpful', 'Be safe', 'Be accurate'],
+            'tone': 'Friendly and informative'
+        }
         
-        vision_config = self.vision_prompts.get("default", {})
-        system = vision_config.get("system_prompt", {})
+        if strategy == "skin-and-health-diagnostic":
+            vision_config = self.vision_prompts.get("skin-and-health-diagnostic", {})
+            system = vision_config.get("system_prompt", {})
+        elif strategy == "toy-safety-detection":
+            vision_config = self.vision_prompts.get("toy-safety-detection", {})
+            system = vision_config.get("system_prompt", {})
+        elif strategy == "emotion-detection":
+            vision_config = self.vision_prompts.get("emotion-detection", {})
+            system = vision_config.get("system_prompt", {})
+        elif strategy == "injury-assitance":
+            vision_config = self.vision_prompts.get("injury-assistance", {})
+            system = vision_config.get("system_prompt", {})
+        elif strategy == "packaged-product-scanner":
+            vision_config = self.vision_prompts.get("packaged-product-scanner", {})
+            system = vision_config.get("system_prompt", {})
+        elif strategy == "pet-food-image-analysis":
+            vision_config = self.vision_prompts.get("pet-food-image-analysis", {})
+            system = vision_config.get("system_prompt", {})
+        elif strategy == "full-body-scan":
+            vision_config = self.vision_prompts.get("full-body-scan", {})
+            system = vision_config.get("system_prompt", {})
+        elif strategy == "parasite-detection":
+            vision_config = self.vision_prompts.get("parasite-detection", {})
+            system = vision_config.get("system_prompt", {})
+        elif strategy == "poop-vomit-detection":
+            vision_config = self.vision_prompts.get("poop-vomit-detection", {})
+            system = vision_config.get("system_prompt", {})
+        elif strategy == "home-environment-safety-scan":
+            vision_config = self.vision_prompts.get("home-environment-safety-scan", {})
+            system = vision_config.get("system_prompt", {})
         
-        prompt = f"""You are a {system.get('role', 'helpful AI assistant for pet owners')}
-
-{system.get('context', '')}
-
-KEY PRINCIPLES:
-{chr(10).join(f"- {p}" for p in system.get('key_principles', []))}
-
-TONE: {system.get('tone', 'Friendly and helpful')}
-
-IMAGE ANALYSIS:
-- Detection Result: {predicted_class}
-- Confidence: {confidence_score:.1%}
-
-ADDITIONAL CONTEXT:
-{rag_context if rag_context else "No additional context available."}
-
-USER QUESTION:
-{user_query}
-
-OUTPUT FORMAT:
-## What I See
-[Description of what was detected]
-
-## Analysis
-[Helpful analysis and information]
-
-## Recommendations
-[Practical advice and next steps]"""
+        prompt = f"""You are a {system.get('role', 'pet care assistant')}.
         
+        # CONTEXT
+        {system.get('context', '')}
+        
+        # KEY PRINCIPLES
+        {chr(10).join(f"- {p}" for p in system.get('key_principles', []))}
+
+        # TONE
+        {system.get('tone', '')}
+        
+        """
         return prompt
     
     # ==========================================
@@ -827,14 +846,14 @@ OUTPUT FORMAT:
 ## ✅ Safety Assessment
 [Ingredient safety, allergen concerns, harmful substances]
 
-## 💬 Value Verdict
+## 💬 Value Verdict 
 [Price vs quality assessment and recommendations]
 
 ## 💡 Better Alternatives
 [Similar products with better nutritional profiles]
 
 CONSTRAINTS:
-- Maximum {template.get('constraints', {}).get('max_words', 280)} words
+- Minimum {template.get('constraints', {}).get('min_words', 300)} words
 - Extract and list key ingredients
 - Flag any concerning additives or allergens
 - Include AAFCO reference if available"""
@@ -964,7 +983,7 @@ CONSTRAINTS:
             pet_profile: Optional pet information
         """
         
-        if model_type == "toy-safety-detection":
+        if model_type == "toys-safety-detection":
             return self.build_toy_classifier_prompt(
                 predicted_class, confidence_score, user_query, rag_context, pet_profile
             )
@@ -980,7 +999,7 @@ CONSTRAINTS:
             return self.build_poop_vomit_detection_prompt(
                 predicted_class, confidence_score, user_query, rag_context, pet_profile
             )
-        elif model_type == "home-environment-safety-scan":
+        elif model_type == "home-enviroment-safety-scan":
             return self.build_home_environment_safety_prompt(
                 predicted_class, confidence_score, user_query, rag_context, pet_profile
             )

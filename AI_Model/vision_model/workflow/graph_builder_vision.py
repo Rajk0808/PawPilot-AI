@@ -53,7 +53,7 @@ class StateTransformer:
                 model_to_use=vision_state.get("model_to_use", "gpt-4-turbo"),
                 strategy=vision_state.get("strategy", "prompt_only")
             )
-            if vision_state.get("strategy") in ("emotion-detection", "full-body-scan", "packaged-product-scanner"):
+            if vision_state.get("strategy") in ("emotion-detection", "full-body-scan"):
                 workflow_state["to_use_model"] = False
                 workflow_state['validated_response'] = vision_state.get("final_output", "")
             # Map vision-specific outputs to workflow inputs
@@ -61,7 +61,7 @@ class StateTransformer:
 Vision Model Analysis:
 - Predicted Class: {vision_state.get("predicted_class", "Unknown")}
 - Confidence Score: {vision_state.get("confidence_score", 0.0):.2f}
-- meta data retrieved: {vision_state.get("retrieved_metadata", [])}
+- meta data retrieved: {vision_state.get("retrieved_docs", [])}
 - Model 2 Response: {vision_state.get("raw_model2_response", "")}
 """
             workflow_state["predicted_class"] = vision_state.get("predicted_class", "Unknown")
