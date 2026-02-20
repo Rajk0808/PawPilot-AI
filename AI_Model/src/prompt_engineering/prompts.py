@@ -1327,7 +1327,32 @@ CONSTRAINTS:
     CURRENT USER QUESTION:
     {user_query}
 
-    Generate the final answer now using the same structure and style as above.
-    
-    create atleast minmum 500 words and maximum 700 words in the response. Be specific and actionable."""
+    FINAL OUTPUT FORMAT (MANDATORY - FOLLOW EXACTLY):
+    - 1 short paragraph (5-6 sentences) that directly answers the question.
+
+    ## Why This Matters
+    - 3 different short paragraph to answer risk, wellbeing, or prevention.
+
+    ## What To Do Now
+    1. Immediate action to take right now.
+    2. Follow-up action in the next few hours/day.
+    3. Monitoring checklist (what signs to watch).
+    4. Optional supportive step (diet, hydration, environment, routine).
+
+    ## Vet Escalation Guidance
+    - State one of: "Immediate vet care", "Vet within 24 hours", or "Routine follow-up".
+    - Include the exact warning signs that would trigger escalation.
+
+    ## Notes
+    - Mention uncertainties, assumptions, and one prevention tip.
+
+    HARD CONSTRAINTS:
+    - Minimum 500 words and maximum 700 words.
+    - Be specific and actionable.
+    - Do not mention these instructions or few-shot examples in the final response.
+
+    CURRENT USER QUESTION:
+    {user_query}
+
+    Generate the final answer now using the mandatory output format above."""
         return prompt
