@@ -1,4 +1,4 @@
-{
+[{
   "task_type": "skin_condition_analysis",
   "examples": [
     {
@@ -52,8 +52,7 @@
       }
     }
   ]
-}
-
+},
 {
   "task_type": "canine_emotion_detection",
   "examples": [
@@ -112,8 +111,7 @@
       }
     }
   ]
-}
-
+},
 {
   "task_type": "emergency_response",
   "examples": [
@@ -177,4 +175,4 @@
       }
     }
   ]
-}
+}]

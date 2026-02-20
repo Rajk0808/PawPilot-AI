@@ -255,8 +255,6 @@ def create_fewshot_vision_prompt() -> ChatPromptTemplate:
         ("ai", "{output}")
     ])
     # This combines all examples together 
-    from langchain.prompts import FewShotChatMessagePromptTemplate
-
     few_shot_prompt = FewShotChatMessagePromptTemplate(
         example_prompt=example_prompt,
         examples=examples

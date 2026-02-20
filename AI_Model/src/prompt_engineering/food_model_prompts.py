@@ -468,7 +468,7 @@ class FoodQueryRouter:
                 # Boost safety_check for questions
                 matches["safety_check"] += 2
         
-        primary_intent = max(matches, key=matches.get)
+        primary_intent = max(matches, key=lambda x: matches[x])
         
         # Map intent to prompt
         prompt_map = {
@@ -578,7 +578,7 @@ def route_food_query(query: str, has_image: bool = False) -> Dict:
         "species": species,
         "has_image": has_image,
         "vision_context": vision_context,
-        "vision_prompt": get_food_vision_prompt(vision_context, species) if has_image else None,
+        "vision_prompt": get_food_vision_prompt(vision_context or "basic", species) if has_image else None,
         "response_prompt": get_response_prompt(intent_info["intent"])
     }
 
